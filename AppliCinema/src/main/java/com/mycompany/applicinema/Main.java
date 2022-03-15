@@ -14,5 +14,6 @@ import java.util.*;
 public class Main {
     public static void test(String[] args){
         System.out.println("test");
+        System.out.println("test3");
     }
 }
