@@ -13,5 +13,6 @@ public class ClientInvite extends Client {
     public ClientInvite(){
         reduction=0;
         status="invite";
+        email="";
     }
 }
