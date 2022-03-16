@@ -10,5 +10,7 @@ package AppliCinema.Modele;
  * @author prohd
  */
 public class Seance {
-    
+    String titreS,prenomRealisateurS,nomRealisateurS,genreS;
+    String heureDebut,heureFin;
+       
 }
