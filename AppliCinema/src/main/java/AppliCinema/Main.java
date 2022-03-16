@@ -1,4 +1,4 @@
-package com.mycompany.applicinema;
+package AppliCinema;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -14,6 +14,6 @@ import java.util.*;
 public class Main {
     public static void test(String[] args){
         System.out.println("test");
-        System.out.println("ca marche");
+        System.out.println("test3");
     }
 }
