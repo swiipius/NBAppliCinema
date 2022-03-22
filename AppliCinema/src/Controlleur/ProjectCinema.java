@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package Controlleur;
+
 import Modele.*;
+import Vue.*;
 import java.sql.SQLException;
 //import Vue.*;
 import jdbc2020.*;
@@ -17,10 +19,16 @@ public class ProjectCinema {
 
     /**
      * @param args the command line arguments
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Employe Pierre = new Employe();
-        Pierre.AjouterFilm();
+        Employe Hugo = new Employe();
+        Employe Walid = new Employe();
+        //Pierre.AjouterFilm();
+        PageAccueil p = new PageAccueil();
+        p.setVisible(true);
     }
-    
+
 }
