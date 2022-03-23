@@ -18,70 +18,90 @@ import jdbc2020.*;
  *
  * @author prohd
  */
-public class PageAccueil extends JFrame implements ActionListener, ItemListener{
+public class PageAccueil extends JFrame implements ActionListener, ItemListener {
 
     public Connexion maconnexion;
-    public JButton b1,b2;
+    public JButton b1, b2;
     public JPanel p0, p1, haut;
     public JTextField films;
     public JLabel titre;
-    
-    public PageAccueil() {
+    public java.awt.List listeFilms, descriptionFilms;
+    public ArrayList<String> ListeTitres;
+    public String[] listeAffiche;
+    public JList<String> affichage;
+    public String requeteAffichageTitre = "SELECT titre FROM film";
+
+    public PageAccueil() throws SQLException, ClassNotFoundException {
         //titre au desssus de la page
         super("CINEMA ECE");
+        maconnexion = new Connexion("cinema", "root", "");
         // mise en page (layout) de la fenetre visible
         setLayout(new BorderLayout());
         setBounds(0, 0, 400, 400);
         setResizable(true);
         setVisible(true);
-        
+
         //deux bouttons de la page d'acceuil
-        b1=new JButton("Connexion");
-        b2=new JButton("Compte");
-        
+        b1 = new JButton("Connexion");
+        b2 = new JButton("Compte");
+
+        // creation des listes pour les tables et les requetes
+        descriptionFilms = new java.awt.List(10, false);
+
         // creation des textes
-        
-        films= new JTextField();
-        
+        films = new JTextField();
+
         // creation des labels
-        titre= new JLabel("CINEMA ECE :", JLabel.CENTER);
+        titre = new JLabel("CINEMA ECE", JLabel.CENTER);
 
         //creation des panneaux
         p0 = new JPanel();
         p1 = new JPanel();
         haut = new JPanel();
-        
+
         //mise en page des panneaux
         p0.setLayout(new GridLayout(1, 3));
         haut.setLayout(new GridLayout(2, 1));
         p1.setLayout(new GridLayout(1, 4));
-        
-        
+
         // ajout des objets graphqiues dans les panneaux
         p0.add(titre);
         p0.add(films);
         p0.add(b1);
         p0.add(b2);
+        haut.add("North", p0);
         
-        //reactivite des bouttons
+
+        //listeFilms.setSize(new Dimension(400,200));
+        //ajout de listenners
         b1.addActionListener(this);
         b2.addActionListener(this);
         
+
         // couleurs des objets graphiques
-        
-
-
         // disposition geographique des panneaux
         add("North", haut);
         add("Center", p1);
-        
+
         // pour fermer la fenetre
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent evt) {
-                System.exit(0); // tout fermer												System.exit(0); // tout fermer
+                System.exit(0); // tout fermer												
             }
         });
+
+        //remplir liste films
+        ListeTitres = maconnexion.remplirChampsRequete(requeteAffichageTitre);
+        for (int i = 0; i < (ListeTitres.size()); i++) {
+            listeAffiche = ListeTitres.toArray(new String[0]);
+            
+        }
+        affichage=new JList<>(listeAffiche);
+        p1.add(affichage);
+        p1.add(descriptionFilms);
+        descriptionFilms.addItemListener(this);
+
     }
 
     ////////////////////////J'override ces deux methodes afin qu'il n'y ai pas de message d'erreur à cause du côté abstrait de celles-ci
