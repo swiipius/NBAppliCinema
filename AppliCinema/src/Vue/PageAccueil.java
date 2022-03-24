@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import jdbc2020.*;
 
 /**
@@ -25,11 +27,12 @@ public class PageAccueil extends JFrame implements ActionListener, ItemListener 
     public JPanel p0, p1, haut;
     public JTextField films;
     public JLabel titre;
-    public java.awt.List listeFilms, descriptionFilms;
-    public ArrayList<String> ListeTitres;
-    public String[] listeAffiche;
-    public JList<String> affichage;
+    public java.awt.List descriptionFilms;
+    public ArrayList<String> ListeTitres, ListeInfoFilms;
+    public String[] listeAffiche, listeInfoAffiche;
+    public JList<String> affichage, affichageInfo;
     public String requeteAffichageTitre = "SELECT titre FROM film";
+    public String requeteAffichageInfoFilms = "SELECT * FROM film WHERE titre = SelectedTitle";
 
     public PageAccueil() throws SQLException, ClassNotFoundException {
         //titre au desssus de la page
@@ -70,13 +73,11 @@ public class PageAccueil extends JFrame implements ActionListener, ItemListener 
         p0.add(b1);
         p0.add(b2);
         haut.add("North", p0);
-        
 
         //listeFilms.setSize(new Dimension(400,200));
         //ajout de listenners
         b1.addActionListener(this);
         b2.addActionListener(this);
-        
 
         // couleurs des objets graphiques
         // disposition geographique des panneaux
@@ -95,12 +96,29 @@ public class PageAccueil extends JFrame implements ActionListener, ItemListener 
         ListeTitres = maconnexion.remplirChampsRequete(requeteAffichageTitre);
         for (int i = 0; i < (ListeTitres.size()); i++) {
             listeAffiche = ListeTitres.toArray(new String[0]);
-            
+
         }
-        affichage=new JList<>(listeAffiche);
+        affichage = new JList<>(listeAffiche);
+        
         p1.add(affichage);
         p1.add(descriptionFilms);
         descriptionFilms.addItemListener(this);
+
+        affichage.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent lse) {
+                String SelectedTitle = (String) affichage.getSelectedValue();
+                //System.out.println(SelectedTitle);//a changer pour graphique
+                ////////////
+                ListeInfoFilms = maconnexion.remplirChampsRequete(requeteAffichageInfoFilms);
+                for (int i = 0; i < (ListeInfoFilms.size()); i++) {
+                    listeInfoAffiche = ListeInfoFilms.toArray(new String[0]);
+                    
+                }
+                affichageInfo = new JList<>(listeInfoAffiche);p1.add(descriptionFilms);
+                ////////////////
+            }
+        });
 
     }
 
