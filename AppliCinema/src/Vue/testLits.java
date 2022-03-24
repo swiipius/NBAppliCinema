@@ -45,7 +45,7 @@ public class testLits extends JFrame implements ItemListener{
         
         add(listeTitreFilm);
          
-        this.setTitle("Exemple de JList");  
+        this.setTitle("List Film");  
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     
         this.setSize(200,200);
         this.setLocationRelativeTo(null);
