@@ -8,6 +8,8 @@ package Controlleur;
 import Modele.*;
 import Vue.*;
 import java.sql.SQLException;
+import java.util.*;
+import javax.swing.*;
 //import Vue.*;
 import jdbc2020.*;
 
@@ -23,11 +25,7 @@ public class ProjectCinema {
      * @throws java.lang.ClassNotFoundException
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        Employe Pierre = new Employe();
-        Employe Hugo = new Employe();
-        Employe Walid = new Employe();
-        //Pierre.AjouterFilm();
-        PageAccueil p = new PageAccueil();
+        PageSuppression p = new PageSuppression();
         p.setVisible(true);
     }
 
