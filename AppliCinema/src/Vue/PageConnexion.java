@@ -58,6 +58,7 @@ public class PageConnexion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnCo = new javax.swing.JButton();
         chechEmp = new javax.swing.JCheckBox();
+        btnRetour = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
@@ -144,12 +145,6 @@ public class PageConnexion extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        MotDePasse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MotDePasseActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Mot de passe :");
 
         btnCo.setText("Connexion");
@@ -163,6 +158,13 @@ public class PageConnexion extends javax.swing.JFrame {
         chechEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 chechEmpActionPerformed(evt);
+            }
+        });
+
+        btnRetour.setText("Retour");
+        btnRetour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetourActionPerformed(evt);
             }
         });
 
@@ -183,6 +185,10 @@ public class PageConnexion extends javax.swing.JFrame {
                         .addComponent(btnCo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addComponent(chechEmp))))
+            .addGroup(PanelCommunLayout.createSequentialGroup()
+                .addGap(90, 90, 90)
+                .addComponent(btnRetour)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelCommunLayout.setVerticalGroup(
             PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +200,8 @@ public class PageConnexion extends javax.swing.JFrame {
                 .addGroup(PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCo)
                     .addComponent(chechEmp))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addComponent(btnRetour))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -289,9 +296,9 @@ public class PageConnexion extends javax.swing.JFrame {
         employe = !employe;
     }//GEN-LAST:event_chechEmpActionPerformed
 
-    private void MotDePasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MotDePasseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MotDePasseActionPerformed
+    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnRetourActionPerformed
 
     /**
      * @param args the command line arguments
@@ -340,6 +347,7 @@ public class PageConnexion extends javax.swing.JFrame {
     private javax.swing.JPanel PanelCommun;
     private javax.swing.JPanel PanelEmploye;
     private javax.swing.JButton btnCo;
+    private javax.swing.JButton btnRetour;
     private javax.swing.JCheckBox chechEmp;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
