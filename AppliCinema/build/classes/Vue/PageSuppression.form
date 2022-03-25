@@ -57,13 +57,13 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="Note" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="Titre" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="PrenomReal" min="-2" pref="180" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="NomReal" max="32767" attributes="0"/>
                               </Group>
                               <Component id="Synopsis" max="32767" attributes="0"/>
+                              <Component id="Titre" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
@@ -88,12 +88,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="Recherche" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnReset" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="Titre" min="-2" pref="44" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="btnReset" alignment="0" pref="45" max="32767" attributes="0"/>
                       <Component id="btnRech" max="32767" attributes="0"/>
+                      <Component id="Titre" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
