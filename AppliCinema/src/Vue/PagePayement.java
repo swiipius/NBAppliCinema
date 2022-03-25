@@ -6,8 +6,11 @@
 package Vue;
 
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,6 +47,8 @@ public class PagePayement extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBounds(new java.awt.Rectangle(600, 300, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         NumCarte.setText("Numero de la carte");
         NumCarte.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -109,7 +114,6 @@ public class PagePayement extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         Date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        Date.setText("   /   ");
         Date.setToolTipText("");
 
         jLabel1.setText("Date d'expiration");
@@ -276,6 +280,14 @@ public class PagePayement extends javax.swing.JFrame {
         else{
             JOptionPane.showMessageDialog(null, "Paiement Validé");
             this.dispose();
+            try {
+                PageAccueil p = new PageAccueil();
+                p.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_btnValidActionPerformed
 

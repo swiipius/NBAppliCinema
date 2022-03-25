@@ -303,7 +303,16 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_chechEmpActionPerformed
 
     private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed
+        JOptionPane.showMessageDialog(null, "Vous allez être redirige vers la page d'inscription");
         this.dispose();
+        try {
+            PageInscription p = new PageInscription();
+            p.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnInscriptionActionPerformed
 
     private void IdentifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdentifiantActionPerformed
