@@ -65,6 +65,12 @@ public class PageConnexion extends javax.swing.JFrame {
 
         lblIdentifiant.setText("Identifiant :");
 
+        Identifiant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IdentifiantActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelEmployeLayout = new javax.swing.GroupLayout(PanelEmploye);
         PanelEmploye.setLayout(PanelEmployeLayout);
         PanelEmployeLayout.setHorizontalGroup(
@@ -299,6 +305,10 @@ public class PageConnexion extends javax.swing.JFrame {
     private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnInscriptionActionPerformed
+
+    private void IdentifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdentifiantActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IdentifiantActionPerformed
 
     /**
      * @param args the command line arguments

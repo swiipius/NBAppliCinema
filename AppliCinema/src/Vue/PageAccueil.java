@@ -254,12 +254,22 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_rechercheAccueilBoutonActionPerformed
 
     private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
-        // TODO add your handling code here:
+        try {
+            PageConnexion pc= new PageConnexion();
+            pc.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_ConnexionBoutonAccueilActionPerformed
 
     private void InscriptionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptionBoutonAccueilActionPerformed
         //redirection vers la page d'inscription;
-        PageInscription pi = new PageInscription();
+        PageInscription pi = null;
+        try {
+            pi = new PageInscription();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pi.setVisible(true);
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
 
