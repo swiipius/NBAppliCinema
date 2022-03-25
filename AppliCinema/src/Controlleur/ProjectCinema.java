@@ -27,7 +27,7 @@ public class ProjectCinema {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         PageSuppression p = new PageSuppression();
         PageAccueil pa= new PageAccueil();
-        pa.setVisible(true);
+        p.setVisible(true);
         //p.setVisible(true);
     }
 

@@ -319,7 +319,6 @@ public class PageSuppression extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         } else {
             String requete = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis) VALUES('" + Titre.getText() + "','" + NomReal.getText() + "','" + PrenomReal.getText() + "','" + Duree.getText() + "','" + Genre.getText() + "','" + Note.getText() + "','" + Synopsis.getText() + "'" + ")";
-            System.out.println(requete);
             try {
                 connect.executeUpdate(requete);
             } catch (SQLException ex) {
