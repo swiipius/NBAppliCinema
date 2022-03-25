@@ -273,7 +273,7 @@ public class PageSuppression extends javax.swing.JFrame {
         try {
             eltRech = connect.requestDemande(requeteInfo);
         } catch (SQLException ex) {
-            Logger.getLogger(SuppressionTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String textAffich = "Voulez vous supprimer ce film ?\n" + SelectedTitle + "\n" + eltRech.get(1) + ", " + eltRech.get(0);
@@ -285,7 +285,7 @@ public class PageSuppression extends javax.swing.JFrame {
             try {
                 connect.executeUpdate(requeteSuppr);
             } catch (SQLException ex) {
-                Logger.getLogger(SuppressionTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Film Supprime");
         }
