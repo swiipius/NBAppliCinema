@@ -41,6 +41,7 @@ public class PageAccueil extends javax.swing.JFrame {
      * @throws java.lang.ClassNotFoundException
      */
     public PageAccueil() throws SQLException, ClassNotFoundException {
+        super("ECE CINEMA, Le meilleur site de reservation de place de cinema  ");
         initComponents();
         BoutonSeancesFilmSelectione.setEnabled(false);
         PanelDescriptionAccueil.setVisible(false);
@@ -68,7 +69,7 @@ public class PageAccueil extends javax.swing.JFrame {
         LabelTitreFilmAccueil = new javax.swing.JLabel();
         rechercheAccueilBouton = new javax.swing.JButton();
         ConnexionBoutonAccueil = new javax.swing.JButton();
-        CompteBoutonAccueil = new javax.swing.JButton();
+        InscriptionBoutonAccueil = new javax.swing.JButton();
         LabelLogoAccueil = new javax.swing.JLabel();
         barreRechercheAccueil = new javax.swing.JTextField();
         PanelDescriptionAccueil = new javax.swing.JPanel();
@@ -112,10 +113,10 @@ public class PageAccueil extends javax.swing.JFrame {
             }
         });
 
-        CompteBoutonAccueil.setText("Compte");
-        CompteBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
+        InscriptionBoutonAccueil.setText("Inscription");
+        InscriptionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CompteBoutonAccueilActionPerformed(evt);
+                InscriptionBoutonAccueilActionPerformed(evt);
             }
         });
 
@@ -188,14 +189,15 @@ public class PageAccueil extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
                 .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 173, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 153, Short.MAX_VALUE)
                         .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rechercheAccueilBouton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34)
-                        .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(2, 2, 2)
-                        .addComponent(CompteBoutonAccueil))
+                        .addGap(24, 24, 24)
+                        .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(InscriptionBoutonAccueil)
+                        .addGap(5, 5, 5))
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -211,9 +213,10 @@ public class PageAccueil extends javax.swing.JFrame {
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(CompteBoutonAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                            .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                                .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(rechercheAccueilBouton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,9 +257,11 @@ public class PageAccueil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ConnexionBoutonAccueilActionPerformed
 
-    private void CompteBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompteBoutonAccueilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CompteBoutonAccueilActionPerformed
+    private void InscriptionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptionBoutonAccueilActionPerformed
+        //redirection vers la page d'inscription;
+        PageInscription pi = new PageInscription();
+        pi.setVisible(true);
+    }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
 
     private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
         // TODO add your handling code here:
@@ -297,20 +302,28 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
 
     private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
-        PanelDescriptionAccueil.setVisible(false);
-        descriptionFilmsAccueilText.setText("");
+        /*PanelDescriptionAccueil.setVisible(false);
+        descriptionFilmsAccueilText.setText("");*/
     }//GEN-LAST:event_TitreFilmsAccueilMouseExited
 
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
         //il faut faire le lien vers une autre page qui sera celle de la liste des seances avec le titre du film selectionne
-        
+        try {
+            
+            PageSuppression p = new PageSuppression();
+            p.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonSeancesFilmSelectione;
-    private javax.swing.JButton CompteBoutonAccueil;
     private javax.swing.JButton ConnexionBoutonAccueil;
+    private javax.swing.JButton InscriptionBoutonAccueil;
     private javax.swing.JLabel LabelLogoAccueil;
     private javax.swing.JLabel LabelTitreFilmAccueil;
     private javax.swing.JPanel PanelAccueil;
