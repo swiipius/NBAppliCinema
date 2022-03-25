@@ -275,6 +275,7 @@ public class PagePayement extends javax.swing.JFrame {
         }
         else{
             JOptionPane.showMessageDialog(null, "Paiement Validé");
+            this.dispose();
         }
     }//GEN-LAST:event_btnValidActionPerformed
 
