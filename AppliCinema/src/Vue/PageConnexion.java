@@ -58,7 +58,7 @@ public class PageConnexion extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnCo = new javax.swing.JButton();
         chechEmp = new javax.swing.JCheckBox();
-        btnRetour = new javax.swing.JButton();
+        btnInscription = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
@@ -161,10 +161,10 @@ public class PageConnexion extends javax.swing.JFrame {
             }
         });
 
-        btnRetour.setText("Retour");
-        btnRetour.addActionListener(new java.awt.event.ActionListener() {
+        btnInscription.setText("Inscription");
+        btnInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRetourActionPerformed(evt);
+                btnInscriptionActionPerformed(evt);
             }
         });
 
@@ -187,7 +187,7 @@ public class PageConnexion extends javax.swing.JFrame {
                         .addComponent(chechEmp))))
             .addGroup(PanelCommunLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
-                .addComponent(btnRetour)
+                .addComponent(btnInscription)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelCommunLayout.setVerticalGroup(
@@ -201,7 +201,7 @@ public class PageConnexion extends javax.swing.JFrame {
                     .addComponent(btnCo)
                     .addComponent(chechEmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(btnRetour))
+                .addComponent(btnInscription))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -296,9 +296,9 @@ public class PageConnexion extends javax.swing.JFrame {
         employe = !employe;
     }//GEN-LAST:event_chechEmpActionPerformed
 
-    private void btnRetourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetourActionPerformed
+    private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnRetourActionPerformed
+    }//GEN-LAST:event_btnInscriptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,7 +347,7 @@ public class PageConnexion extends javax.swing.JFrame {
     private javax.swing.JPanel PanelCommun;
     private javax.swing.JPanel PanelEmploye;
     private javax.swing.JButton btnCo;
-    private javax.swing.JButton btnRetour;
+    private javax.swing.JButton btnInscription;
     private javax.swing.JCheckBox chechEmp;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLayeredPane jLayeredPane1;
