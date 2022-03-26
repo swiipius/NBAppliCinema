@@ -19,11 +19,15 @@ import javax.swing.JOptionPane;
  */
 public class PagePayement extends javax.swing.JFrame {
 
+    private final boolean connexionValid;
+
     /**
      * Creates new form PagePayement
+     * @param connexionValid
      */
-    public PagePayement() {
+    public PagePayement(boolean connexionValid) {
         initComponents();
+        this.connexionValid = connexionValid;
     }
 
     private int countCrypto = 0;
@@ -254,9 +258,9 @@ public class PagePayement extends javax.swing.JFrame {
     }//GEN-LAST:event_NumCarteKeyTyped
 
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
-        System.out.println(Date.getText().length());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM / yy");  
-        LocalDateTime now = LocalDateTime.now();  
+        LocalDateTime now = LocalDateTime.now();
+        //System.out.println(dtf.format(now).compareTo(Date.getText()));
         //Verification que toutes les infos ont été rentré
         if((NumCarte.getText().equals("Numero de la carte"))||(Nom.getText().equals("Nom sur la  carte"))||(Crypto.getText().equals("Cryptogramme"))||(Date.getText().equals("   /   "))){
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
@@ -273,7 +277,7 @@ public class PagePayement extends javax.swing.JFrame {
             countCrypto = 0;
         }
         //verication de la validité
-        else if((dtf.format(now).compareTo(Date.getText()))==1){
+        else if((dtf.format(now).compareTo(Date.getText()))==-1){
             JOptionPane.showMessageDialog(null, "Carte périmée");
             Date.setText(null);
         }
@@ -281,7 +285,7 @@ public class PagePayement extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Paiement Validé");
             this.dispose();
             try {
-                PageAccueil p = new PageAccueil();
+                PageAccueil p = new PageAccueil(connexionValid);
                 p.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
@@ -294,41 +298,6 @@ public class PagePayement extends javax.swing.JFrame {
     private void NomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_NomActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PagePayement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PagePayement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PagePayement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PagePayement.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PagePayement().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;

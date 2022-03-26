@@ -26,10 +26,9 @@ public class ProjectCinema {
      */
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         PageSuppression ps = new PageSuppression();
-        PageAccueil pa= new PageAccueil();
+        PageAccueil pa= new PageAccueil(false);
         PageInscription pi = new PageInscription();
         pa.setVisible(true);
-        //p.setVisible(true);
     }
 
 }

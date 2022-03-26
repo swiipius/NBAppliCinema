@@ -5,17 +5,41 @@
  */
 package Vue;
 
+import java.awt.event.*;
+import java.awt.*;
+import java.util.*;
+import javax.swing.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jdbc2020.*;
+
 /**
  *
  * @author pierr
  */
 public class PageHistoFact extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PageCompte
-     */
-    public PageHistoFact() {
+    public Connexion connect;
+    private String requeteTitre, requeteInfo, NomClient, Date, Titre, Prix, selectTitre;
+    public boolean connexionValid;
+    public int client;
+
+    DefaultListModel<String> listModelTitre = new DefaultListModel<>();
+    DefaultListModel<String> listModelInfo = new DefaultListModel<>();
+
+    public PageHistoFact(boolean connexionValid, int client) throws SQLException, ClassNotFoundException {
         initComponents();
+
+        connect = new Connexion("Cinema", "root", "");
+        NomClient = "Bignon";
+        requeteTitre = "SELECT film.Titre FROM billet JOIN film ON billet.id_film=film.id_film JOIN client ON billet.ID_client=client.ID_client WHERE client.id_client = '" + client + "';";
+        requeteInfo = "SELECT film.Titre, seance.Date, billet.facture FROM billet JOIN film ON billet.id_film=film.id_film JOIN seance ON billet.id_Seance=seance.ID_Seance JOIN client ON billet.ID_client=client.ID_client WHERE client.id_client = '" + client;
+        listModelTitre = connect.requestDemande(requeteTitre);
+        listHistorique.setModel(listModelTitre);
+        //System.out.println(listModel);
+
+        PanelInfoFilm.setVisible(false);
     }
 
     /**
@@ -29,6 +53,11 @@ public class PageHistoFact extends javax.swing.JFrame {
 
         PanelInfoCpt = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listHistorique = new javax.swing.JList<>();
+        PanelInfoFilm = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Info = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,21 +65,59 @@ public class PageHistoFact extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Historique des factures");
 
+        listHistorique.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listHistoriqueMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listHistorique);
+
+        jScrollPane2.setViewportView(Info);
+
+        javax.swing.GroupLayout PanelInfoFilmLayout = new javax.swing.GroupLayout(PanelInfoFilm);
+        PanelInfoFilm.setLayout(PanelInfoFilmLayout);
+        PanelInfoFilmLayout.setHorizontalGroup(
+            PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInfoFilmLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
+        );
+        PanelInfoFilmLayout.setVerticalGroup(
+            PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelInfoFilmLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(270, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout PanelInfoCptLayout = new javax.swing.GroupLayout(PanelInfoCpt);
         PanelInfoCpt.setLayout(PanelInfoCptLayout);
         PanelInfoCptLayout.setHorizontalGroup(
             PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInfoCptLayout.createSequentialGroup()
-                .addGap(188, 188, 188)
-                .addComponent(jLabel1)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelInfoCptLayout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(jLabel1)
+                        .addGap(0, 210, Short.MAX_VALUE))
+                    .addGroup(PanelInfoCptLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PanelInfoFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         PanelInfoCptLayout.setVerticalGroup(
             PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInfoCptLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(435, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(PanelInfoFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -67,44 +134,30 @@ public class PageHistoFact extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void listHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHistoriqueMouseClicked
+        if (listHistorique.getSelectedIndex() > -1) {
+            try {
+                selectTitre = listHistorique.getSelectedValue();
+                requeteInfo += "' AND film.titre = '" + selectTitre + "';";
+                listModelInfo = connect.requestDemande(requeteInfo);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageHistoFact.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageHistoFact.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageHistoFact.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageHistoFact.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            Titre = listModelInfo.get(2);
+            Date = listModelInfo.get(0);
+            Prix = listModelInfo.get(1);
+            Info.setText("Titre : " + Titre + "\nDate : " + Date + "\nPrix : " + Prix);
+            PanelInfoFilm.setVisible(true);
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PageHistoFact().setVisible(true);
-            }
-        });
-    }
+    }//GEN-LAST:event_listHistoriqueMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane Info;
     private javax.swing.JPanel PanelInfoCpt;
+    private javax.swing.JPanel PanelInfoFilm;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> listHistorique;
     // End of variables declaration//GEN-END:variables
 }
