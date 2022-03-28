@@ -27,6 +27,7 @@ public class PagePayement extends javax.swing.JFrame {
      * @param connexionValid
      */
     public PagePayement(boolean connexionValid) {
+        super("Page De Payement"); 
         initComponents();
         this.connexionValid = connexionValid;
         this.Emp = Emp;

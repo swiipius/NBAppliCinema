@@ -27,6 +27,7 @@ public class PageSuppression extends javax.swing.JFrame {
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
     public PageSuppression() throws SQLException, ClassNotFoundException {
+        super("Gestion des Films");
         initComponents();
 
         btnDel.setEnabled(false);
