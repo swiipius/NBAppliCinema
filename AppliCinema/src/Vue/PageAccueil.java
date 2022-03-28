@@ -21,14 +21,8 @@ import jdbc2020.*;
 public class PageAccueil extends javax.swing.JFrame {
 
     public Connexion connect;
+    public Connection conn;
     private final String requete= "SELECT titre FROM film";
-    private final  String requete1= "SELECT nomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final  String requete2= "SELECT prenomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final  String requete3= "SELECT duree FROM film WHERE titre= titreSelectionne";
-    private final  String requete4= "SELECT genre FROM film WHERE titre= titreSelectionne";
-    private final  String requete5= "SELECT note FROM film WHERE titre= titreSelectionne";
-    private final  String requete6= "SELECT synopsis FROM film WHERE titre= titreSelectionne";
-    private final String requete7= "SELECT titre FROM film WHERE titre= titreSelectionne";
     private int taille;
     private String Synopsis;
     public int client;
@@ -61,7 +55,7 @@ public class PageAccueil extends javax.swing.JFrame {
                     
         /*listModel1 = connect.requestDemande(requeteInfo);
         descriptionFilmsAccueil.setModel(listModel1);*/
-        
+
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
         affichageBtnCo(connexionValid, Emp);
     }
@@ -423,9 +417,14 @@ public class PageAccueil extends javax.swing.JFrame {
             BoutonSeancesFilmSelectione.setEnabled(true);
             String textAffich="";
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
+            //on recupere toute les donnees du film selectionné
             String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
+            String requeteModifNBvues="UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
+                connect.stmt.executeUpdate(requeteModifNBvues);
+                
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -439,7 +438,7 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             
             //Affichage des infos
-            textAffich="Titre : "+listModel1.get(6)+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
+            textAffich="Titre : "+listModel1.get(6)+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"min"+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
             descriptionFilmsAccueilText.setText(textAffich);
             
         }
@@ -462,9 +461,7 @@ public class PageAccueil extends javax.swing.JFrame {
             
             PageSuppression p = new PageSuppression();
             p.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
@@ -474,9 +471,7 @@ public class PageAccueil extends javax.swing.JFrame {
         try {
             ph = new PageHistoFact(connexionValid, client);
             ph.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCptActionPerformed
