@@ -509,8 +509,14 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilmsActionPerformed
 
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
-        PageStats pStats= new PageStats();
-        pStats.setVisible(true);
+
+        try {
+            PageStats pStats = new PageStats();
+            pStats.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
 
     public void affichageBtnCo( boolean COk, boolean Emp){
