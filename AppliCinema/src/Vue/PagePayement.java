@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 public class PagePayement extends javax.swing.JFrame {
 
     private final boolean connexionValid;
+    private boolean Emp;
 
     /**
      * Creates new form PagePayement
@@ -28,6 +29,7 @@ public class PagePayement extends javax.swing.JFrame {
     public PagePayement(boolean connexionValid) {
         initComponents();
         this.connexionValid = connexionValid;
+        this.Emp = Emp;
     }
 
     private int countCrypto = 0;
@@ -285,7 +287,7 @@ public class PagePayement extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Paiement Validé");
             this.dispose();
             try {
-                PageAccueil p = new PageAccueil(connexionValid);
+                PageAccueil p = new PageAccueil(connexionValid, Emp);
                 p.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
