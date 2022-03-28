@@ -22,12 +22,13 @@ public class PageSuppression extends javax.swing.JFrame {
 
     public Connexion connect;
     private String requete;
+    private int count = 0;
 
     DefaultListModel<String> listModel = new DefaultListModel<>();
-    
+
     public PageSuppression() throws SQLException, ClassNotFoundException {
         initComponents();
-        
+
         btnDel.setEnabled(false);
         //BtnAdd.setEnabled(true);
 
@@ -59,7 +60,7 @@ public class PageSuppression extends javax.swing.JFrame {
         Genre = new javax.swing.JTextField();
         Note = new javax.swing.JTextField();
         Synopsis = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        btnRech = new javax.swing.JButton();
         Recherche = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
 
@@ -125,6 +126,14 @@ public class PageSuppression extends javax.swing.JFrame {
                 DureeMouseExited(evt);
             }
         });
+        Duree.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DureeKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                DureeKeyTyped(evt);
+            }
+        });
 
         Genre.setText("Genre");
         Genre.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,6 +154,11 @@ public class PageSuppression extends javax.swing.JFrame {
                 NoteMouseExited(evt);
             }
         });
+        Note.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NoteKeyTyped(evt);
+            }
+        });
 
         Synopsis.setText("Synopsis");
         Synopsis.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,10 +170,10 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Recheche");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRech.setText("Recheche");
+        btnRech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRechActionPerformed(evt);
             }
         });
 
@@ -201,18 +215,18 @@ public class PageSuppression extends javax.swing.JFrame {
                                 .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(Note))
-                            .addComponent(Titre)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(PrenomReal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(NomReal))
-                            .addComponent(Synopsis))
+                            .addComponent(Synopsis)
+                            .addComponent(Titre, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Recherche, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnReset))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -224,11 +238,9 @@ public class PageSuppression extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Recherche)
-                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Titre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE))
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnRech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Titre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -273,24 +285,23 @@ public class PageSuppression extends javax.swing.JFrame {
         try {
             eltRech = connect.requestDemande(requeteInfo);
         } catch (SQLException ex) {
-            Logger.getLogger(SuppressionTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String textAffich = "Voulez vous supprimer ce film ?\n" + SelectedTitle + "\n" + eltRech.get(1) + ", " + eltRech.get(0);
         int result = JOptionPane.showConfirmDialog(null, textAffich, "Suppression", JOptionPane.YES_NO_OPTION);
-        
-        if(result == JOptionPane.YES_OPTION){
+
+        if (result == JOptionPane.YES_OPTION) {
             listModel.removeElementAt(index);
             String requeteSuppr = "DELETE FROM Film WHERE Titre LIKE '" + SelectedTitle + "' AND Nomrealisateur LIKE '" + eltRech.get(1) + "'";
             try {
                 connect.executeUpdate(requeteSuppr);
             } catch (SQLException ex) {
-                Logger.getLogger(SuppressionTest.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Film Supprime");
-        }
-        else{
-            
+        } else {
+
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
@@ -302,12 +313,10 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_listTitreFilmMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        if((Titre.getText().equals(""))||(Titre.getText().equals("Titre"))||(PrenomReal.getText().equals(""))||(PrenomReal.getText().equals("PrenomReal"))||(NomReal.getText().equals(""))||(NomReal.getText().equals("NomReal"))||(Duree.getText().equals(""))||(Duree.getText().equals("Duree"))||(Note.getText().equals(""))||(Note.getText().equals("Note"))||(Genre.getText().equals(""))||(Genre.getText().equals("Genre"))||(Synopsis.getText().equals(""))||(Synopsis.getText().equals("Synopsis"))){
+        if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis"))) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
-        }
-        else{
-            String requete="INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis) VALUES('"+Titre.getText()+"','"+NomReal.getText()+"','"+PrenomReal.getText()+"','"+Duree.getText()+"','"+Genre.getText()+"','"+Note.getText()+"','"+Synopsis.getText()+"'"+")";
-            System.out.println(requete);
+        } else {
+            String requete = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis) VALUES('" + Titre.getText() + "','" + NomReal.getText() + "','" + PrenomReal.getText() + "','" + Duree.getText() + "','" + Genre.getText() + "','" + Note.getText() + "','" + Synopsis.getText() + "'" + ")";
             try {
                 connect.executeUpdate(requete);
             } catch (SQLException ex) {
@@ -354,43 +363,43 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_SynopsisMouseClicked
 
     private void TitreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseExited
-        if(Titre.getText().equals("")){
+        if (Titre.getText().equals("")) {
             Titre.setText("Titre");
         }
     }//GEN-LAST:event_TitreMouseExited
 
     private void PrenomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomRealMouseExited
-        if(PrenomReal.getText().equals("")){
+        if (PrenomReal.getText().equals("")) {
             PrenomReal.setText("PrenomReal");
         }
     }//GEN-LAST:event_PrenomRealMouseExited
 
     private void NomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseExited
-        if(NomReal.getText().equals("")){
+        if (NomReal.getText().equals("")) {
             NomReal.setText("NomReal");
         }
     }//GEN-LAST:event_NomRealMouseExited
 
     private void DureeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseExited
-        if(Duree.getText().equals("")){
+        if (Duree.getText().equals("")) {
             Duree.setText("Duree");
         }
     }//GEN-LAST:event_DureeMouseExited
 
     private void GenreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseExited
-        if(Genre.getText().equals("")){
+        if (Genre.getText().equals("")) {
             Genre.setText("Genre");
         }
     }//GEN-LAST:event_GenreMouseExited
 
     private void NoteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NoteMouseExited
-        if(Note.getText().equals("")){
+        if (Note.getText().equals("")) {
             Note.setText("Note");
         }
     }//GEN-LAST:event_NoteMouseExited
 
     private void SynopsisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseExited
-        if(Synopsis.getText().equals("")){
+        if (Synopsis.getText().equals("")) {
             Synopsis.setText("Synopsis");
         }
     }//GEN-LAST:event_SynopsisMouseExited
@@ -400,17 +409,16 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_RechercheMouseClicked
 
     private void RechercheMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheMouseExited
-        if(Recherche.getText().equals("")){
+        if (Recherche.getText().equals("")) {
             Recherche.setText("Recherche");
         }
     }//GEN-LAST:event_RechercheMouseExited
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if((Recherche.getText().equals(""))||(PrenomReal.getText().equals("Recherche"))){
+    private void btnRechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechActionPerformed
+        if ((Recherche.getText().equals("")) || (PrenomReal.getText().equals("Recherche"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer un titre à chercher");
-        }
-        else{
-            String requete = "SELECT titre FROM Film WHERE titre LIKE '%"+Recherche.getText()+"%'";
+        } else {
+            String requete = "SELECT titre FROM Film WHERE titre LIKE '%" + Recherche.getText() + "%'";
             try {
                 listModel = connect.requestDemande(requete);
             } catch (SQLException ex) {
@@ -419,7 +427,7 @@ public class PageSuppression extends javax.swing.JFrame {
             listTitreFilm.setModel(listModel);
             Recherche.setText("Recherche");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRechActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         requete = "SELECT titre FROM film";
@@ -430,24 +438,35 @@ public class PageSuppression extends javax.swing.JFrame {
         }
         listTitreFilm.setModel(listModel);
     }//GEN-LAST:event_btnResetActionPerformed
-  
-    /**
-     * @param args the command line arguments
-    *//*
-    public static void main(String args[]) {
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageSuppression().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+    private void DureeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyPressed
+        char c = evt.getKeyChar();
+        if ((evt.getKeyCode() == 8) && (count < 4)) {
+            count--;
+        } else if ((evt.getKeyCode() == 8) && (count == 4)) {
+            count -= 2;
+        } else if ((Character.isDigit(c)) && (4 > count)) {
+            count++;
+        }
+    }//GEN-LAST:event_DureeKeyPressed
+
+    private void DureeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyTyped
+        char c = evt.getKeyChar();
+        if (count <= 3) {
+            if (!Character.isDigit(c)) {
+                evt.consume();
             }
-        });
-    }*/
+        } else {
+            evt.consume();
+        }
+    }//GEN-LAST:event_DureeKeyTyped
+
+    private void NoteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoteKeyTyped
+        char c = evt.getKeyChar();
+        if ((!Character.isDigit(c))&&(!(c=='.'))) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_NoteKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Duree;
@@ -460,8 +479,8 @@ public class PageSuppression extends javax.swing.JFrame {
     private javax.swing.JTextField Titre;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnRech;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listTitreFilm;

@@ -57,13 +57,13 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="Note" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="Titre" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="PrenomReal" min="-2" pref="180" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="NomReal" max="32767" attributes="0"/>
                               </Group>
                               <Component id="Synopsis" max="32767" attributes="0"/>
+                              <Component id="Titre" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                       </Group>
@@ -72,7 +72,7 @@
                       <Group type="102" attributes="0">
                           <Component id="Recherche" min="-2" pref="277" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton2" max="32767" attributes="0"/>
+                          <Component id="btnRech" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnReset" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -88,12 +88,9 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="Recherche" alignment="0" max="32767" attributes="0"/>
-                      <Component id="btnReset" alignment="0" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <Component id="Titre" min="-2" pref="44" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                      </Group>
-                      <Component id="jButton2" max="32767" attributes="0"/>
+                      <Component id="btnReset" alignment="0" pref="45" max="32767" attributes="0"/>
+                      <Component id="btnRech" max="32767" attributes="0"/>
+                      <Component id="Titre" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -196,6 +193,8 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DureeMouseClicked"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="DureeMouseExited"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="DureeKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="DureeKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="Genre">
@@ -214,6 +213,7 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NoteMouseClicked"/>
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="NoteMouseExited"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="NoteKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="Synopsis">
@@ -225,12 +225,12 @@
             <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SynopsisMouseExited"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="btnRech">
           <Properties>
             <Property name="text" type="java.lang.String" value="Recheche"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRechActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="Recherche">

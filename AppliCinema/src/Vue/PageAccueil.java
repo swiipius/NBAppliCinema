@@ -12,124 +12,456 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import jdbc2020.*;
 
 /**
  *
  * @author prohd
  */
-public class PageAccueil extends JFrame implements ActionListener, ItemListener {
+public class PageAccueil extends javax.swing.JFrame {
 
-    public Connexion maconnexion;
-    public JButton b1, b2;
-    public JPanel p0, p1, haut;
-    public JTextField films;
-    public JLabel titre;
-    public java.awt.List descriptionFilms;
-    public ArrayList<String> ListeTitres, ListeInfoFilms;
-    public String[] listeAffiche, listeInfoAffiche;
-    public JList<String> affichage, affichageInfo;
-    public String requeteAffichageTitre = "SELECT titre FROM film";
-    public String requeteAffichageInfoFilms = "SELECT * FROM film WHERE titre = SelectedTitle";
+    public Connexion connect;
+    public Connection conn;
+    private final String requete= "SELECT titre FROM film";
+    private int taille;
+    private String Synopsis;
+    public int client;
+    
+    PageConnexion pc= new PageConnexion();
+    
+    
+    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModel1 = new DefaultListModel<>();
+    private boolean connexionValid;
 
-    public PageAccueil() throws SQLException, ClassNotFoundException {
-        //titre au desssus de la page
-        super("CINEMA ECE");
-        maconnexion = new Connexion("cinema", "root", "");
-        // mise en page (layout) de la fenetre visible
-        setLayout(new BorderLayout());
-        setBounds(0, 0, 400, 400);
-        setResizable(true);
-        setVisible(true);
-
-        //deux bouttons de la page d'acceuil
-        b1 = new JButton("Connexion");
-        b2 = new JButton("Compte");
-
-        // creation des listes pour les tables et les requetes
-        descriptionFilms = new java.awt.List(10, false);
-
-        // creation des textes
-        films = new JTextField();
-
-        // creation des labels
-        titre = new JLabel("CINEMA ECE", JLabel.CENTER);
-
-        //creation des panneaux
-        p0 = new JPanel();
-        p1 = new JPanel();
-        haut = new JPanel();
-
-        //mise en page des panneaux
-        p0.setLayout(new GridLayout(1, 3));
-        haut.setLayout(new GridLayout(2, 1));
-        p1.setLayout(new GridLayout(1, 4));
-
-        // ajout des objets graphqiues dans les panneaux
-        p0.add(titre);
-        p0.add(films);
-        p0.add(b1);
-        p0.add(b2);
-        haut.add("North", p0);
-
-        //listeFilms.setSize(new Dimension(400,200));
-        //ajout de listenners
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-
-        // couleurs des objets graphiques
-        // disposition geographique des panneaux
-        add("North", haut);
-        add("Center", p1);
-
-        // pour fermer la fenetre
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent evt) {
-                System.exit(0); // tout fermer												
-            }
-        });
-
-        //remplir liste films
-        ListeTitres = maconnexion.remplirChampsRequete(requeteAffichageTitre);
-        for (int i = 0; i < (ListeTitres.size()); i++) {
-            listeAffiche = ListeTitres.toArray(new String[0]);
-
-        }
-        affichage = new JList<>(listeAffiche);
-        
-        p1.add(affichage);
-        p1.add(descriptionFilms);
-        descriptionFilms.addItemListener(this);
-
-        affichage.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent lse) {
-                String SelectedTitle = (String) affichage.getSelectedValue();
-                //System.out.println(SelectedTitle);//a changer pour graphique
-                ////////////
-                ListeInfoFilms = maconnexion.remplirChampsRequete(requeteAffichageInfoFilms);
-                for (int i = 0; i < (ListeInfoFilms.size()); i++) {
-                    listeInfoAffiche = ListeInfoFilms.toArray(new String[0]);
+    /**
+     * Creates new form PageAccueil
+     *
+     * @param connexionValid
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
+     */
+    public PageAccueil(boolean connexionValid) throws SQLException, ClassNotFoundException {
+        super("ECE CINEMA, Le meilleur site de reservation de place de cinema  ");
+        initComponents();
+        BoutonSeancesFilmSelectione.setEnabled(false);
+        PanelDescriptionAccueil.setVisible(false);
+        //Connection a la bdd
+        connect = new Connexion("Cinema", "root", "");
+        listModel = connect.requestDemande(requete);
+        TitreFilmsAccueil.setModel(listModel);
                     
-                }
-                affichageInfo = new JList<>(listeInfoAffiche);p1.add(descriptionFilms);
-                ////////////////
+        /*listModel1 = connect.requestDemande(requeteInfo);
+        descriptionFilmsAccueil.setModel(listModel1);*/
+
+        //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
+        affichageBtnCo(connexionValid);
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        PanelAccueil = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TitreFilmsAccueil = new javax.swing.JList<>();
+        LabelTitreFilmAccueil = new javax.swing.JLabel();
+        rechercheAccueilBouton = new javax.swing.JButton();
+        LabelLogoAccueil = new javax.swing.JLabel();
+        barreRechercheAccueil = new javax.swing.JTextField();
+        PanelDescriptionAccueil = new javax.swing.JPanel();
+        descriptionFilmsAccueilText = new javax.swing.JTextPane();
+        labelDescriptionFilmAccueil = new javax.swing.JLabel();
+        PanelBoutonSeances = new javax.swing.JPanel();
+        BoutonSeancesFilmSelectione = new javax.swing.JButton();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        PanelAccesCpt = new javax.swing.JPanel();
+        btnCpt = new javax.swing.JButton();
+        PanelCoIns = new javax.swing.JPanel();
+        ConnexionBoutonAccueil = new javax.swing.JButton();
+        InscriptionBoutonAccueil = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        TitreFilmsAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        TitreFilmsAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TitreFilmsAccueilMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TitreFilmsAccueilMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TitreFilmsAccueilMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(TitreFilmsAccueil);
+        TitreFilmsAccueil.getAccessibleContext().setAccessibleName("ListefilmsAccueil");
+        TitreFilmsAccueil.getAccessibleContext().setAccessibleDescription("affichage des titres des films sur la page accueil");
+
+        LabelTitreFilmAccueil.setText("                                        Liste des Films");
+        LabelTitreFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        rechercheAccueilBouton.setText("recherche");
+        rechercheAccueilBouton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rechercheAccueilBoutonActionPerformed(evt);
             }
         });
 
-    }
+        LabelLogoAccueil.setText("                                           ECE CINEMA");
 
-    ////////////////////////J'override ces deux methodes afin qu'il n'y ai pas de message d'erreur à cause du côté abstrait de celles-ci
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        barreRechercheAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                barreRechercheAccueilMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                barreRechercheAccueilMouseExited(evt);
+            }
+        });
+        barreRechercheAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                barreRechercheAccueilActionPerformed(evt);
+            }
+        });
 
-    @Override
-    public void itemStateChanged(ItemEvent ie) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        PanelDescriptionAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        descriptionFilmsAccueilText.setMaximumSize(new java.awt.Dimension(6, 22));
+
+        labelDescriptionFilmAccueil.setText("                                       Description des films");
+        labelDescriptionFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout PanelDescriptionAccueilLayout = new javax.swing.GroupLayout(PanelDescriptionAccueil);
+        PanelDescriptionAccueil.setLayout(PanelDescriptionAccueilLayout);
+        PanelDescriptionAccueilLayout.setHorizontalGroup(
+            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+        );
+        PanelDescriptionAccueilLayout.setVerticalGroup(
+            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDescriptionAccueilLayout.createSequentialGroup()
+                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        BoutonSeancesFilmSelectione.setText("Seances Disponibles");
+        BoutonSeancesFilmSelectione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonSeancesFilmSelectioneActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelBoutonSeancesLayout = new javax.swing.GroupLayout(PanelBoutonSeances);
+        PanelBoutonSeances.setLayout(PanelBoutonSeancesLayout);
+        PanelBoutonSeancesLayout.setHorizontalGroup(
+            PanelBoutonSeancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBoutonSeancesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BoutonSeancesFilmSelectione, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        PanelBoutonSeancesLayout.setVerticalGroup(
+            PanelBoutonSeancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(BoutonSeancesFilmSelectione, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+        );
+
+        btnCpt.setText("Mon Compte");
+        btnCpt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCptActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelAccesCptLayout = new javax.swing.GroupLayout(PanelAccesCpt);
+        PanelAccesCpt.setLayout(PanelAccesCptLayout);
+        PanelAccesCptLayout.setHorizontalGroup(
+            PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 298, Short.MAX_VALUE)
+            .addGroup(PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelAccesCptLayout.createSequentialGroup()
+                    .addGap(82, 82, 82)
+                    .addComponent(btnCpt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(93, Short.MAX_VALUE)))
+        );
+        PanelAccesCptLayout.setVerticalGroup(
+            PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 47, Short.MAX_VALUE)
+            .addGroup(PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelAccesCptLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnCpt)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        ConnexionBoutonAccueil.setText("Connexion");
+        ConnexionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConnexionBoutonAccueilActionPerformed(evt);
+            }
+        });
+
+        InscriptionBoutonAccueil.setText("Inscription");
+        InscriptionBoutonAccueil.setMaximumSize(new java.awt.Dimension(85, 25));
+        InscriptionBoutonAccueil.setMinimumSize(new java.awt.Dimension(835, 25));
+        InscriptionBoutonAccueil.setPreferredSize(new java.awt.Dimension(85, 25));
+        InscriptionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InscriptionBoutonAccueilActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelCoInsLayout = new javax.swing.GroupLayout(PanelCoIns);
+        PanelCoIns.setLayout(PanelCoInsLayout);
+        PanelCoInsLayout.setHorizontalGroup(
+            PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelCoInsLayout.createSequentialGroup()
+                .addContainerGap(34, Short.MAX_VALUE)
+                .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+        PanelCoInsLayout.setVerticalGroup(
+            PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCoInsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ConnexionBoutonAccueil)
+                    .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jLayeredPane1.setLayer(PanelAccesCpt, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(PanelCoIns, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(PanelCoIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(PanelAccesCpt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelCoIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(PanelAccesCpt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 1, Short.MAX_VALUE)))
+        );
+
+        javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
+        PanelAccueil.setLayout(PanelAccueilLayout);
+        PanelAccueilLayout.setHorizontalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccueilLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(LabelLogoAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LabelTitreFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 108, Short.MAX_VALUE)
+                        .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(rechercheAccueilBouton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(PanelBoutonSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        PanelAccueilLayout.setVerticalGroup(
+            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccueilLayout.createSequentialGroup()
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LabelLogoAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rechercheAccueilBouton)
+                            .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelAccueilLayout.createSequentialGroup()
+                                .addComponent(LabelTitreFilmAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(PanelAccueilLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(PanelBoutonSeances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void rechercheAccueilBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheAccueilBoutonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rechercheAccueilBoutonActionPerformed
+
+    private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
+        pc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ConnexionBoutonAccueilActionPerformed
+
+    private void InscriptionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptionBoutonAccueilActionPerformed
+        //redirection vers la page d'inscription;
+        PageInscription pi = null;
+        try {
+            pi = new PageInscription();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        pi.setVisible(true);
+    }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
+
+    private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_barreRechercheAccueilActionPerformed
+
+    private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
+        barreRechercheAccueil.setText(null);
+    }//GEN-LAST:event_barreRechercheAccueilMouseClicked
+
+    private void barreRechercheAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseExited
+        if (barreRechercheAccueil.getText().equals("")) {
+            barreRechercheAccueil.setText("titre de film");
+        }
+    }//GEN-LAST:event_barreRechercheAccueilMouseExited
+
+    private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
+        if (TitreFilmsAccueil.getSelectedIndex() > -1) {
+            PanelDescriptionAccueil.setVisible(true);
+            BoutonSeancesFilmSelectione.setEnabled(true);
+            String textAffich="";
+            String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
+            //on recupere toute les donnees du film selectionné
+            String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
+            String requeteModifNBvues="UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
+            try {
+                listModel1 = connect.requestDemande(requeteInfo);
+                connect.stmt.executeUpdate(requeteModifNBvues);
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
+            taille = listModel1.get(5).length();
+            Synopsis = listModel1.get(5);
+            StringBuilder str = new StringBuilder(Synopsis);
+            for(int i = 1; 70*i<taille; i++){
+                str.insert(70*i, '\n');
+            }
+            
+            //Affichage des infos
+            textAffich="Titre : "+listModel1.get(6)+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"min"+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
+            descriptionFilmsAccueilText.setText(textAffich);
+            
+        }
+    }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
+
+    private void TitreFilmsAccueilMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseReleased
+        PanelDescriptionAccueil.setVisible(false);
+        BoutonSeancesFilmSelectione.setEnabled(false);
+        descriptionFilmsAccueilText.setText("");
+    }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
+
+    private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
+        /*PanelDescriptionAccueil.setVisible(false);
+        descriptionFilmsAccueilText.setText("");*/
+    }//GEN-LAST:event_TitreFilmsAccueilMouseExited
+
+    private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
+        //il faut faire le lien vers une autre page qui sera celle de la liste des seances avec le titre du film selectionne
+        try {
+            
+            PageSuppression p = new PageSuppression();
+            p.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
+
+    private void btnCptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCptActionPerformed
+        PageHistoFact ph;
+        try {
+            ph = new PageHistoFact(connexionValid, client);
+            ph.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnCptActionPerformed
+
+    public void affichageBtnCo( boolean COk){
+        if(COk){
+            PanelAccesCpt.setVisible(true);
+            PanelCoIns.setVisible(false);
+        }
+        else{
+            PanelAccesCpt.setVisible(false);
+            PanelCoIns.setVisible(true);
+        }
     }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BoutonSeancesFilmSelectione;
+    private javax.swing.JButton ConnexionBoutonAccueil;
+    private javax.swing.JButton InscriptionBoutonAccueil;
+    private javax.swing.JLabel LabelLogoAccueil;
+    private javax.swing.JLabel LabelTitreFilmAccueil;
+    private javax.swing.JPanel PanelAccesCpt;
+    private javax.swing.JPanel PanelAccueil;
+    private javax.swing.JPanel PanelBoutonSeances;
+    private javax.swing.JPanel PanelCoIns;
+    private javax.swing.JPanel PanelDescriptionAccueil;
+    private javax.swing.JList<String> TitreFilmsAccueil;
+    private javax.swing.JTextField barreRechercheAccueil;
+    private javax.swing.JButton btnCpt;
+    private javax.swing.JTextPane descriptionFilmsAccueilText;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelDescriptionFilmAccueil;
+    private javax.swing.JButton rechercheAccueilBouton;
+    // End of variables declaration//GEN-END:variables
 }
