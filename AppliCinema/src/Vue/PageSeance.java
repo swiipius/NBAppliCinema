@@ -23,6 +23,7 @@ public class PageSeance extends javax.swing.JFrame {
     public Connexion maconnection;
     DefaultListModel<String> ListModelSeance = new DefaultListModel<>();
     DefaultListModel<String> ListModelSeanceConcat = new DefaultListModel<>();
+    int numFilm;
 
     /**
      * Creates new form PageSeance
@@ -33,6 +34,7 @@ public class PageSeance extends javax.swing.JFrame {
      */
     public PageSeance(int ID_Film) throws SQLException, ClassNotFoundException {
         initComponents();
+        numFilm = ID_Film;
         // connection à la base de données
         maconnection = new Connexion("Cinema", "root", "");
         requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + ID_Film + " ORDER BY date ASC;";
@@ -172,9 +174,15 @@ public class PageSeance extends javax.swing.JFrame {
     }//GEN-LAST:event_dateMouseExited
 
     private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
-        PagePayement pp = new PagePayement(ConnexionValid);
+        try {
+            PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm);
+            pr.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
-        pp.setVisible(true);
     }//GEN-LAST:event_btnResaActionPerformed
 
     private void listSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSeanceMouseClicked

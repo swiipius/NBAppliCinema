@@ -437,7 +437,6 @@ public class PageAccueil extends javax.swing.JFrame {
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
-            System.out.println(IsEmp);
             if(!IsEmp){
                 BoutonSeancesFilmSelectione.setEnabled(true);
             }
@@ -454,6 +453,7 @@ public class PageAccueil extends javax.swing.JFrame {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
             id_film = Integer.parseInt(listModel1.get(6));
+            //System.out.println(id_film);
             //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
             taille = listModel1.get(5).length();
             Synopsis = listModel1.get(5);
