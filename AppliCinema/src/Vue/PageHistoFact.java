@@ -19,7 +19,7 @@ import jdbc2020.*;
  * @author pierr
  */
 public class PageHistoFact extends javax.swing.JFrame {
-
+    
     public Connexion connect;
     private String requeteTitre, requeteInfo, NomClient, Date, Titre, Prix, selectTitre;
     public boolean connexionValid;
@@ -29,6 +29,7 @@ public class PageHistoFact extends javax.swing.JFrame {
     DefaultListModel<String> listModelInfo = new DefaultListModel<>();
 
     public PageHistoFact(boolean connexionValid, int client) throws SQLException, ClassNotFoundException {
+        super("Liste des achats");
         initComponents();
 
         connect = new Connexion("Cinema", "root", "");

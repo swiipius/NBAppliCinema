@@ -29,6 +29,7 @@ public class PageConnexion extends javax.swing.JFrame {
     PageAccueil pa;
 
     public PageConnexion() throws SQLException, ClassNotFoundException {
+        super("Connexion");
         //Connection a la bdd
         connect = new Connexion("Cinema", "root", "");
 
