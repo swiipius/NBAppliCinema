@@ -15,6 +15,7 @@ public class PageStats extends javax.swing.JFrame {
      * Creates new form PageStats
      */
     public PageStats() {
+        super("Statistiques");
         initComponents();
     }
 

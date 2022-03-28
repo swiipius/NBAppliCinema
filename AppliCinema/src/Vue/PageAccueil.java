@@ -22,14 +22,13 @@ public class PageAccueil extends javax.swing.JFrame {
 
     public Connexion connect;
     public Connection conn;
-    private final String requete= "SELECT titre FROM film";
+    private final String requete = "SELECT titre FROM film";
     private int taille;
     private String Synopsis;
     public int client;
-    
-    PageConnexion pc= new PageConnexion();
-    
-    
+
+    PageConnexion pc = new PageConnexion();
+
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
     private boolean connexionValid;
@@ -50,10 +49,9 @@ public class PageAccueil extends javax.swing.JFrame {
         connect = new Connexion("Cinema", "root", "");
         listModel = connect.requestDemande(requete);
         TitreFilmsAccueil.setModel(listModel);
-                    
+
         /*listModel1 = connect.requestDemande(requeteInfo);
         descriptionFilmsAccueil.setModel(listModel1);*/
-
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
         affichageBtnCo(connexionValid);
     }
@@ -335,7 +333,17 @@ public class PageAccueil extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rechercheAccueilBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheAccueilBoutonActionPerformed
-        // TODO add your handling code here:
+        // si la barre de recherche n'est pas vide ou si elle n'est pas = "titre de film", on filtre l'affichage des films
+        if (!"titre de film".equals(barreRechercheAccueil.getText())) {
+            String requeteFiltre = "SELECT titre FROM film WHERE titre LIKE '%" +barreRechercheAccueil.getText()+ "%'";
+            try {
+                listModel = connect.requestDemande(requeteFiltre);
+                TitreFilmsAccueil.setModel(listModel);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }//GEN-LAST:event_rechercheAccueilBoutonActionPerformed
 
     private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
@@ -372,32 +380,32 @@ public class PageAccueil extends javax.swing.JFrame {
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
             BoutonSeancesFilmSelectione.setEnabled(true);
-            String textAffich="";
+            String textAffich = "";
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
             //on recupere toute les donnees du film selectionné
-            String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE titre LIKE '" + titreSelectionne + "'";
             //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
-            String requeteModifNBvues="UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
+            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
                 connect.stmt.executeUpdate(requeteModifNBvues);
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
             taille = listModel1.get(5).length();
             Synopsis = listModel1.get(5);
             StringBuilder str = new StringBuilder(Synopsis);
-            for(int i = 1; 70*i<taille; i++){
-                str.insert(70*i, '\n');
+            for (int i = 1; 70 * i < taille; i++) {
+                str.insert(70 * i, '\n');
             }
-            
+
             //Affichage des infos
-            textAffich="Titre : "+listModel1.get(6)+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"min"+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
+            textAffich = "Titre : " + listModel1.get(6) + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "min" + "\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
             descriptionFilmsAccueilText.setText(textAffich);
-            
+
         }
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
 
@@ -415,7 +423,7 @@ public class PageAccueil extends javax.swing.JFrame {
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
         //il faut faire le lien vers une autre page qui sera celle de la liste des seances avec le titre du film selectionne
         try {
-            
+
             PageSuppression p = new PageSuppression();
             p.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
@@ -433,17 +441,16 @@ public class PageAccueil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCptActionPerformed
 
-    public void affichageBtnCo( boolean COk){
-        if(COk){
+    public void affichageBtnCo(boolean COk) {
+        if (COk) {
             PanelAccesCpt.setVisible(true);
             PanelCoIns.setVisible(false);
-        }
-        else{
+        } else {
             PanelAccesCpt.setVisible(false);
             PanelCoIns.setVisible(true);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonSeancesFilmSelectione;
     private javax.swing.JButton ConnexionBoutonAccueil;
