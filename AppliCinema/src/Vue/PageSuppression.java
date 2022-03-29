@@ -27,6 +27,7 @@ public class PageSuppression extends javax.swing.JFrame {
     DefaultListModel<String> listModel = new DefaultListModel<>();
 
     public PageSuppression() throws SQLException, ClassNotFoundException {
+        super("Gestion des Films");
         initComponents();
 
         btnDel.setEnabled(false);
@@ -96,6 +97,11 @@ public class PageSuppression extends javax.swing.JFrame {
                 TitreMouseExited(evt);
             }
         });
+        Titre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                TitreKeyTyped(evt);
+            }
+        });
 
         PrenomReal.setText("PrenomReal");
         PrenomReal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,6 +112,11 @@ public class PageSuppression extends javax.swing.JFrame {
                 PrenomRealMouseExited(evt);
             }
         });
+        PrenomReal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                PrenomRealKeyTyped(evt);
+            }
+        });
 
         NomReal.setText("NomReal");
         NomReal.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,6 +125,11 @@ public class PageSuppression extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 NomRealMouseExited(evt);
+            }
+        });
+        NomReal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                NomRealKeyTyped(evt);
             }
         });
 
@@ -142,6 +158,11 @@ public class PageSuppression extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 GenreMouseExited(evt);
+            }
+        });
+        Genre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                GenreKeyTyped(evt);
             }
         });
 
@@ -335,31 +356,45 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void TitreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseClicked
-        Titre.setText(null);
+        if (Titre.getText().equals("Titre")) {
+            Titre.setText(null);
+        }
     }//GEN-LAST:event_TitreMouseClicked
 
     private void PrenomRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomRealMouseClicked
-        PrenomReal.setText(null);
+        if (PrenomReal.getText().equals("PrenomReal")) {
+            PrenomReal.setText(null);
+        }
     }//GEN-LAST:event_PrenomRealMouseClicked
 
     private void NomRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseClicked
-        NomReal.setText(null);
+        if (NomReal.getText().equals("NomReal")) {
+            NomReal.setText(null);
+        }
     }//GEN-LAST:event_NomRealMouseClicked
 
     private void DureeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseClicked
-        Duree.setText(null);
+        if (Duree.getText().equals("Duree")) {
+            Duree.setText(null);
+        }
     }//GEN-LAST:event_DureeMouseClicked
 
     private void GenreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseClicked
-        Genre.setText(null);
+        if (Genre.getText().equals("Genre")) {
+            Genre.setText(null);
+        }
     }//GEN-LAST:event_GenreMouseClicked
 
     private void NoteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NoteMouseClicked
-        Note.setText(null);
+        if (Note.getText().equals("Note")) {
+            Note.setText(null);
+        }
     }//GEN-LAST:event_NoteMouseClicked
 
     private void SynopsisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseClicked
-        Synopsis.setText(null);
+        if (Synopsis.getText().equals("Synopsis")) {
+            Synopsis.setText(null);
+        }
     }//GEN-LAST:event_SynopsisMouseClicked
 
     private void TitreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseExited
@@ -463,10 +498,38 @@ public class PageSuppression extends javax.swing.JFrame {
 
     private void NoteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoteKeyTyped
         char c = evt.getKeyChar();
-        if ((!Character.isDigit(c))&&(!(c=='.'))) {
+        if ((!Character.isDigit(c)) && (!(c == '.'))) {
             evt.consume();
         }
     }//GEN-LAST:event_NoteKeyTyped
+
+    private void TitreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TitreKeyTyped
+        char c = evt.getKeyChar();
+        if ((c == '"') || (c == ';')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_TitreKeyTyped
+
+    private void PrenomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrenomRealKeyTyped
+         char c = evt.getKeyChar();
+        if ((c == '"') || (c == '\'')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_PrenomRealKeyTyped
+
+    private void NomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomRealKeyTyped
+        char c = evt.getKeyChar();
+        if ((c == '"') || (c == ';')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_NomRealKeyTyped
+
+    private void GenreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenreKeyTyped
+        char c = evt.getKeyChar();
+        if ((c == '"') || (c == ';')) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_GenreKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Duree;

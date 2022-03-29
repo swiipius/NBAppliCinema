@@ -25,9 +25,11 @@ public class PageConnexion extends javax.swing.JFrame {
     private String email, NomEmploye;
     private boolean employe = true;
     public boolean connexionValid = false;
+    public boolean EmpCo;
     PageAccueil pa;
 
     public PageConnexion() throws SQLException, ClassNotFoundException {
+        super("Connexion");
         //Connection a la bdd
         connect = new Connexion("Cinema", "root", "");
 
@@ -254,8 +256,9 @@ public class PageConnexion extends javax.swing.JFrame {
                     if ((connect.requestDemande(requeteEmploye).get(0)).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
+                        EmpCo = true;
                         this.dispose();
-                        pa = new PageAccueil(true);
+                        pa = new PageAccueil(connexionValid, EmpCo);
                         pa.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
@@ -278,8 +281,9 @@ public class PageConnexion extends javax.swing.JFrame {
                     if ((connect.requestDemande(requeteClient).get(0)).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
+                        EmpCo = false;
                         this.dispose();
-                        pa = new PageAccueil(true);
+                        pa = new PageAccueil(true, false);
                         pa.setVisible(true);
                         pa.client = Integer.parseInt((String) (connect.requestDemande("SELECT id_client FROM client WHERE email = '"+Email.getText()+"'")).get(0));
                     } else {
@@ -328,7 +332,7 @@ public class PageConnexion extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         try {
             if (!connexionValid) {
-                pa = new PageAccueil(true);
+                pa = new PageAccueil(true, EmpCo);
                 pa.setVisible(true);
             }
         } catch (SQLException ex) {
