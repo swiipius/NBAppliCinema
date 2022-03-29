@@ -30,11 +30,12 @@ public class PageSeance extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public PageSeance(int ID_Film) throws SQLException, ClassNotFoundException {
+
+    PageSeance(boolean ConnexionValid,int id_film, int client,int id_seance) throws SQLException, ClassNotFoundException {
         initComponents();
         // connection à la base de données
         maconnection = new Connexion("Cinema", "root", "");
-        requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + ID_Film + " ORDER BY date ASC;";
+        requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + id_film + " ORDER BY date ASC;";
         ListModelSeance = maconnection.requestDemande(requeteSeance);
         for (int i = 0; i < ListModelSeance.size(); i += 2) {
             ListModelSeanceConcat.add(i / 2, ListModelSeance.get(i) + ", " + ListModelSeance.get(i + 1));
@@ -42,7 +43,6 @@ public class PageSeance extends javax.swing.JFrame {
         }
 
         listSeance.setModel(ListModelSeanceConcat);
-
     }
 
     /**
@@ -71,6 +71,11 @@ public class PageSeance extends javax.swing.JFrame {
             }
         });
 
+        listSeance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSeanceMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listSeance);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -155,10 +160,16 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_dateMouseExited
 
+    private void listSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSeanceMouseClicked
+        
+        
+    //PageSelecPrix psp= new PageSelecPrix();
+    }//GEN-LAST:event_listSeanceMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -182,7 +193,7 @@ public class PageSeance extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the form 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -194,7 +205,7 @@ public class PageSeance extends javax.swing.JFrame {
                 }
             }
         });
-    }
+    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Instruction;

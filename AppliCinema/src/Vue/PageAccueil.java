@@ -480,13 +480,14 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TitreFilmsAccueilMouseExited
 
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
-        PageSeance pse;
+        PageSeance pse ;
         try {
+            if()
             pse = new PageSeance(id_film, client);
-            pse.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        pse.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
 
