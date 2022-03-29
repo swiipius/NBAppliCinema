@@ -32,6 +32,8 @@ public class PageAccueil extends javax.swing.JFrame {
     private int taille;
     private String Synopsis;
     public int client;
+    public int id_film;
+    private String str;
     
     PageConnexion pc= new PageConnexion();
     
@@ -39,7 +41,7 @@ public class PageAccueil extends javax.swing.JFrame {
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
     private boolean connexionValid;
-    private boolean Emp;
+    private boolean IsEmp;
 
      /**
      * Creates new form PageAccueil
@@ -58,12 +60,13 @@ public class PageAccueil extends javax.swing.JFrame {
         connect = new Connexion("Cinema", "root", "");
         listModel = connect.requestDemande(requete);
         TitreFilmsAccueil.setModel(listModel);
+        IsEmp = Emp;
                     
         /*listModel1 = connect.requestDemande(requeteInfo);
         descriptionFilmsAccueil.setModel(listModel1);*/
         
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
-        affichageBtnCo(connexionValid, Emp);
+        affichageBtnCo(connexionValid, IsEmp);
     }
 
     /**
@@ -434,16 +437,23 @@ public class PageAccueil extends javax.swing.JFrame {
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
-            BoutonSeancesFilmSelectione.setEnabled(true);
+            if(!IsEmp){
+                BoutonSeancesFilmSelectione.setEnabled(true);
+            }
+            else{
+                BoutonSeancesFilmSelectione.setEnabled(false);
+            }
             String textAffich="";
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
-            String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+            id_film = Integer.parseInt(listModel1.get(6));
+            //System.out.println(id_film);
             //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
             taille = listModel1.get(5).length();
             Synopsis = listModel1.get(5);
@@ -461,7 +471,7 @@ public class PageAccueil extends javax.swing.JFrame {
 
     private void TitreFilmsAccueilMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseReleased
         PanelDescriptionAccueil.setVisible(false);
-        BoutonSeancesFilmSelectione.setEnabled(false);
+        //BoutonSeancesFilmSelectione.setEnabled(false);
         descriptionFilmsAccueilText.setText("");
     }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
 
@@ -471,16 +481,14 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TitreFilmsAccueilMouseExited
 
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
-        //il faut faire le lien vers une autre page qui sera celle de la liste des seances avec le titre du film selectionne
+        PageSeance pse;
         try {
-            
-            PageSuppression p = new PageSuppression();
-            p.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+            pse = new PageSeance(id_film, client);
+            pse.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.dispose();
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
 
     private void btnCptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCptActionPerformed
@@ -488,15 +496,13 @@ public class PageAccueil extends javax.swing.JFrame {
         try {
             ph = new PageHistoFact(connexionValid, client);
             ph.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCptActionPerformed
 
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
-        
+       
     }//GEN-LAST:event_btnSeancesActionPerformed
 
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
@@ -525,6 +531,7 @@ public class PageAccueil extends javax.swing.JFrame {
                 PanelAccesCpt.setVisible(false);
                 PanelCoIns.setVisible(false);
                 PanelEmp.setVisible(true);
+                BoutonSeancesFilmSelectione.setEnabled(false);
             }
             else{
                 PanelAccesCpt.setVisible(true);

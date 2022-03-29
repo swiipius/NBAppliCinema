@@ -258,7 +258,7 @@ public class PageConnexion extends javax.swing.JFrame {
                         connexionValid = true;
                         EmpCo = true;
                         this.dispose();
-                        pa = new PageAccueil(true, true);
+                        pa = new PageAccueil(connexionValid, EmpCo);
                         pa.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");

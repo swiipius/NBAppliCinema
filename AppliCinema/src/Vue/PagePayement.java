@@ -12,29 +12,43 @@ import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.io.*;
+import javax.swing.*;
+import jdbc2020.Connexion;
 
 /**
  *
  * @author pierr
  */
-public class PagePayement extends javax.swing.JFrame {
+public class PagePayement  extends javax.swing.JFrame {
 
     private final boolean connexionValid;
     private boolean Emp;
+    int nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_film, id_client, id_seance;
+    Connexion connect;
 
     /**
      * Creates new form PagePayement
+     *
      * @param connexionValid
      */
-    public PagePayement(boolean connexionValid) {
-        super("Page De Payement"); 
+    public PagePayement(boolean connexionValid, int nbMembre, int nbSenior, int nbEnfant, int nbPasCo, int film, int seance, int client) {
+        super("Page De Payement");
         initComponents();
         this.connexionValid = connexionValid;
         this.Emp = Emp;
+        nbVenduSernior = nbSenior;
+        nbVenduMembre = nbMembre;
+        nbVenduEnfant = nbEnfant;
+        nbVenduPasCo = nbPasCo;
+        id_film = film;
+        id_client = client;
+        id_seance = seance;
     }
 
     private int countCrypto = 0;
     private int countNum = 0;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -225,27 +239,23 @@ public class PagePayement extends javax.swing.JFrame {
 
     private void CryptoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CryptoKeyPressed
         char c = evt.getKeyChar();
-        if((evt.getKeyCode()==8)&&(countCrypto < 4)){
+        if ((evt.getKeyCode() == 8) && (countCrypto < 4)) {
             countCrypto--;
-        }
-        else if((evt.getKeyCode()==8)&&(countCrypto == 4)){
+        } else if ((evt.getKeyCode() == 8) && (countCrypto == 4)) {
             countCrypto -= 2;
-        }
-        else if((Character.isDigit(c))&&(4>countCrypto)){
-            countCrypto ++;
+        } else if ((Character.isDigit(c)) && (4 > countCrypto)) {
+            countCrypto++;
         }
     }//GEN-LAST:event_CryptoKeyPressed
 
     private void NumCarteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyPressed
         char c = evt.getKeyChar();
-        if((evt.getKeyCode()==8)&&(countNum < 17)){
+        if ((evt.getKeyCode() == 8) && (countNum < 17)) {
             countNum--;
-        }
-        else if((evt.getKeyCode()==8)&&(countNum == 17)){
+        } else if ((evt.getKeyCode() == 8) && (countNum == 17)) {
             countNum -= 2;
-        }
-        else if((Character.isDigit(c))&&(17>countNum)){
-            countNum ++;
+        } else if ((Character.isDigit(c)) && (17 > countNum)) {
+            countNum++;
         }
     }//GEN-LAST:event_NumCarteKeyPressed
 
@@ -261,35 +271,56 @@ public class PagePayement extends javax.swing.JFrame {
     }//GEN-LAST:event_NumCarteKeyTyped
 
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM / yy");  
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM / yy");
         LocalDateTime now = LocalDateTime.now();
         //System.out.println(dtf.format(now).compareTo(Date.getText()));
         //Verification que toutes les infos ont été rentré
-        if((NumCarte.getText().equals("Numero de la carte"))||(Nom.getText().equals("Nom sur la  carte"))||(Crypto.getText().equals("Cryptogramme"))||(Date.getText().equals("   /   "))){
+        if ((NumCarte.getText().equals("Numero de la carte")) || (Nom.getText().equals("Nom sur la  carte")) || (Crypto.getText().equals("Cryptogramme")) || (Date.getText().equals("   /   "))) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-        }
-        //Verification de la taille
-        else if(NumCarte.getText().length()<16){
+        } //Verification de la taille
+        else if (NumCarte.getText().length() < 16) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             NumCarte.setText(null);
             countNum = 0;
-        }
-        else if(Crypto.getText().length()<3){
+        } else if (Crypto.getText().length() < 3) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             Crypto.setText(null);
             countCrypto = 0;
-        }
-        //verication de la validité
-        else if((dtf.format(now).compareTo(Date.getText()))==-1){
+        } //verication de la validité
+        else if ((dtf.format(now).compareTo(Date.getText())) < 0) {
             JOptionPane.showMessageDialog(null, "Carte périmée");
             Date.setText(null);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Paiement Validé");
             this.dispose();
             try {
                 PageAccueil p = new PageAccueil(connexionValid, Emp);
-                p.setVisible(true);
+                if (!connexionValid) {
+                        String Seance[];
+                        String Film;
+                        Seance = getSeance(id_seance);
+                        Film = getFilm(id_film);
+                        String billet = "Résumé Achat :\nNombre de place : "+nbVenduPasCo+"\nPrix total : "+12*nbVenduPasCo+"\nFilm : "+Film+"\nSeance du "+Seance[0]+" a "+Seance[1]+" en salle "+Seance[2];
+                        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
+
+                        if(!fBillet.exists()){
+                            try{
+                                fBillet.createNewFile();
+                            }
+                            catch(IOException e){
+                                e.printStackTrace();
+                            }
+                        }
+                        
+                        try(PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))){
+                            print.print(billet);
+                        } catch (FileNotFoundException ex) {
+                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else {
+                    p.setVisible(true);
+                    gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
@@ -302,6 +333,43 @@ public class PagePayement extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomActionPerformed
 
+    public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
+        connect = new Connexion("cinema", "root", "");
+        String requeteAjout;
+        while (nbVenduSenior != 0) {
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 8 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Senior';";
+        }
+        while (nbVenduMembre != 0) {
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 10 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Membre';";
+        }
+        while (nbVenduEnfant != 0) {
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 6 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Enfant';";
+        }
+    }
+    
+    public String[] getSeance(int id_seance) throws SQLException, ClassNotFoundException{
+        connect = new Connexion("cinema", "root", "");
+        String strSeance[] = {"", "", ""};
+        String requete ="SELECT date, heureDebut, salle FROM seance WHERE id_seance = "+id_seance+";";
+        DefaultListModel<String> Seance = new DefaultListModel<>();
+        Seance = connect.requestDemande(requete);
+        for(int i = 0; i<3; i++){
+            strSeance[i] = Seance.get(i);
+        }
+        return strSeance;
+    }
+    
+    public String getFilm(int id_film) throws ClassNotFoundException, SQLException{
+        connect = new Connexion("cinema", "root", "");
+        String strFilm = "";
+        String requete ="SELECT titre FROM film WHERE id_film = "+id_film+";";
+        DefaultListModel<String> Film = new DefaultListModel<>();
+        Film = connect.requestDemande(requete);
+        strFilm = Film.get(0);
+        return strFilm;
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;
     private javax.swing.JFormattedTextField Date;
