@@ -36,6 +36,7 @@ public class PageSeance extends javax.swing.JFrame {
     public PageSeance(int ID_Film, int ID_Client, boolean ConnexionValid) throws SQLException, ClassNotFoundException {
         initComponents();
         numFilm = ID_Film;
+        System.out.println("test");
         this.ConnexionValid = ConnexionValid;
         //System.out.println(ConnexionValid);
         // connection à la base de données
