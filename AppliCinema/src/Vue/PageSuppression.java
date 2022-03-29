@@ -64,6 +64,7 @@ public class PageSuppression extends javax.swing.JFrame {
         btnRech = new javax.swing.JButton();
         Recherche = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
+        Affiche = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -215,6 +216,16 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        Affiche.setText("Lien de l'affiche");
+        Affiche.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AfficheMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AfficheMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -241,7 +252,8 @@ public class PageSuppression extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(NomReal))
                             .addComponent(Synopsis)
-                            .addComponent(Titre, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(Titre, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Affiche, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -275,7 +287,9 @@ public class PageSuppression extends javax.swing.JFrame {
                             .addComponent(Genre))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Synopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Affiche, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -337,7 +351,7 @@ public class PageSuppression extends javax.swing.JFrame {
         if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis"))) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         } else {
-            String requete = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis) VALUES('" + Titre.getText() + "','" + NomReal.getText() + "','" + PrenomReal.getText() + "','" + Duree.getText() + "','" + Genre.getText() + "','" + Note.getText() + "','" + Synopsis.getText() + "'" + ")";
+            String requete = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + Titre.getText() + "','" + NomReal.getText() + "','" + PrenomReal.getText() + "','" + Duree.getText() + "','" + Genre.getText() + "','" + Note.getText() + "','" + Synopsis.getText() + "', '" + Affiche.getText()+ ")";
             try {
                 connect.executeUpdate(requete);
             } catch (SQLException ex) {
@@ -352,6 +366,7 @@ public class PageSuppression extends javax.swing.JFrame {
             Genre.setText("Genre");
             Note.setText("Note");
             Synopsis.setText("Synopsis");
+            Affiche.setText("Lien de l'affiche");
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -531,7 +546,18 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GenreKeyTyped
 
+    private void AfficheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AfficheMouseClicked
+        Affiche.setText(null);
+    }//GEN-LAST:event_AfficheMouseClicked
+
+    private void AfficheMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AfficheMouseExited
+        if (Affiche.getText().equals("")) {
+            Affiche.setText("Lien vers l'affiche");
+        }
+    }//GEN-LAST:event_AfficheMouseExited
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Affiche;
     private javax.swing.JTextField Duree;
     private javax.swing.JTextField Genre;
     private javax.swing.JTextField NomReal;

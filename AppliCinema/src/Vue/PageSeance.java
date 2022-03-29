@@ -36,7 +36,6 @@ public class PageSeance extends javax.swing.JFrame {
     public PageSeance(int ID_Film, int ID_Client, boolean ConnexionValid) throws SQLException, ClassNotFoundException {
         initComponents();
         numFilm = ID_Film;
-        System.out.println("test");
         this.ConnexionValid = ConnexionValid;
         //System.out.println(ConnexionValid);
         // connection à la base de données
@@ -96,7 +95,7 @@ public class PageSeance extends javax.swing.JFrame {
         jLabel1.setText(" Seances");
 
         try {
-            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }

@@ -448,6 +448,7 @@ public class PageAccueil extends javax.swing.JFrame {
             
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
+                System.out.println(listModel1);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -462,7 +463,7 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             
             //Affichage des infos
-            textAffich="Titre : "+listModel1.get(6)+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
+            textAffich="Titre : "+(String) TitreFilmsAccueil.getSelectedValue()+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
             descriptionFilmsAccueilText.setText(textAffich);
             
         }
