@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class PageSeance extends javax.swing.JFrame {
 
-    public boolean ConnexionValid;
+    public boolean ConnexionValid, choixOk = false;
     private String requeteSeance;
     public Connexion maconnection;
     DefaultListModel<String> ListModelID = new DefaultListModel<>();
@@ -33,9 +33,11 @@ public class PageSeance extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public PageSeance(int ID_Film, int ID_Client) throws SQLException, ClassNotFoundException {
+    public PageSeance(int ID_Film, int ID_Client, boolean ConnexionValid) throws SQLException, ClassNotFoundException {
         initComponents();
         numFilm = ID_Film;
+        this.ConnexionValid = ConnexionValid;
+        //System.out.println(ConnexionValid);
         // connection à la base de données
         maconnection = new Connexion("Cinema", "root", "");
         requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + ID_Film + " ORDER BY date ASC;";
@@ -45,7 +47,7 @@ public class PageSeance extends javax.swing.JFrame {
 
         }
         listSeance.setModel(ListModelSeanceConcat);
-        
+
         btnResa.setEnabled(false);
 
         numClient = ID_Client;
@@ -68,7 +70,12 @@ public class PageSeance extends javax.swing.JFrame {
         date = new javax.swing.JFormattedTextField();
         btnResa = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnRecherche.setText("Recherche");
         btnRecherche.addActionListener(new java.awt.event.ActionListener() {
@@ -157,13 +164,11 @@ public class PageSeance extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void btnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechercheActionPerformed
         // TODO add your handling code here:
         String requeteRecherche;
         requeteRecherche = (requeteSeance);
-        
-    
 
 
     }//GEN-LAST:event_btnRechercheActionPerformed
@@ -177,13 +182,14 @@ public class PageSeance extends javax.swing.JFrame {
 
     private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
         try {
-            String requete = "SELECT id_seance FROM seance WHERE date LIKE '"+getDate(listSeance.getSelectedValue())+"' AND heureDebut LIKE '"+getHour(listSeance.getSelectedValue())+"' AND ID_Film = "+numFilm +";";
+            String requete = "SELECT id_seance FROM seance WHERE date LIKE '" + getDate(listSeance.getSelectedValue()) + "' AND heureDebut LIKE '" + getHour(listSeance.getSelectedValue()) + "' AND ID_Film = " + numFilm + ";";
             //System.out.println(requete);
             ListModelID = maconnection.requestDemande(requete);
             numSeance = Integer.parseInt(ListModelID.get(0));
             PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm, numClient, numSeance);
             pr.setVisible(true);
             this.dispose();
+            choixOk = true;
         } catch (SQLException ex) {
             Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -198,22 +204,35 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listSeanceMouseClicked
 
-    public String getDate(String DateAndHour){
-        String strDate =  "";
-        for(int i = 10; i< 20; i++){
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (!choixOk) {
+            try {
+                PageAccueil pa = new PageAccueil(ConnexionValid, false);
+                pa.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowClosed
+
+    public String getDate(String DateAndHour) {
+        String strDate = "";
+        for (int i = 10; i < 20; i++) {
             strDate += DateAndHour.charAt(i);
         }
         return strDate;
     }
-    
-    public String getHour(String DateAndHour){
+
+    public String getHour(String DateAndHour) {
         String strHour = "";
-        for(int i = 0; i< 8; i++){
+        for (int i = 0; i < 8; i++) {
             strHour += DateAndHour.charAt(i);
         }
         return strHour;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRecherche;
     private javax.swing.JButton btnResa;
