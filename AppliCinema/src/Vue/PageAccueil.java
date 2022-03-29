@@ -483,7 +483,7 @@ public class PageAccueil extends javax.swing.JFrame {
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
         PageSeance pse;
         try {
-            pse = new PageSeance(id_film);
+            pse = new PageSeance(id_film, client);
             pse.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);

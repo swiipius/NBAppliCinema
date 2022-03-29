@@ -21,9 +21,10 @@ public class PageSeance extends javax.swing.JFrame {
     public boolean ConnexionValid;
     private String requeteSeance;
     public Connexion maconnection;
+    DefaultListModel<String> ListModelID = new DefaultListModel<>();
     DefaultListModel<String> ListModelSeance = new DefaultListModel<>();
     DefaultListModel<String> ListModelSeanceConcat = new DefaultListModel<>();
-    int numFilm;
+    int numFilm, numSeance, numClient;
 
     /**
      * Creates new form PageSeance
@@ -32,7 +33,7 @@ public class PageSeance extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public PageSeance(int ID_Film) throws SQLException, ClassNotFoundException {
+    public PageSeance(int ID_Film, int ID_Client) throws SQLException, ClassNotFoundException {
         initComponents();
         numFilm = ID_Film;
         // connection à la base de données
@@ -47,6 +48,7 @@ public class PageSeance extends javax.swing.JFrame {
         
         btnResa.setEnabled(false);
 
+        numClient = ID_Client;
     }
 
     /**
@@ -175,8 +177,13 @@ public class PageSeance extends javax.swing.JFrame {
 
     private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
         try {
-            PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm);
+            String requete = "SELECT id_seance FROM seance WHERE date LIKE '"+getDate(listSeance.getSelectedValue())+"' AND heureDebut LIKE '"+getHour(listSeance.getSelectedValue())+"' AND ID_Film = "+numFilm +";";
+            //System.out.println(requete);
+            ListModelID = maconnection.requestDemande(requete);
+            numSeance = Integer.parseInt(ListModelID.get(0));
+            PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm, numClient, numSeance);
             pr.setVisible(true);
+            this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -191,6 +198,22 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listSeanceMouseClicked
 
+    public String getDate(String DateAndHour){
+        String strDate =  "";
+        for(int i = 10; i< 20; i++){
+            strDate += DateAndHour.charAt(i);
+        }
+        return strDate;
+    }
+    
+    public String getHour(String DateAndHour){
+        String strHour = "";
+        for(int i = 0; i< 8; i++){
+            strHour += DateAndHour.charAt(i);
+        }
+        return strHour;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRecherche;
     private javax.swing.JButton btnResa;

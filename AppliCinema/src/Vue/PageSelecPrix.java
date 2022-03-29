@@ -21,17 +21,19 @@ import jdbc2020.*;
 public class PageSelecPrix extends javax.swing.JFrame {
 
     Integer somme = 0;
+    int nbPlaceMembre, nbPlaceSenior, nbPlaceEnfant, nbPlacePasCo;
     boolean isCo;
     String sommeStr;
     DefaultListModel<String> listModel = new DefaultListModel<>();
     String Synopsis, requete;
     int taille;
     Connexion connect;
+    int film, client, seance;
 
     /**
      * Creates new form PageSelecPrix
      */
-    public PageSelecPrix(boolean ConnexionValid, int id_film) throws SQLException, ClassNotFoundException {
+    public PageSelecPrix(boolean ConnexionValid, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         initComponents();
 
         isCo = ConnexionValid;
@@ -44,6 +46,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
             PanelPasCo.setVisible(true);
         }
 
+        film = id_film;
+        client = id_client;
+        seance = id_seance;
+        
         connect = new Connexion("Cinema", "root", "");
         //Affichage du resume
         String textAffich;
@@ -308,7 +314,8 @@ public class PageSelecPrix extends javax.swing.JFrame {
     }//GEN-LAST:event_EnfantStateChanged
 
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
-        PagePayement pp = new PagePayement(isCo);
+        PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), film, seance, client);
+        nbPlaceVendu();
         this.dispose();
         pp.setVisible(true);
     }//GEN-LAST:event_btnAchatActionPerformed
@@ -317,43 +324,12 @@ public class PageSelecPrix extends javax.swing.JFrame {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageSelecPrix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageSelecPrix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageSelecPrix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageSelecPrix.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageSelecPrix(true, 2).setVisible(true);
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+    public void nbPlaceVendu(){
+        nbPlaceMembre = (int) Membre.getValue();
+        nbPlaceSenior = (int) Senior.getValue();
+        nbPlaceEnfant = (int) Enfant.getValue();
+        nbPlacePasCo = (int) pasCo.getValue();
+                
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
