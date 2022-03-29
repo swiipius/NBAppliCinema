@@ -18,10 +18,13 @@ import java.util.logging.Logger;
  */
 public class PageSeance extends javax.swing.JFrame {
 
+    public boolean ConnexionValid, choixOk = false;
     private String requeteSeance;
     public Connexion maconnection;
+    DefaultListModel<String> ListModelID = new DefaultListModel<>();
     DefaultListModel<String> ListModelSeance = new DefaultListModel<>();
     DefaultListModel<String> ListModelSeanceConcat = new DefaultListModel<>();
+    int numFilm, numSeance, numClient;
 
     /**
      * Creates new form PageSeance
@@ -30,19 +33,24 @@ public class PageSeance extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-
-    PageSeance(boolean ConnexionValid,int id_film, int client,int id_seance) throws SQLException, ClassNotFoundException {
+    public PageSeance(int ID_Film, int ID_Client, boolean ConnexionValid) throws SQLException, ClassNotFoundException {
         initComponents();
+        numFilm = ID_Film;
+        this.ConnexionValid = ConnexionValid;
+        //System.out.println(ConnexionValid);
         // connection à la base de données
         maconnection = new Connexion("Cinema", "root", "");
-        requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + id_film + " ORDER BY date ASC;";
+        requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + ID_Film + " ORDER BY date ASC;";
         ListModelSeance = maconnection.requestDemande(requeteSeance);
         for (int i = 0; i < ListModelSeance.size(); i += 2) {
             ListModelSeanceConcat.add(i / 2, ListModelSeance.get(i) + ", " + ListModelSeance.get(i + 1));
 
         }
-
         listSeance.setModel(ListModelSeanceConcat);
+
+        btnResa.setEnabled(false);
+
+        numClient = ID_Client;
     }
 
     /**
@@ -60,9 +68,14 @@ public class PageSeance extends javax.swing.JFrame {
         listSeance = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         date = new javax.swing.JFormattedTextField();
-        Instruction = new javax.swing.JLabel();
+        btnResa = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         btnRecherche.setText("Recherche");
         btnRecherche.addActionListener(new java.awt.event.ActionListener() {
@@ -82,7 +95,7 @@ public class PageSeance extends javax.swing.JFrame {
         jLabel1.setText(" Seances");
 
         try {
-            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -92,7 +105,12 @@ public class PageSeance extends javax.swing.JFrame {
             }
         });
 
-        Instruction.setText("Liste des seances a venir pour votre film:");
+        btnResa.setText("Reserver cette séance");
+        btnResa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -103,18 +121,15 @@ public class PageSeance extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 275, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                         .addComponent(date, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 383, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnResa)))
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(60, 60, 60)
-                .addComponent(Instruction)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,9 +143,11 @@ public class PageSeance extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(date))
                 .addGap(18, 18, 18)
-                .addComponent(Instruction, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnResa, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -149,7 +166,10 @@ public class PageSeance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechercheActionPerformed
-        
+        // TODO add your handling code here:
+        String requeteRecherche;
+        requeteRecherche = (requeteSeance);
+
 
     }//GEN-LAST:event_btnRechercheActionPerformed
 
@@ -160,56 +180,62 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_dateMouseExited
 
+    private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
+        try {
+            String requete = "SELECT id_seance FROM seance WHERE date LIKE '" + getDate(listSeance.getSelectedValue()) + "' AND heureDebut LIKE '" + getHour(listSeance.getSelectedValue()) + "' AND ID_Film = " + numFilm + ";";
+            //System.out.println(requete);
+            ListModelID = maconnection.requestDemande(requete);
+            numSeance = Integer.parseInt(ListModelID.get(0));
+            PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm, numClient, numSeance);
+            pr.setVisible(true);
+            this.dispose();
+            choixOk = true;
+        } catch (SQLException ex) {
+            Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnResaActionPerformed
+
     private void listSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSeanceMouseClicked
-        
-        
-    //PageSelecPrix psp= new PageSelecPrix();
+        if (listSeance.getSelectedIndex() > -1) {
+            btnResa.setEnabled(true);
+        }
     }//GEN-LAST:event_listSeanceMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-   /* public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (!choixOk) {
+            try {
+                PageAccueil pa = new PageAccueil(ConnexionValid, false);
+                pa.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_formWindowClosed
 
-        /* Create and display the form 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageSeance(4).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }*/
+    public String getDate(String DateAndHour) {
+        String strDate = "";
+        for (int i = 10; i < 20; i++) {
+            strDate += DateAndHour.charAt(i);
+        }
+        return strDate;
+    }
+
+    public String getHour(String DateAndHour) {
+        String strHour = "";
+        for (int i = 0; i < 8; i++) {
+            strHour += DateAndHour.charAt(i);
+        }
+        return strHour;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Instruction;
     private javax.swing.JButton btnRecherche;
+    private javax.swing.JButton btnResa;
     private javax.swing.JFormattedTextField date;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

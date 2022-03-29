@@ -20,12 +20,13 @@ import jdbc2020.Connexion;
  *
  * @author pierr
  */
-public class PagePayement  extends javax.swing.JFrame {
+public class PagePayement extends javax.swing.JFrame {
 
     private final boolean connexionValid;
     private boolean Emp;
     int nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_film, id_client, id_seance;
     Connexion connect;
+    boolean PayOK = false;
 
     /**
      * Creates new form PagePayement
@@ -48,7 +49,6 @@ public class PagePayement  extends javax.swing.JFrame {
 
     private int countCrypto = 0;
     private int countNum = 0;
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,9 +67,17 @@ public class PagePayement  extends javax.swing.JFrame {
         Date = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         NumCarte.setText("Numero de la carte");
         NumCarte.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,26 +303,26 @@ public class PagePayement  extends javax.swing.JFrame {
             this.dispose();
             try {
                 PageAccueil p = new PageAccueil(connexionValid, Emp);
+                PayOK = true;
                 if (!connexionValid) {
-                        String Seance[];
-                        String Film;
-                        Seance = getSeance(id_seance);
-                        Film = getFilm(id_film);
-                        String billet = "Résumé Achat :\nNombre de place : "+nbVenduPasCo+"\nPrix total : "+12*nbVenduPasCo+"\nFilm : "+Film+"\nSeance du "+Seance[0]+" a "+Seance[1]+" en salle "+Seance[2];
-                        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
+                    String Seance[];
+                    String Film;
+                    Seance = getSeance(id_seance);
+                    Film = getFilm(id_film);
+                    String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
+                    File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
 
-                        if(!fBillet.exists()){
-                            try{
-                                fBillet.createNewFile();
-                            }
-                            catch(IOException e){
-                                e.printStackTrace();
-                            }
+                    if (!fBillet.exists()) {
+                        try {
+                            fBillet.createNewFile();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        
-                        try(PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))){
-                            print.print(billet);
-                        } catch (FileNotFoundException ex) {
+                    }
+
+                    try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
+                        print.print(billet);
+                    } catch (FileNotFoundException ex) {
                         Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } else {
@@ -333,6 +341,32 @@ public class PagePayement  extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.out.println(PayOK);
+        if (!PayOK) {
+            int result = JOptionPane.showConfirmDialog(null, "Voulez vous abandonner le payement ?", "Suppression", JOptionPane.YES_NO_OPTION);
+
+            if (result == JOptionPane.YES_OPTION) {
+                this.dispose();
+                try {
+                    PageSelecPrix psp = new PageSelecPrix(connexionValid, id_film, id_client, id_seance);
+                    psp.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                PagePayement pp = new PagePayement(connexionValid, nbVenduMembre, nbVenduSernior, nbVenduEnfant, nbVenduPasCo, id_film, id_seance, id_client);
+                pp.setVisible(true);
+            }
+        }
+    }//GEN-LAST:event_formWindowClosing
+
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         connect = new Connexion("cinema", "root", "");
         String requeteAjout;
@@ -346,30 +380,30 @@ public class PagePayement  extends javax.swing.JFrame {
             requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 6 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Enfant';";
         }
     }
-    
-    public String[] getSeance(int id_seance) throws SQLException, ClassNotFoundException{
+
+    public String[] getSeance(int id_seance) throws SQLException, ClassNotFoundException {
         connect = new Connexion("cinema", "root", "");
         String strSeance[] = {"", "", ""};
-        String requete ="SELECT date, heureDebut, salle FROM seance WHERE id_seance = "+id_seance+";";
+        String requete = "SELECT date, heureDebut, salle FROM seance WHERE id_seance = " + id_seance + ";";
         DefaultListModel<String> Seance = new DefaultListModel<>();
         Seance = connect.requestDemande(requete);
-        for(int i = 0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             strSeance[i] = Seance.get(i);
         }
         return strSeance;
     }
-    
-    public String getFilm(int id_film) throws ClassNotFoundException, SQLException{
+
+    public String getFilm(int id_film) throws ClassNotFoundException, SQLException {
         connect = new Connexion("cinema", "root", "");
         String strFilm = "";
-        String requete ="SELECT titre FROM film WHERE id_film = "+id_film+";";
+        String requete = "SELECT titre FROM film WHERE id_film = " + id_film + ";";
         DefaultListModel<String> Film = new DefaultListModel<>();
         Film = connect.requestDemande(requete);
         strFilm = Film.get(0);
         return strFilm;
     }
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;
     private javax.swing.JFormattedTextField Date;
