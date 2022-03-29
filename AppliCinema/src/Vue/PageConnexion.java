@@ -63,7 +63,7 @@ public class PageConnexion extends javax.swing.JFrame {
         chechEmp = new javax.swing.JCheckBox();
         btnInscription = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -332,7 +332,7 @@ public class PageConnexion extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         try {
             if (!connexionValid) {
-                pa = new PageAccueil(true, EmpCo);
+                PageAccueil pa = new PageAccueil(connexionValid, EmpCo);
                 pa.setVisible(true);
             }
         } catch (SQLException ex) {

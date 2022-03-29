@@ -22,7 +22,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
     Integer somme = 0;
     int nbPlaceMembre, nbPlaceSenior, nbPlaceEnfant, nbPlacePasCo;
-    boolean isCo;
+    public boolean isCo, choixOk = false;
     String sommeStr;
     DefaultListModel<String> listModel = new DefaultListModel<>();
     String Synopsis, requete;
@@ -46,10 +46,12 @@ public class PageSelecPrix extends javax.swing.JFrame {
             PanelPasCo.setVisible(true);
         }
 
+        btnAchat.setEnabled(false);
+
         film = id_film;
         client = id_client;
         seance = id_seance;
-        
+
         connect = new Connexion("Cinema", "root", "");
         //Affichage du resume
         String textAffich;
@@ -97,7 +99,12 @@ public class PageSelecPrix extends javax.swing.JFrame {
         Total = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jScrollPane1.setViewportView(ResumeFilm);
 
@@ -291,6 +298,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
         Total.setText(sommeStr);
+        affichageBtn(somme);
     }//GEN-LAST:event_MembreStateChanged
 
     private void pasCoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pasCoStateChanged
@@ -299,18 +307,21 @@ public class PageSelecPrix extends javax.swing.JFrame {
         somme = (Integer) pasCo.getValue() * 12;
         spinner = somme.toString();
         Total.setText(spinner);
+        affichageBtn(somme);
     }//GEN-LAST:event_pasCoStateChanged
 
     private void SeniorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SeniorStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
         Total.setText(sommeStr);
+        affichageBtn(somme);
     }//GEN-LAST:event_SeniorStateChanged
 
     private void EnfantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_EnfantStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
         Total.setText(sommeStr);
+        affichageBtn(somme);
     }//GEN-LAST:event_EnfantStateChanged
 
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
@@ -318,18 +329,40 @@ public class PageSelecPrix extends javax.swing.JFrame {
         nbPlaceVendu();
         this.dispose();
         pp.setVisible(true);
+        choixOk = true;
     }//GEN-LAST:event_btnAchatActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        if (!choixOk) {
+            try {
+                PageSeance ps = new PageSeance(film, client, isCo);
+                ps.setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_formWindowClosed
 
     public void total() {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
     }
 
-    public void nbPlaceVendu(){
+    public void nbPlaceVendu() {
         nbPlaceMembre = (int) Membre.getValue();
         nbPlaceSenior = (int) Senior.getValue();
         nbPlaceEnfant = (int) Enfant.getValue();
         nbPlacePasCo = (int) pasCo.getValue();
-                
+
+    }
+
+    public void affichageBtn(int total) {
+        if (total > 0) {
+            btnAchat.setEnabled(true);
+        } else {
+            btnAchat.setEnabled(false);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
