@@ -35,7 +35,7 @@ public class PagePayement extends javax.swing.JFrame {
      */
     public PagePayement(boolean connexionValid, int nbMembre, int nbSenior, int nbEnfant, int nbPasCo, int film, int seance, int client) {
         super("Page De Payement");
-        initComponents();
+        initComponents();        
         this.connexionValid = connexionValid;
         this.Emp = Emp;
         nbVenduSernior = nbSenior;
@@ -59,17 +59,18 @@ public class PagePayement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        btnValid = new javax.swing.JButton();
         NumCarte = new javax.swing.JTextField();
         Crypto = new javax.swing.JTextField();
         Nom = new javax.swing.JTextField();
-        btnValid = new javax.swing.JButton();
         Date = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
+        ImageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(800, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
@@ -78,7 +79,21 @@ public class PagePayement extends javax.swing.JFrame {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(null);
 
+        btnValid.setBackground(new java.awt.Color(204, 204, 204));
+        btnValid.setForeground(new java.awt.Color(0, 0, 0));
+        btnValid.setText("Valider");
+        btnValid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnValid);
+        btnValid.setBounds(360, 290, 80, 40);
+
+        NumCarte.setBackground(new java.awt.Color(204, 204, 204));
+        NumCarte.setForeground(new java.awt.Color(0, 0, 0));
         NumCarte.setText("Numero de la carte");
         NumCarte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -96,7 +111,11 @@ public class PagePayement extends javax.swing.JFrame {
                 NumCarteKeyTyped(evt);
             }
         });
+        getContentPane().add(NumCarte);
+        NumCarte.setBounds(270, 140, 250, 40);
 
+        Crypto.setBackground(new java.awt.Color(204, 204, 204));
+        Crypto.setForeground(new java.awt.Color(0, 0, 0));
         Crypto.setText("Cryptogramme");
         Crypto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -114,7 +133,11 @@ public class PagePayement extends javax.swing.JFrame {
                 CryptoKeyTyped(evt);
             }
         });
+        getContentPane().add(Crypto);
+        Crypto.setBounds(440, 200, 80, 40);
 
+        Nom.setBackground(new java.awt.Color(204, 204, 204));
+        Nom.setForeground(new java.awt.Color(0, 0, 0));
         Nom.setText("Nom sur la  carte");
         Nom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -129,14 +152,11 @@ public class PagePayement extends javax.swing.JFrame {
                 NomActionPerformed(evt);
             }
         });
+        getContentPane().add(Nom);
+        Nom.setBounds(270, 90, 250, 40);
 
-        btnValid.setText("Valider");
-        btnValid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidActionPerformed(evt);
-            }
-        });
-
+        Date.setBackground(new java.awt.Color(204, 204, 204));
+        Date.setForeground(new java.awt.Color(0, 0, 0));
         try {
             Date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## / ##")));
         } catch (java.text.ParseException ex) {
@@ -144,64 +164,18 @@ public class PagePayement extends javax.swing.JFrame {
         }
         Date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Date.setToolTipText("");
+        getContentPane().add(Date);
+        Date.setBounds(290, 210, 60, 30);
 
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Date d'expiration");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(280, 190, 80, 15);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NumCarte, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(82, 82, 82)
-                                .addComponent(Crypto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Nom)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
-                        .addComponent(btnValid)))
-                .addContainerGap(274, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(NumCarte, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Date))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(Crypto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
-                .addComponent(btnValid, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PagePayement.png"))); // NOI18N
+        getContentPane().add(ImageFond);
+        ImageFond.setBounds(0, 0, 830, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -407,10 +381,10 @@ public class PagePayement extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;
     private javax.swing.JFormattedTextField Date;
+    private javax.swing.JLabel ImageFond;
     private javax.swing.JTextField Nom;
     private javax.swing.JTextField NumCarte;
     private javax.swing.JButton btnValid;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
