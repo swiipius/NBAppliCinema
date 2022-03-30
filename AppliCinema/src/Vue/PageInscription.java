@@ -57,7 +57,7 @@ public class PageInscription extends javax.swing.JFrame {
         BoutonInscription = new javax.swing.JButton();
         btnCo = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(750, 300, 0, 0));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
