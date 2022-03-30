@@ -28,7 +28,11 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="PanelAccueil" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="PanelAccueil" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -180,6 +184,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="descriptionFilmsAccueilText" alignment="0" max="32767" attributes="0"/>
                   <Component id="labelDescriptionFilmAccueil" alignment="0" pref="478" max="32767" attributes="0"/>
+                  <Component id="labelImages" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -187,7 +192,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="labelDescriptionFilmAccueil" pref="26" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="descriptionFilmsAccueilText" min="-2" pref="608" max="-2" attributes="0"/>
+                      <Component id="descriptionFilmsAccueilText" min="-2" pref="272" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelImages" min="-2" pref="329" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -209,6 +216,8 @@
                   </Border>
                 </Property>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelImages">
             </Component>
           </SubComponents>
         </Container>
