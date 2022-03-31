@@ -59,6 +59,7 @@ public class PageHistoFact extends javax.swing.JFrame {
         PanelInfoFilm = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Info = new javax.swing.JTextPane();
+        Dereserver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,13 +76,19 @@ public class PageHistoFact extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(Info);
 
+        Dereserver.setText("Déreserver la séance ");
+
         javax.swing.GroupLayout PanelInfoFilmLayout = new javax.swing.GroupLayout(PanelInfoFilm);
         PanelInfoFilm.setLayout(PanelInfoFilmLayout);
         PanelInfoFilmLayout.setHorizontalGroup(
             PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelInfoFilmLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addGroup(PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelInfoFilmLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(Dereserver)))
                 .addContainerGap())
         );
         PanelInfoFilmLayout.setVerticalGroup(
@@ -89,7 +96,8 @@ public class PageHistoFact extends javax.swing.JFrame {
             .addGroup(PanelInfoFilmLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 230, Short.MAX_VALUE)
+                .addComponent(Dereserver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout PanelInfoCptLayout = new javax.swing.GroupLayout(PanelInfoCpt);
@@ -153,6 +161,7 @@ public class PageHistoFact extends javax.swing.JFrame {
     }//GEN-LAST:event_listHistoriqueMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Dereserver;
     private javax.swing.JTextPane Info;
     private javax.swing.JPanel PanelInfoCpt;
     private javax.swing.JPanel PanelInfoFilm;

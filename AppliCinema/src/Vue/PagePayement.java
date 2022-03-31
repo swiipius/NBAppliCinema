@@ -13,8 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.io.*;
+import java.text.ParseException;
 import javax.swing.*;
 import jdbc2020.Connexion;
+import java.util.*;
+import java.text.SimpleDateFormat;  
 
 /**
  *
@@ -27,6 +30,8 @@ public class PagePayement extends javax.swing.JFrame {
     int nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_film, id_client, id_seance;
     Connexion connect;
     boolean PayOK = false;
+    private String sdate;
+     
 
     /**
      * Creates new form PagePayement
@@ -45,6 +50,11 @@ public class PagePayement extends javax.swing.JFrame {
         id_film = film;
         id_client = client;
         id_seance = seance;
+    }
+    
+    private Date toDate(String sdate) throws ParseException{
+        Date date = new SimpleDateFormat("/MM/yyyy").parse(sdate);
+        return date;
     }
 
     private int countCrypto = 0;
@@ -257,6 +267,7 @@ public class PagePayement extends javax.swing.JFrame {
         LocalDateTime now = LocalDateTime.now();
         //System.out.println(dtf.format(now).compareTo(Date.getText()));
         //Verification que toutes les infos ont été rentré
+        
         if ((NumCarte.getText().equals("Numero de la carte")) || (Nom.getText().equals("Nom sur la  carte")) || (Crypto.getText().equals("Cryptogramme")) || (Date.getText().equals("   /   "))) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
         } //Verification de la taille
@@ -269,45 +280,49 @@ public class PagePayement extends javax.swing.JFrame {
             Crypto.setText(null);
             countCrypto = 0;
         } //verication de la validité
-        else if ((dtf.format(now).compareTo(Date.getText())) < 0) {
-            JOptionPane.showMessageDialog(null, "Carte périmée");
-            Date.setText(null);
-        } else {
-            JOptionPane.showMessageDialog(null, "Paiement Validé");
-            this.dispose();
-            try {
-                PageAccueil p = new PageAccueil(connexionValid, Emp);
-                PayOK = true;
-                if (!connexionValid) {
-                    String Seance[];
-                    String Film;
-                    Seance = getSeance(id_seance);
-                    Film = getFilm(id_film);
-                    String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
-                    File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
-
-                    if (!fBillet.exists()) {
-                        try {
-                            fBillet.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+        else try {
+            if (!testDate(Date.getText())) {
+                JOptionPane.showMessageDialog(null, "Carte périmée");
+                Date.setText(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "Paiement Validé");
+                this.dispose();
+                try {
+                    PageAccueil p = new PageAccueil(connexionValid, Emp);
+                    PayOK = true;
+                    if (!connexionValid) {
+                        String Seance[];
+                        String Film;
+                        Seance = getSeance(id_seance);
+                        Film = getFilm(id_film);
+                        String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
+                        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
+                        
+                        if (!fBillet.exists()) {
+                            try {
+                                fBillet.createNewFile();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
+                        
+                        try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
+                            print.print(billet);
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        p.setVisible(true);
+                        gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
                     }
-
-                    try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
-                        print.print(billet);
-                    } catch (FileNotFoundException ex) {
-                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } else {
-                    p.setVisible(true);
-                    gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } catch (ParseException ex) {
+            Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnValidActionPerformed
 
@@ -375,6 +390,25 @@ public class PagePayement extends javax.swing.JFrame {
         Film = connect.requestDemande(requete);
         strFilm = Film.get(0);
         return strFilm;
+    }
+    
+    public boolean testDate(String sDate) throws ParseException{
+        SimpleDateFormat sdf = new SimpleDateFormat("MM / yy");
+        boolean verif = false;
+        Date dCarte = new Date();
+        Date dAuj = new Date();
+        dAuj = sdf.parse(sdf.format(new Date()));
+        dCarte = sdf.parse(sDate);
+        
+        int result;
+        result = dCarte.compareTo(dAuj);
+        
+        if(result < 0){
+            return verif;
+        }
+        else{
+            return !verif;
+        }
     }
 
 
