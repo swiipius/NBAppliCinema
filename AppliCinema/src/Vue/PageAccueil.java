@@ -7,6 +7,7 @@ package Vue;
 
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 import java.sql.*;
@@ -14,6 +15,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
 import java.net.URL;
+import java.io.*;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -56,7 +59,6 @@ public class PageAccueil extends javax.swing.JFrame {
         initComponents();
         BoutonSeancesFilmSelectione.setEnabled(false);
         PanelDescriptionAccueil.setVisible(false);
-        labelImages.setVisible(false);
         //Connection a la bdd
         connect = new Connexion("Cinema", "root", "");
         listModel = connect.requestDemande(requete);
@@ -436,7 +438,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
 
     private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
-        
+
     }//GEN-LAST:event_barreRechercheAccueilActionPerformed
 
     private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
@@ -452,17 +454,15 @@ public class PageAccueil extends javax.swing.JFrame {
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
-            labelImages.setVisible(true);
             if (!IsEmp) {
                 BoutonSeancesFilmSelectione.setEnabled(true);
             } else {
                 BoutonSeancesFilmSelectione.setEnabled(false);
             }
             String textAffich = "";
-            String url= "";
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
             String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film,affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
-
+            String StringAffiche = "SELECT affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
                 System.out.println(listModel1);
@@ -482,12 +482,21 @@ public class PageAccueil extends javax.swing.JFrame {
             //Affichage des infos
             textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
             descriptionFilmsAccueilText.setText(textAffich);
-            url=listModel1.get(8);
-            //code prit du site http://www.codeurjava.com/2015/03/java-ajouter-une-image-ou-un-icone.html
-            ImageIcon icone = new ImageIcon (url);
-            labelImages.setIcon(icone);
-            //ps encore testé avec des images
             
+            /*try {
+                ////////////////////
+                //affichage d'une image stockée avec son lien url dans la bdd des films
+                //code imspiré du site http://www.codeurjava.com/2015/03/java-ajouter-une-image-ou-un-icone.html
+                
+                URL url = getClass().getResource(listModel1.get(8));
+                BufferedImage c = ImageIO.read(url);
+                ImageIcon icone = new ImageIcon(c);
+                labelImages.setIcon(icone);
+            } catch (IOException ex) {
+                Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            ////////////////////
+            */
         }
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
 
