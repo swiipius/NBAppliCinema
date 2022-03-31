@@ -17,7 +17,7 @@ import java.text.ParseException;
 import javax.swing.*;
 import jdbc2020.Connexion;
 import java.util.*;
-import java.text.SimpleDateFormat;  
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -31,7 +31,6 @@ public class PagePayement extends javax.swing.JFrame {
     Connexion connect;
     boolean PayOK = false;
     private String sdate;
-     
 
     /**
      * Creates new form PagePayement
@@ -40,7 +39,7 @@ public class PagePayement extends javax.swing.JFrame {
      */
     public PagePayement(boolean connexionValid, int nbMembre, int nbSenior, int nbEnfant, int nbPasCo, int film, int seance, int client) {
         super("Page De Payement");
-        initComponents();        
+        initComponents();
         this.connexionValid = connexionValid;
         this.Emp = Emp;
         nbVenduSernior = nbSenior;
@@ -51,8 +50,8 @@ public class PagePayement extends javax.swing.JFrame {
         id_client = client;
         id_seance = seance;
     }
-    
-    private Date toDate(String sdate) throws ParseException{
+
+    private Date toDate(String sdate) throws ParseException {
         Date date = new SimpleDateFormat("/MM/yyyy").parse(sdate);
         return date;
     }
@@ -267,7 +266,7 @@ public class PagePayement extends javax.swing.JFrame {
         LocalDateTime now = LocalDateTime.now();
         //System.out.println(dtf.format(now).compareTo(Date.getText()));
         //Verification que toutes les infos ont été rentré
-        
+
         if ((NumCarte.getText().equals("Numero de la carte")) || (Nom.getText().equals("Nom sur la  carte")) || (Crypto.getText().equals("Cryptogramme")) || (Date.getText().equals("   /   "))) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
         } //Verification de la taille
@@ -280,49 +279,55 @@ public class PagePayement extends javax.swing.JFrame {
             Crypto.setText(null);
             countCrypto = 0;
         } //verication de la validité
-        else try {
-            if (!testDate(Date.getText())) {
-                JOptionPane.showMessageDialog(null, "Carte périmée");
-                Date.setText(null);
-            } else {
-                JOptionPane.showMessageDialog(null, "Paiement Validé");
-                this.dispose();
-                try {
-                    PageAccueil p = new PageAccueil(connexionValid, Emp);
-                    PayOK = true;
-                    if (!connexionValid) {
-                        String Seance[];
-                        String Film;
-                        Seance = getSeance(id_seance);
-                        Film = getFilm(id_film);
-                        String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
-                        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
-                        
-                        if (!fBillet.exists()) {
-                            try {
-                                fBillet.createNewFile();
-                            } catch (IOException e) {
-                                e.printStackTrace();
+        else {
+            try {
+                if (!testDate(Date.getText())) {
+                    JOptionPane.showMessageDialog(null, "Carte périmée");
+                    Date.setText(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Paiement Validé");
+                    this.dispose();
+                    try {
+                        PayOK = true;
+                        if (!connexionValid) {
+                            String Seance[];
+                            String Film;
+                            Seance = getSeance(id_seance);
+                            Film = getFilm(id_film);
+                            String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
+                            String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
+                            File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet"+ Nom +".txt");
+
+                            if (!fBillet.exists()) {
+                                try {
+                                    fBillet.createNewFile();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+                            try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
+                                print.print(billet);
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            JOptionPane.showMessageDialog(null, "Votre billet a été imprimé");
                         }
-                        
-                        try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
-                            print.print(billet);
-                        } catch (FileNotFoundException ex) {
-                            Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                        else{
+                            gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
                         }
-                    } else {
+                        PageAccueil p = new PageAccueil(connexionValid, Emp);
                         p.setVisible(true);
-                        gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
+                        
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } catch (SQLException ex) {
-                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } catch (ParseException ex) {
+                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (ParseException ex) {
-            Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnValidActionPerformed
 
@@ -331,7 +336,7 @@ public class PagePayement extends javax.swing.JFrame {
     }//GEN-LAST:event_NomActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -344,9 +349,7 @@ public class PagePayement extends javax.swing.JFrame {
                 try {
                     PageSelecPrix psp = new PageSelecPrix(connexionValid, id_film, id_client, id_seance);
                     psp.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
@@ -354,19 +357,33 @@ public class PagePayement extends javax.swing.JFrame {
                 pp.setVisible(true);
             }
         }
+        /*else{
+            try {
+                PageAccueil pa = new PageAccueil(connexionValid, Emp);
+                pa.setVisible(true);
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }*/
     }//GEN-LAST:event_formWindowClosing
 
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         connect = new Connexion("cinema", "root", "");
         String requeteAjout;
         while (nbVenduSenior != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 8 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Senior';";
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES(" + 8 + "," + id_client + "," + id_film + "," + id_seance + ",'Senior');";
+            connect.executeUpdate(requeteAjout);
+            nbVenduSenior --;
         }
         while (nbVenduMembre != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 10 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Membre';";
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES(" + 10 + "," + id_client + "," + id_film + "," + id_seance + ",'Membre');";
+            connect.executeUpdate(requeteAjout);
+            nbVenduMembre --;
         }
         while (nbVenduEnfant != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 6 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Enfant';";
+            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES(" + 6 + "," + id_client + "," + id_film + "," + id_seance + ",'Enfant');";
+            connect.executeUpdate(requeteAjout);
+            nbVenduEnfant --;
         }
     }
 
@@ -391,22 +408,21 @@ public class PagePayement extends javax.swing.JFrame {
         strFilm = Film.get(0);
         return strFilm;
     }
-    
-    public boolean testDate(String sDate) throws ParseException{
+
+    public boolean testDate(String sDate) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("MM / yy");
         boolean verif = false;
         Date dCarte = new Date();
         Date dAuj = new Date();
         dAuj = sdf.parse(sdf.format(new Date()));
         dCarte = sdf.parse(sDate);
-        
+
         int result;
         result = dCarte.compareTo(dAuj);
-        
-        if(result < 0){
+
+        if (result < 0) {
             return verif;
-        }
-        else{
+        } else {
             return !verif;
         }
     }

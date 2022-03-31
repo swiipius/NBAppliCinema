@@ -448,7 +448,6 @@ public class PageAccueil extends javax.swing.JFrame {
             
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
-                System.out.println(listModel1);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
