@@ -459,12 +459,14 @@ public class PageReduction extends javax.swing.JFrame {
         id_film = listModelID.get(9);
     }//GEN-LAST:event_choixFilmActionPerformed
 
+    //Detection selection dans la JList pour afficher le bouton de suppression
     private void ListReducMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListReducMouseClicked
         if (ListReduc.getSelectedIndex() > -1) {
             btnDel.setEnabled(true);
         }
     }//GEN-LAST:event_ListReducMouseClicked
 
+    //Action realisee quand le bouton de suppression est actionne
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         //Recuperation de la promo selectionnee
         int index = ListReduc.getSelectedIndex();
@@ -472,7 +474,9 @@ public class PageReduction extends javax.swing.JFrame {
         //Correspondance avec l'ID de la promo
         String id_promo = listModelReduc.get(index * 4 + 3);
         try {
+            //Supprime l'element de la BDD
             reduc.delReducByID(id_promo);
+            //Retire l'element supprime de la list
             listModelReducAffich.removeElementAt(index);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
@@ -488,47 +492,6 @@ public class PageReduction extends javax.swing.JFrame {
         else{
             btnValid.setEnabled(true);
         }
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageReduction().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
