@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import DAO.*;
 import javax.swing.JOptionPane;
 import Modele.Reduction;
 import java.sql.SQLException;
@@ -19,7 +20,8 @@ import jdbc2020.*;
  */
 public class PageReduction extends javax.swing.JFrame {
 
-    public Reduction reduc;
+    public ReductionDAO reduc;
+    public FilmDAO film;
 
     private String Heure = "", titreFilm, id_film = "";
     DefaultListModel<String> listModelTitre = new DefaultListModel<>();
@@ -80,6 +82,12 @@ public class PageReduction extends javax.swing.JFrame {
         btnValid = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        choixFilm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                choixFilmActionPerformed(evt);
+            }
+        });
 
         btnValidChoix.setText("Valider");
         btnValidChoix.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +283,7 @@ public class PageReduction extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(PanelReduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addGap(0, 33, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addComponent(PanelChoixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,7 +310,7 @@ public class PageReduction extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -321,28 +329,16 @@ public class PageReduction extends javax.swing.JFrame {
     private void btnFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmActionPerformed
         PanelChoixFilm.setVisible(true);
         PanelReduc.setVisible(false);
-        titreFilm = (String) choixFilm.getSelectedItem();
-        try {
-            listModelID = connect.requestDemande("SELECT id_film FROM film WHERE titre = '" + titreFilm + "';");
-        } catch (SQLException ex) {
-            Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        id_film = listModelID.get(0);
         Heure = null;
     }//GEN-LAST:event_btnFilmActionPerformed
 
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
 
+        reduc = new ReductionDAO("cinema", "root", "");
         try {
-            reduc = new Reduction();
-        } catch (SQLException ex) {
-            Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            reduc.reduction(id_film, Heure, sReduction.getText());
-        } catch (SQLException ex) {
+            System.out.println(id_film);
+            reduc.addReduction(id_film, Heure, sReduction.getText());
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
         }
         JOptionPane.showMessageDialog(null, "La reduction a été ajoutée");
@@ -380,6 +376,18 @@ public class PageReduction extends javax.swing.JFrame {
     private void sReductionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sReductionMouseExited
         testAfficheBtnValid();
     }//GEN-LAST:event_sReductionMouseExited
+
+    private void choixFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixFilmActionPerformed
+        film = new FilmDAO("cinema", "root", "");
+        titreFilm = (String) choixFilm.getSelectedItem();
+        try {
+            listModelID = film.getFilmByTitre(titreFilm);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(titreFilm);
+        id_film = listModelID.get(9);
+    }//GEN-LAST:event_choixFilmActionPerformed
 
     public void testAfficheBtnValid() {
         if ((sReduction.getText().equals("")) && ((Heure.equals("")) || (id_film != null))) {

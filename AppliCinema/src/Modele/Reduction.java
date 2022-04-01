@@ -15,19 +15,72 @@ import jdbc2020.*;
  */
 public class Reduction {
     
-    Connexion connect = new Connexion("Cinema", "root", "");
+    private int id;
+    private int pourcentage;
+    private String conditionHeure;
+    private int id_film;
     
-    public Reduction() throws SQLException, ClassNotFoundException{
-        
+    public Reduction() throws SQLException, ClassNotFoundException{  
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * @return the pourcentage
+     */
+    public int getPourcentage() {
+        return pourcentage;
+    }
+
+    /**
+     * @param pourcentage the pourcentage to set
+     */
+    public void setPourcentage(int pourcentage) {
+        this.pourcentage = pourcentage;
+    }
+
+    /**
+     * @return the conditionHeure
+     */
+    public String getConditionHeure() {
+        return conditionHeure;
+    }
+
+    /**
+     * @param conditionHeure the conditionHeure to set
+     */
+    public void setConditionHeure(String conditionHeure) {
+        this.conditionHeure = conditionHeure;
+    }
+
+    /**
+     * @return the id_film
+     */
+    public int getId_film() {
+        return id_film;
+    }
+
+    /**
+     * @param id_film the id_film to set
+     */
+    public void setId_film(int id_film) {
+        this.id_film = id_film;
     }
     
-    public void reduction(String Film, String Heure, String Reduction) throws SQLException{
-        if(Film == null){
-            System.out.println("INSERT INTO  reduction(Pourcentage, ConditionHeure) VALUES ("+Reduction+", '"+Heure+"');");
-            connect.executeUpdate("INSERT INTO  reduction(Pourcentage, ConditionHeure) VALUES ("+Reduction+", '"+Heure+"');");
-        }
-        else{
-            connect.executeUpdate("INSERT INTO  reduction(Pourcentage, ID_film) VALUES ("+Reduction+", "+Film+");");
-        }
+    @Override
+    public String toString(){
+        return "Pourcentage : "+pourcentage+"\nCondition Heure : "+conditionHeure+"\nID_Film : "+id_film;
     }
 }

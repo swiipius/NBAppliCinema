@@ -5,14 +5,11 @@
  */
 package Vue;
 
-import java.awt.event.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
@@ -173,9 +170,9 @@ public class PageHistoFact extends javax.swing.JFrame {
 
     private void DereserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DereserverActionPerformed
         int result = JOptionPane.showConfirmDialog(null, "Etes vous sur de ne pas venir a cette séance ?", "Annulation", JOptionPane.YES_NO_OPTION);
-
+        int index =  listHistorique.getSelectedIndex();
+        
         if (result == JOptionPane.YES_OPTION) {
-            int index = listHistorique.getSelectedIndex();
             requeteSuppr = "DELETE FROM billet WHERE id_billet = " + listModelTitre.get(5*index+4) + ";";
             try {
                 connect.executeUpdate(requeteSuppr);
