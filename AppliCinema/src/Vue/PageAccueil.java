@@ -101,6 +101,7 @@ public class PageAccueil extends javax.swing.JFrame {
         btnSeances = new javax.swing.JButton();
         btnFilms = new javax.swing.JButton();
         BoutonStatisques = new javax.swing.JButton();
+        btnRed = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -266,9 +267,19 @@ public class PageAccueil extends javax.swing.JFrame {
         });
 
         BoutonStatisques.setText("Statistiques");
+        BoutonStatisques.setMaximumSize(new java.awt.Dimension(98, 25));
+        BoutonStatisques.setMinimumSize(new java.awt.Dimension(98, 25));
+        BoutonStatisques.setPreferredSize(new java.awt.Dimension(98, 25));
         BoutonStatisques.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoutonStatisquesActionPerformed(evt);
+            }
+        });
+
+        btnRed.setText("Réduction");
+        btnRed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedActionPerformed(evt);
             }
         });
 
@@ -278,14 +289,14 @@ public class PageAccueil extends javax.swing.JFrame {
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmpLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(btnSeances)
+                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRed, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmpLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BoutonStatisques)
-                .addGap(90, 90, 90))
+                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BoutonStatisques, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFilms, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         PanelEmpLayout.setVerticalGroup(
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +306,9 @@ public class PageAccueil extends javax.swing.JFrame {
                     .addComponent(btnSeances)
                     .addComponent(btnFilms))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BoutonStatisques)
+                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BoutonStatisques, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRed))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -518,6 +531,18 @@ public class PageAccueil extends javax.swing.JFrame {
         pStats.setVisible(true);
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
 
+    private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
+        PageReduction pr;
+        try {
+            pr = new PageReduction();
+            pr.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnRedActionPerformed
+
     public void affichageBtnCo( boolean COk, boolean Emp){
         if(COk){
             if(Emp){
@@ -556,6 +581,7 @@ public class PageAccueil extends javax.swing.JFrame {
     private javax.swing.JTextField barreRechercheAccueil;
     private javax.swing.JButton btnCpt;
     private javax.swing.JButton btnFilms;
+    private javax.swing.JButton btnRed;
     private javax.swing.JButton btnSeances;
     private javax.swing.JTextPane descriptionFilmsAccueilText;
     private javax.swing.JLayeredPane jLayeredPane1;

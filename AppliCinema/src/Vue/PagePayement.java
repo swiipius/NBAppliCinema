@@ -19,6 +19,7 @@ import jdbc2020.Connexion;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+
 /**
  *
  * @author pierr
@@ -73,7 +74,7 @@ public class PagePayement extends javax.swing.JFrame {
         Crypto = new javax.swing.JTextField();
         Nom = new javax.swing.JTextField();
         Date = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        DateExp = new javax.swing.JLabel();
         ImageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -121,7 +122,7 @@ public class PagePayement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(NumCarte);
-        NumCarte.setBounds(270, 140, 250, 40);
+        NumCarte.setBounds(270, 140, 260, 40);
 
         Crypto.setBackground(new java.awt.Color(204, 204, 204));
         Crypto.setForeground(new java.awt.Color(0, 0, 0));
@@ -143,7 +144,7 @@ public class PagePayement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Crypto);
-        Crypto.setBounds(440, 200, 80, 40);
+        Crypto.setBounds(440, 200, 90, 40);
 
         Nom.setBackground(new java.awt.Color(204, 204, 204));
         Nom.setForeground(new java.awt.Color(0, 0, 0));
@@ -162,7 +163,7 @@ public class PagePayement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Nom);
-        Nom.setBounds(270, 90, 250, 40);
+        Nom.setBounds(270, 90, 260, 40);
 
         Date.setBackground(new java.awt.Color(204, 204, 204));
         Date.setForeground(new java.awt.Color(0, 0, 0));
@@ -174,17 +175,17 @@ public class PagePayement extends javax.swing.JFrame {
         Date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Date.setToolTipText("");
         getContentPane().add(Date);
-        Date.setBounds(290, 210, 60, 30);
+        Date.setBounds(270, 210, 60, 30);
 
-        jLabel1.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Date d'expiration");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(280, 190, 80, 15);
+        DateExp.setBackground(new java.awt.Color(0, 0, 0));
+        DateExp.setForeground(new java.awt.Color(0, 0, 0));
+        DateExp.setText("Date d'expiration");
+        getContentPane().add(DateExp);
+        DateExp.setBounds(270, 190, 80, 15);
 
         ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PagePayement.png"))); // NOI18N
         getContentPane().add(ImageFond);
-        ImageFond.setBounds(0, 0, 830, 480);
+        ImageFond.setBounds(0, 0, 850, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -426,15 +427,24 @@ public class PagePayement extends javax.swing.JFrame {
             return !verif;
         }
     }
+    
+    public void email(String adresse){
+        String to = adresse;
+        String From = "swiip.hebus@gmail.com";
+        String host = "localhost";
+        Properties properties = System.getProperties();
+        
+        
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;
     private javax.swing.JFormattedTextField Date;
+    private javax.swing.JLabel DateExp;
     private javax.swing.JLabel ImageFond;
     private javax.swing.JTextField Nom;
     private javax.swing.JTextField NumCarte;
     private javax.swing.JButton btnValid;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

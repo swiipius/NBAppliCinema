@@ -25,6 +25,8 @@ public class PageSelecPrix extends javax.swing.JFrame {
     public boolean isCo, choixOk = false;
     String sommeStr;
     DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModelFilm = new DefaultListModel<>();
+    DefaultListModel<String> listModelHeure = new DefaultListModel<>();
     String Synopsis, requete;
     int taille;
     Connexion connect;
@@ -98,6 +100,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         Total = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -252,6 +255,13 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
         jLabel1.setText("Total Commande :");
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -265,25 +275,34 @@ public class PageSelecPrix extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(234, 234, 234)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(4, 4, 4)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAchat)))))
-                .addContainerGap(274, Short.MAX_VALUE))
+                                .addComponent(btnAchat))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                                .addComponent(jButton1)))))
+                .addGap(89, 89, 89))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(Selecplace)
-                .addGap(32, 32, 32)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPane1)
-                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLayeredPane1)
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(151, 151, 151)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnAchat)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,6 +344,11 @@ public class PageSelecPrix extends javax.swing.JFrame {
     }//GEN-LAST:event_EnfantStateChanged
 
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
+        try {
+            checkReduction(film, seance);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+        }
         PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), film, seance, client);
         nbPlaceVendu();
         this.dispose();
@@ -345,6 +369,14 @@ public class PageSelecPrix extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            checkReduction(film, seance);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public void total() {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
     }
@@ -364,6 +396,59 @@ public class PageSelecPrix extends javax.swing.JFrame {
             btnAchat.setEnabled(false);
         }
     }
+    
+    public void checkReduction(int id_film, int id_seance) throws SQLException{
+        listModelFilm = connect.requestDemande("SELECT pourcentage FROM reduction WHERE id_film = " + id_film + " ORDER BY pourcentage DESC;");
+        listModelHeure = connect.requestDemande("SELECT pourcentage FROM reduction JOIN seance  WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+seance+" ORDER BY pourcentage DESC;");
+        if(listModelFilm.size()!=0){
+            int valeurReduc = Integer.parseInt(listModelFilm.get(0));
+            somme =somme * (100-valeurReduc)/100;
+            JOptionPane.showMessageDialog(null, "La reduction a été appliquée, le nouveau prix est de "+somme);
+        }
+        else if(listModelHeure.size()!=0){
+            int valeurReduc = Integer.parseInt(listModelHeure.get(0));
+            somme =somme * (100-valeurReduc)/100;
+            JOptionPane.showMessageDialog(null, "La reduction a été appliquée, le nouveau prix est de "+somme);
+        }
+    }
+    
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new PageSelecPrix(false, 2, 0, 0).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner Enfant;
@@ -375,6 +460,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
     private javax.swing.JSpinner Senior;
     private javax.swing.JTextPane Total;
     private javax.swing.JButton btnAchat;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
