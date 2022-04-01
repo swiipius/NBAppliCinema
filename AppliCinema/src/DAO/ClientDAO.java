@@ -26,7 +26,7 @@ public class ClientDAO {
         this.password = password;
     }
     
-    public void addFilm(Client client) throws SQLException, ClassNotFoundException{
+    public void addClient(Client client) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requetAjout = "INSERT INTO film(Nom, Prenom, Age, email, loginClient) VALUES('" + client.getNom() + "','" + client.getPrenom() + "'," + client.getAge() + ",'" + client.getEmail() + "','" + client.getLoginClient() + "')";
         connect.executeUpdate(requetAjout);
