@@ -38,9 +38,21 @@ public class FilmDAO {
         return connect.requestDemande(requeteDemande);
     }
     
+    public DefaultListModel<String> getFilmByID(String id) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT * FROM film WHERE id_film = " + id+";";
+        return connect.requestDemande(requeteDemande);
+    }
+    
     public void delFilmByTitreAndReal(String Titre, String NomReal) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteSuppr = "DELETE FROM Film WHERE Titre = '" + Titre + "' AND Nomrealisateur = '" + NomReal + "'";
         connect.executeUpdate(requeteSuppr);
+    }
+    
+    public DefaultListModel<String> getFilmTitre() throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT titre FROM film;";
+        return connect.requestDemande(requeteDemande);
     }
 }

@@ -335,8 +335,6 @@ public class PageSuppression extends javax.swing.JFrame {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Film Supprime");
-        } else {
-
         }
     }//GEN-LAST:event_btnDelActionPerformed
 

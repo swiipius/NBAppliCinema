@@ -35,4 +35,14 @@ public class ReductionDAO {
             connect.executeUpdate("INSERT INTO  reduction(Pourcentage, ID_film) VALUES ("+Reduction+", "+Film+");");
         }
     }
+    
+    public void delReducByID(String id) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        connect.executeUpdate("DELETE FROM reduction WHERE id_reduction = " + id + ";");
+    }
+    
+    public DefaultListModel<String> getReduc() throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return connect.requestDemande("SELECT * FROM reduction;");
+    }
 }

@@ -26,7 +26,8 @@ public class PageReduction extends javax.swing.JFrame {
     private String Heure = "", titreFilm, id_film = "";
     DefaultListModel<String> listModelTitre = new DefaultListModel<>();
     DefaultListModel<String> listModelID = new DefaultListModel<>();
-    Connexion connect;
+    DefaultListModel<String> listModelReduc = new DefaultListModel<>();
+    DefaultListModel<String> listModelReducAffich = new DefaultListModel<>();
     private boolean testHeure = false, testMinute = false;
 
     /**
@@ -37,18 +38,34 @@ public class PageReduction extends javax.swing.JFrame {
      */
     public PageReduction() throws SQLException, ClassNotFoundException {
         initComponents();
+        
+        //Initialisation des panneaux et des boutons
         PanelChoixFilm.setVisible(false);
         PanelReduc.setVisible(true);
         PanelChoixHeure.setVisible(false);
         btnValid.setEnabled(false);
-         btnValidHeure.setEnabled(false);
+        btnValidHeure.setEnabled(false);
+        btnDel.setEnabled(false);
 
-        connect = new Connexion("cinema", "root", "");
-        listModelTitre = connect.requestDemande("SELECT titre FROM film");
-
+        //Creation de la combo box
+        film = new FilmDAO("cinema", "root", "");
+        listModelTitre = film.getFilmTitre();
         for (int i = 0; i < listModelTitre.size(); i++) {
             choixFilm.addItem(listModelTitre.get(i));
         }
+        
+        //creation de la JList
+        reduc = new ReductionDAO("cinema", "root", "");
+        listModelReduc = reduc.getReduc();
+        for(int i = 0; i<listModelReduc.size(); i+=4){
+            if(listModelReduc.get(i+2)==null){
+                listModelReducAffich.add(i/3, listModelReduc.get(i)+ ", "+ null+ ", "+listModelReduc.get(i+1));
+            }
+            else{
+                listModelReducAffich.add(i/3, listModelReduc.get(i)+ ", "+ film.getFilmByID(listModelReduc.get(i+3)).get(0)+ ", "+listModelReduc.get(i+1));
+            }
+        }    
+        ListReduc.setModel(listModelReducAffich);
     }
 
     /**
@@ -61,7 +78,8 @@ public class PageReduction extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        AjoutReduc = new javax.swing.JLayeredPane();
         PanelChoixFilm = new javax.swing.JPanel();
         choixFilm = new javax.swing.JComboBox<>();
         btnValidChoix = new javax.swing.JButton();
@@ -80,6 +98,10 @@ public class PageReduction extends javax.swing.JFrame {
         btnHeure = new javax.swing.JRadioButton();
         btnFilm = new javax.swing.JRadioButton();
         btnValid = new javax.swing.JButton();
+        SupprReduc = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ListReduc = new javax.swing.JList<>();
+        btnDel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,18 +128,18 @@ public class PageReduction extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addComponent(choixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelChoixFilmLayout.createSequentialGroup()
-                        .addGap(109, 109, 109)
+                        .addGap(215, 215, 215)
                         .addComponent(btnValidChoix)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelChoixFilmLayout.setVerticalGroup(
             PanelChoixFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelChoixFilmLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(106, 106, 106)
                 .addComponent(choixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addComponent(btnValidChoix)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         PanelChoixHeure.setPreferredSize(new java.awt.Dimension(280, 280));
@@ -273,70 +295,113 @@ public class PageReduction extends javax.swing.JFrame {
                 .addContainerGap(94, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.setLayer(PanelChoixFilm, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(PanelChoixHeure, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(PanelReduc, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        AjoutReduc.setLayer(PanelChoixFilm, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        AjoutReduc.setLayer(PanelChoixHeure, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        AjoutReduc.setLayer(PanelReduc, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout AjoutReducLayout = new javax.swing.GroupLayout(AjoutReduc);
+        AjoutReduc.setLayout(AjoutReducLayout);
+        AjoutReducLayout.setHorizontalGroup(
+            AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AjoutReducLayout.createSequentialGroup()
                 .addComponent(PanelReduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(0, 28, Short.MAX_VALUE))
+            .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AjoutReducLayout.createSequentialGroup()
                     .addComponent(PanelChoixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1, Short.MAX_VALUE)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addGap(0, 14, Short.MAX_VALUE)))
+            .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AjoutReducLayout.createSequentialGroup()
                     .addComponent(PanelChoixHeure, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        AjoutReducLayout.setVerticalGroup(
+            AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(PanelReduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+            .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AjoutReducLayout.createSequentialGroup()
                     .addComponent(PanelChoixFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+            .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(AjoutReducLayout.createSequentialGroup()
+                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                     .addContainerGap()))
         );
+
+        jTabbedPane1.addTab("Ajout Réduction", AjoutReduc);
+
+        ListReduc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListReducMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(ListReduc);
+
+        btnDel.setText("Supprimer");
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SupprReducLayout = new javax.swing.GroupLayout(SupprReduc);
+        SupprReduc.setLayout(SupprReducLayout);
+        SupprReducLayout.setHorizontalGroup(
+            SupprReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SupprReducLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(SupprReducLayout.createSequentialGroup()
+                .addGap(113, 113, 113)
+                .addComponent(btnDel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        SupprReducLayout.setVerticalGroup(
+            SupprReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SupprReducLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDel)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Suppression Réduction", SupprReduc);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Bouton de selection de l'heure
     private void btnHeureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHeureActionPerformed
         PanelChoixHeure.setVisible(true);
         PanelReduc.setVisible(false);
         id_film = null;
     }//GEN-LAST:event_btnHeureActionPerformed
 
+    //Bouton de selection du film
     private void btnFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmActionPerformed
         PanelChoixFilm.setVisible(true);
         PanelReduc.setVisible(false);
         Heure = null;
     }//GEN-LAST:event_btnFilmActionPerformed
 
+    //Nouton de valisation de l'ajout
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
 
         reduc = new ReductionDAO("cinema", "root", "");
         try {
-            System.out.println(id_film);
             reduc.addReduction(id_film, Heure, sReduction.getText());
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
@@ -344,12 +409,14 @@ public class PageReduction extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "La reduction a été ajoutée");
     }//GEN-LAST:event_btnValidActionPerformed
 
+    //Bouton de valisation du choix du film
     private void btnValidChoixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidChoixActionPerformed
         PanelChoixFilm.setVisible(false);
         PanelReduc.setVisible(true);
         testAfficheBtnValid();
     }//GEN-LAST:event_btnValidChoixActionPerformed
 
+    //Paramétrage du slider de selection de l'heure
     private void SliderHeureStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderHeureStateChanged
         HeureAffiche.setText(Integer.toString(SliderHeure.getValue()));
         testHeure = true;
@@ -358,6 +425,7 @@ public class PageReduction extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SliderHeureStateChanged
 
+    //Parametrage du slider de selection des minutes
     private void SliderMinuteStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderMinuteStateChanged
         MinuteAffiche.setText(Integer.toString(SliderMinute.getValue()));
         testMinute = true;
@@ -366,6 +434,7 @@ public class PageReduction extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SliderMinuteStateChanged
 
+    //Bouton de validation du choix de l'heure
     private void btnValidHeureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidHeureActionPerformed
         PanelChoixHeure.setVisible(false);
         PanelReduc.setVisible(true);
@@ -373,10 +442,12 @@ public class PageReduction extends javax.swing.JFrame {
         testAfficheBtnValid();
     }//GEN-LAST:event_btnValidHeureActionPerformed
 
+    //Affichage ou non du bouton de validation de la reduc
     private void sReductionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sReductionMouseExited
         testAfficheBtnValid();
     }//GEN-LAST:event_sReductionMouseExited
 
+    //Recuperation des infos du film a partir de celuis selectionne dans la combo box
     private void choixFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixFilmActionPerformed
         film = new FilmDAO("cinema", "root", "");
         titreFilm = (String) choixFilm.getSelectedItem();
@@ -385,10 +456,31 @@ public class PageReduction extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(titreFilm);
         id_film = listModelID.get(9);
     }//GEN-LAST:event_choixFilmActionPerformed
 
+    private void ListReducMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListReducMouseClicked
+        if (ListReduc.getSelectedIndex() > -1) {
+            btnDel.setEnabled(true);
+        }
+    }//GEN-LAST:event_ListReducMouseClicked
+
+    private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
+        //Recuperation de la promo selectionnee
+        int index = ListReduc.getSelectedIndex();
+        
+        //Correspondance avec l'ID de la promo
+        String id_promo = listModelReduc.get(index * 4 + 3);
+        try {
+            reduc.delReducByID(id_promo);
+            listModelReducAffich.removeElementAt(index);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageReduction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnDelActionPerformed
+
+    //Test pour l'affichage du bouton de validation de la reudc (uniquement si tout est rempli)
     public void testAfficheBtnValid() {
         if ((sReduction.getText().equals("")) && ((Heure.equals("")) || (id_film != null))) {
             btnValid.setEnabled(false);
@@ -440,8 +532,10 @@ public class PageReduction extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLayeredPane AjoutReduc;
     private javax.swing.JLabel HeureAffiche;
     private javax.swing.JLabel HeureTxt;
+    private javax.swing.JList<String> ListReduc;
     private javax.swing.JLabel MinuteAffiche;
     private javax.swing.JLabel MinuteTxt;
     private javax.swing.JPanel PanelChoixFilm;
@@ -449,6 +543,8 @@ public class PageReduction extends javax.swing.JFrame {
     private javax.swing.JPanel PanelReduc;
     private javax.swing.JSlider SliderHeure;
     private javax.swing.JSlider SliderMinute;
+    private javax.swing.JPanel SupprReduc;
+    private javax.swing.JButton btnDel;
     private javax.swing.JRadioButton btnFilm;
     private javax.swing.JRadioButton btnHeure;
     private javax.swing.JButton btnValid;
@@ -458,7 +554,8 @@ public class PageReduction extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> choixFilm;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField sReduction;
     // End of variables declaration//GEN-END:variables
 }
