@@ -536,9 +536,7 @@ public class PageAccueil extends javax.swing.JFrame {
         try {
             pr = new PageReduction();
             pr.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRedActionPerformed

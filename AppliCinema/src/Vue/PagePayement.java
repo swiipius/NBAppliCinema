@@ -79,7 +79,7 @@ public class PagePayement extends javax.swing.JFrame {
         btnValid = new javax.swing.JButton();
         labelCrypto = new javax.swing.JLabel();
         labelNumCarte = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        Crypto = new javax.swing.JFormattedTextField();
         NumCarte = new javax.swing.JFormattedTextField();
         Nom = new javax.swing.JTextField();
         Date = new javax.swing.JFormattedTextField();
@@ -110,7 +110,7 @@ public class PagePayement extends javax.swing.JFrame {
         btnValid.setBounds(360, 290, 80, 40);
 
         labelCrypto.setForeground(new java.awt.Color(0, 0, 0));
-        labelCrypto.setText("Cryptogramme");
+        labelCrypto.setText(" Cryptogramme");
         getContentPane().add(labelCrypto);
         labelCrypto.setBounds(450, 210, 80, 15);
 
@@ -119,15 +119,15 @@ public class PagePayement extends javax.swing.JFrame {
         getContentPane().add(labelNumCarte);
         labelNumCarte.setBounds(280, 150, 200, 15);
 
-        jFormattedTextField1.setBackground(new java.awt.Color(204, 204, 204));
-        jFormattedTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        Crypto.setBackground(new java.awt.Color(204, 204, 204));
+        Crypto.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+            Crypto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        getContentPane().add(jFormattedTextField1);
-        jFormattedTextField1.setBounds(450, 200, 80, 30);
+        getContentPane().add(Crypto);
+        Crypto.setBounds(450, 200, 80, 40);
 
         NumCarte.setBackground(new java.awt.Color(204, 204, 204));
         try {
@@ -160,6 +160,11 @@ public class PagePayement extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 NomMouseExited(evt);
+            }
+        });
+        Nom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NomActionPerformed(evt);
             }
         });
         getContentPane().add(Nom);
@@ -316,6 +321,10 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NumCarteMouseExited
 
+    private void NomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NomActionPerformed
+
     //Ajout des différents billets dans la BDD
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         billet = new BilletDAO("cinema", "root", "");
@@ -372,13 +381,13 @@ public class PagePayement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField Crypto;
     private javax.swing.JFormattedTextField Date;
     private javax.swing.JLabel DateExp;
     private javax.swing.JLabel ImageFond;
     private javax.swing.JTextField Nom;
     private javax.swing.JFormattedTextField NumCarte;
     private javax.swing.JButton btnValid;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel labelCrypto;
     private javax.swing.JLabel labelNumCarte;
     // End of variables declaration//GEN-END:variables
