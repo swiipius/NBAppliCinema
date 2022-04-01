@@ -25,9 +25,9 @@ public class BilletDAO {
         this.password = password;
     }
     
-    public void addFilm(Billet billet) throws SQLException, ClassNotFoundException{
+    public void addBillet(int facture, int id_client, int id_seance, int id_film, String TypePlace) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
-        String requetAjout = "INSERT INTO film(facture,id_client,id-film,id_seance,TypePlace) VALUES(" + billet.getFacture() + "," + billet.getId_client() + "," + billet.getId_film() + "," + billet.getId_seance() + ",'" + billet.getTypePlace() + "')";
+        String requetAjout = "INSERT INTO billet(facture,id_client,id_film,id_seance,TypePlace) VALUES(" + facture + "," + id_client + "," + id_film + "," + id_seance + ",'" + TypePlace + "')";
         connect.executeUpdate(requetAjout);
     }
 }

@@ -30,4 +30,9 @@ public class SeanceDAO {
         String requetAjout = "INSERT INTO film(salle, ID_Film, Date, heureDebut) VALUES('" + seance.getSalle() + "','" + seance.getId_film() + "','" + seance.getDate() + "','" + seance.getHeuredebut() + "');";
         connect.executeUpdate(requetAjout);
     }
+    
+    public DefaultListModel<String> getSeanceByID(int id_seance) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return connect.requestDemande("SELECT * FROM Seance WHERE id_seance = "+id_seance+";");
+    }
 }
