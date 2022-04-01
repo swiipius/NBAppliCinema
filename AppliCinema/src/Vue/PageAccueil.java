@@ -26,23 +26,20 @@ public class PageAccueil extends javax.swing.JFrame {
 
     public Connexion connect;
     private final String requete = "SELECT titre FROM film";
-    private final String requete1 = "SELECT nomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final String requete2 = "SELECT prenomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final String requete3 = "SELECT duree FROM film WHERE titre= titreSelectionne";
-    private final String requete4 = "SELECT genre FROM film WHERE titre= titreSelectionne";
-    private final String requete5 = "SELECT note FROM film WHERE titre= titreSelectionne";
-    private final String requete6 = "SELECT synopsis FROM film WHERE titre= titreSelectionne";
-    private final String requete7 = "SELECT titre FROM film WHERE titre= titreSelectionne";
     private int taille;
     private String Synopsis;
     public int client;
     public int id_film;
     private String str;
+    byte[] imageFilm = null;
+    ResultSet rs;
+    PreparedStatement pst;
 
     PageConnexion pc = new PageConnexion();
 
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
+    DefaultListModel<byte[]> listModel2 = new DefaultListModel<>();
     private boolean connexionValid;
     private boolean IsEmp;
 
@@ -286,10 +283,10 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(btnSeances)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmpLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(128, Short.MAX_VALUE)
                 .addComponent(BoutonStatisques)
                 .addGap(90, 90, 90))
         );
@@ -459,13 +456,16 @@ public class PageAccueil extends javax.swing.JFrame {
             } else {
                 BoutonSeancesFilmSelectione.setEnabled(false);
             }
-            String textAffich = "";
+            String textAffich;
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
+            //on rceupere toute les info des films
             String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film,affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
-            String StringAffiche = "SELECT affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
+            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
                 System.out.println(listModel1);
+                connect.stmt.executeUpdate(requeteModifNBvues);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -480,23 +480,32 @@ public class PageAccueil extends javax.swing.JFrame {
             }
 
             //Affichage des infos
-            textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
+            textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "min\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
             descriptionFilmsAccueilText.setText(textAffich);
-            
-            /*try {
-                ////////////////////
-                //affichage d'une image stockée avec son lien url dans la bdd des films
-                //code imspiré du site http://www.codeurjava.com/2015/03/java-ajouter-une-image-ou-un-icone.html
-                
-                URL url = getClass().getResource(listModel1.get(8));
-                BufferedImage c = ImageIO.read(url);
-                ImageIcon icone = new ImageIcon(c);
-                labelImages.setIcon(icone);
-            } catch (IOException ex) {
-                Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+            String path = listModel1.get(7);
             ////////////////////
-            */
+            //affichage d'une image stockée avec son chemin dans la bdd des films
+            //code imspiré de la video youtube https://www.youtube.com/watch?v=oxT2G4gxsxc de Indra Subedi 
+            if (!"".equals(path)) {
+
+                ImageIcon ii = new ImageIcon(path);
+                Image im = ii.getImage().getScaledInstance(labelImages.getWidth(), labelImages.getHeight(), Image.SCALE_SMOOTH);
+                labelImages.setIcon(new ImageIcon(im));
+                try {
+                    File image = new File(path);
+                    FileInputStream fis = new FileInputStream(image);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] buf = new byte[1024];
+                    for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                        bos.write(buf, 0, readNum);
+                    }
+                    imageFilm = bos.toByteArray();
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+
         }
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
 
