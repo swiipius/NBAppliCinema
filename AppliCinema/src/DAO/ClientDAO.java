@@ -31,4 +31,10 @@ public class ClientDAO {
         String requetAjout = "INSERT INTO film(Nom, Prenom, Age, email, loginClient) VALUES('" + client.getNom() + "','" + client.getPrenom() + "'," + client.getAge() + ",'" + client.getEmail() + "','" + client.getLoginClient() + "')";
         connect.executeUpdate(requetAjout);
     }
+    
+    public String getNbClientByEmail(String email) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT COUNT(*) FROM client WHERE email LIKE '" + email + "'";
+        return (String)connect.requestDemande(requeteDemande).get(0);
+    }
 }

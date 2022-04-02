@@ -35,4 +35,14 @@ public class SeanceDAO {
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT * FROM Seance WHERE id_seance = "+id_seance+";");
     }
+    
+    public DefaultListModel<String> getDateHeureByID(int id_film) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return connect.requestDemande("SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + id_film + " ORDER BY date ASC;");
+    }
+    
+    public DefaultListModel<String> getIDByDateAndheureAndFilm(String date, String heure, int id_film) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return connect.requestDemande("SELECT id_seance FROM seance WHERE date LIKE '" + date + "' AND heureDebut LIKE '" + heure + "' AND ID_Film = " + id_film + ";");
+    }
 }

@@ -14,6 +14,9 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
+import java.util.regex.*;
+import java.util.*;
+import DAO.*;
 
 /**
  *
@@ -21,15 +24,13 @@ import jdbc2020.*;
  */
 public class PageInscription extends javax.swing.JFrame {
 
-    /**
-     * Creates new form PageInscription
-     */
+    private ClientDAO client;
     public Connexion connect;
     private String requete;
     boolean inscriptionOK;
     private int countAge = 0;
 
-    DefaultListModel<String> testPresence = new DefaultListModel<>();
+    private String testPresence;
 
     public PageInscription() throws SQLException, ClassNotFoundException {
         super("Page d'Inscription");
@@ -52,16 +53,23 @@ public class PageInscription extends javax.swing.JFrame {
         PrenomClient = new javax.swing.JTextField();
         NomClient = new javax.swing.JTextField();
         EmailClient = new javax.swing.JTextField();
+        AgeClient = new javax.swing.JFormattedTextField();
         LoginClient = new javax.swing.JTextField();
-        AgeClient = new javax.swing.JTextField();
         BoutonInscription = new javax.swing.JButton();
         btnCo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(750, 300, 0, 0));
+        setPreferredSize(new java.awt.Dimension(450, 600));
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(168, 26, 3));
+        jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Formulaire d'inscription Client:");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(35, 25, 369, 39);
 
         PrenomClient.setText("Prenom");
         PrenomClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,6 +80,8 @@ public class PageInscription extends javax.swing.JFrame {
                 PrenomClientMouseExited(evt);
             }
         });
+        jPanel1.add(PrenomClient);
+        PrenomClient.setBounds(218, 82, 200, 45);
 
         NomClient.setText("Nom");
         NomClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -82,6 +92,8 @@ public class PageInscription extends javax.swing.JFrame {
                 NomClientMouseExited(evt);
             }
         });
+        jPanel1.add(NomClient);
+        NomClient.setBounds(12, 82, 200, 45);
 
         EmailClient.setText("Email");
         EmailClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,6 +104,21 @@ public class PageInscription extends javax.swing.JFrame {
                 EmailClientMouseExited(evt);
             }
         });
+        jPanel1.add(EmailClient);
+        EmailClient.setBounds(12, 133, 406, 45);
+
+        AgeClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
+        AgeClient.setText("Age");
+        AgeClient.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                AgeClientMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                AgeClientMouseExited(evt);
+            }
+        });
+        jPanel1.add(AgeClient);
+        AgeClient.setBounds(20, 190, 50, 40);
 
         LoginClient.setText("Mot de passe");
         LoginClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -107,24 +134,8 @@ public class PageInscription extends javax.swing.JFrame {
                 LoginClientActionPerformed(evt);
             }
         });
-
-        AgeClient.setText("Age");
-        AgeClient.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AgeClientMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                AgeClientMouseExited(evt);
-            }
-        });
-        AgeClient.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                AgeClientKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                AgeClientKeyTyped(evt);
-            }
-        });
+        jPanel1.add(LoginClient);
+        LoginClient.setBounds(80, 190, 338, 45);
 
         BoutonInscription.setText("Inscription");
         BoutonInscription.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +143,8 @@ public class PageInscription extends javax.swing.JFrame {
                 BoutonInscriptionActionPerformed(evt);
             }
         });
+        jPanel1.add(BoutonInscription);
+        BoutonInscription.setBounds(151, 396, 143, 58);
 
         btnCo.setText("Connexion");
         btnCo.addActionListener(new java.awt.event.ActionListener() {
@@ -139,58 +152,8 @@ public class PageInscription extends javax.swing.JFrame {
                 btnCoActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(35, 35, 35)
-                            .addComponent(jLabel1))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(NomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(PrenomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(EmailClient))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(AgeClient, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(LoginClient)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(151, 151, 151)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BoutonInscription, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(33, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(NomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PrenomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EmailClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(AgeClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LoginClient, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(BoutonInscription, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCo, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
+        jPanel1.add(btnCo);
+        btnCo.setBounds(151, 459, 143, 58);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,16 +181,16 @@ public class PageInscription extends javax.swing.JFrame {
         PrenomClient.setText(null);
     }//GEN-LAST:event_PrenomClientMouseClicked
 
-    private void AgeClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseClicked
-        AgeClient.setText(null);
-    }//GEN-LAST:event_AgeClientMouseClicked
-
     private void EmailClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseClicked
-        EmailClient.setText(null);
+        if (EmailClient.getText().equals("Email")) {
+            EmailClient.setText(null);
+        }
     }//GEN-LAST:event_EmailClientMouseClicked
 
     private void LoginClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginClientMouseClicked
-        LoginClient.setText(null);
+        if (LoginClient.getText().equals("Mot de passe")) {
+            LoginClient.setText(null);
+        }
     }//GEN-LAST:event_LoginClientMouseClicked
 
     private void NomClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomClientMouseExited
@@ -242,15 +205,17 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PrenomClientMouseExited
 
-    private void AgeClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseExited
-        if (AgeClient.getText().equals("")) {
-            AgeClient.setText("Age");
-        }
-    }//GEN-LAST:event_AgeClientMouseExited
-
     private void EmailClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseExited
+        String RegExpression = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+        Pattern pattern = Pattern.compile(RegExpression);
+        Matcher matcher = pattern.matcher(EmailClient.getText());
         if (EmailClient.getText().equals("")) {
             EmailClient.setText("Email");
+        } else {
+            if((!matcher.matches())&&(!EmailClient.getText().equals("Email"))){
+                JOptionPane.showMessageDialog(null, "Email incorrect, veuillez le re-saisir");
+                EmailClient.setText(null);
+            }
         }
     }//GEN-LAST:event_EmailClientMouseExited
 
@@ -261,27 +226,30 @@ public class PageInscription extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginClientMouseExited
 
     private void BoutonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonInscriptionActionPerformed
-        requete = "INSERT INTO client(Nom,Prenom,Age,email,loginClient) VALUES" + "('" + NomClient.getText() + "','" + PrenomClient.getText() + "','" + AgeClient.getText() + "','" + EmailClient.getText() + "','" + LoginClient.getText() + "'" + ")";
         inscriptionOK = !((NomClient.getText().equals("Nom")) || (PrenomClient.getText().equals("Prenom")) || (AgeClient.getText().equals("Age")) || (EmailClient.getText().equals("Email")) || (LoginClient.getText().equals("Mot de passe")));
 
+        client = new ClientDAO("cinema", "root", "");
         //test pour savoir si le client est deja inscrit
         try {
-            testPresence = connect.requestDemande("SELECT COUNT(*) FROM client WHERE email LIKE '" + EmailClient.getText() + "'");
-            if (!(testPresence.get(0).equals("0"))) {
+            testPresence = client.getNbClientByEmail(EmailClient.getText());
+            if (!(testPresence.equals("0"))) {
                 inscriptionOK = false;
             }
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*catch(MySQLSyntaxErrorException e){
+        JOptionPane.showMessageDialog(null, "Votre inscription a ete enregistree");
+        }*/ 
+        /*catch(MySQLSyntaxErrorException e){
             JOptionPane.showMessageDialog(null, "Votre inscription a ete enregistree");
         }*/
-        
 
         if (inscriptionOK) {
             try {
+                client.addClient(NomClient.getText(), PrenomClient.getText(), AgeClient.getText(), EmailClient.getText(), LoginClient.getText());
                 connect.executeUpdate(requete);
-            } catch (SQLException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
             }
             //on enleve les valeurs precedentes des cases du formulaire
@@ -312,30 +280,18 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCoActionPerformed
 
-    private void AgeClientKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AgeClientKeyPressed
-        char c = evt.getKeyChar();
-        if ((evt.getKeyCode() == 8) && (countAge < 3)) {
-            countAge--;
-        } else if ((evt.getKeyCode() == 8) && (countAge == 3)) {
-            countAge -= 2;
-        } else if ((Character.isDigit(c)) && (17 > countAge)) {
-            countAge++;
-        }
-    }//GEN-LAST:event_AgeClientKeyPressed
+    private void AgeClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseClicked
+        AgeClient.setText(null);
+    }//GEN-LAST:event_AgeClientMouseClicked
 
-    private void AgeClientKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_AgeClientKeyTyped
-        char c = evt.getKeyChar();
-        if (countAge <= 2) {
-            if (!Character.isDigit(c)) {
-                evt.consume();
-            }
-        } else {
-            evt.consume();
+    private void AgeClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseExited
+        if(AgeClient.getText().equals("")){
+            AgeClient.setText("Age");
         }
-    }//GEN-LAST:event_AgeClientKeyTyped
+    }//GEN-LAST:event_AgeClientMouseExited
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField AgeClient;
+    private javax.swing.JFormattedTextField AgeClient;
     private javax.swing.JButton BoutonInscription;
     private javax.swing.JTextField EmailClient;
     private javax.swing.JTextField LoginClient;
