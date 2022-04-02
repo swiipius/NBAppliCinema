@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vue;
+import DAO.FilmDAO;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
     public Connexion connection;
     private String maRequete;
     private int count = 0;
+    private FilmDAO film;
+    public int nbSalle = 10;
+    
+    DefaultListModel<String> listModelTitre = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
     /**
      * Creates new form GestiondeSeance
@@ -32,7 +37,18 @@ public class GestiondeSeance extends javax.swing.JFrame {
         connection = new Connexion("Cinema", "root", "");
         maRequete = "SELECT date FROM seance";
         listModel1 = connection.requestDemande(maRequete);
-        ListeSeance.setModel(listModel1);
+        
+        //Creation de la combo box des films
+        film = new FilmDAO("cinema", "root", "");
+        listModelTitre = film.getFilmTitre();
+        for (int i = 0; i < listModelTitre.size(); i++) {
+            NomFilm.addItem(listModelTitre.get(i));
+        }
+        
+        //Creation de la combo box des films
+        for(int i = 1; i<nbSalle+1; i++){
+            SalleProjection.addItem(Integer.toString(i));
+        }
     }
 
     /**
@@ -47,18 +63,23 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         BtnRecherche = new javax.swing.JButton();
         BtnReset = new javax.swing.JButton();
-        RechercheSeance = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        DateSeance = new javax.swing.JTextField();
-        NomFilm = new javax.swing.JTextField();
-        HeureDebut = new javax.swing.JTextField();
-        SalleProjection = new javax.swing.JTextField();
         BtnAjouter = new javax.swing.JButton();
         BtnSupprimer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ListeSeance = new javax.swing.JList<>();
+        HeureDebut = new javax.swing.JFormattedTextField();
+        jLabel2 = new javax.swing.JLabel();
+        NomFilm = new javax.swing.JComboBox<>();
+        SalleProjection = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        DateSeance = new javax.swing.JFormattedTextField();
+        RechercheSeance = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setLayout(null);
 
         BtnRecherche.setText("Recherche");
         BtnRecherche.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +87,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
                 BtnRechercheActionPerformed(evt);
             }
         });
+        jPanel1.add(BtnRecherche);
+        BtnRecherche.setBounds(740, 60, 100, 40);
 
         BtnReset.setText("Reset");
         BtnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -73,63 +96,13 @@ public class GestiondeSeance extends javax.swing.JFrame {
                 BtnResetActionPerformed(evt);
             }
         });
+        jPanel1.add(BtnReset);
+        BtnReset.setBounds(850, 60, 70, 40);
 
-        RechercheSeance.setText("Recherche de la seance");
-        RechercheSeance.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                RechercheSeanceMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                RechercheSeanceMouseExited(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabel1.setText("Gestion des Seances");
-
-        DateSeance.setText("Date de la seance");
-        DateSeance.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DateSeanceMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DateSeanceMouseExited(evt);
-            }
-        });
-        DateSeance.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DateSeanceActionPerformed(evt);
-            }
-        });
-
-        NomFilm.setText("Nom du film");
-        NomFilm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NomFilmMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                NomFilmMouseExited(evt);
-            }
-        });
-
-        HeureDebut.setText("Heure de Debut");
-        HeureDebut.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                HeureDebutMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                HeureDebutMouseExited(evt);
-            }
-        });
-
-        SalleProjection.setText("Salle de projection");
-        SalleProjection.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SalleProjectionMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SalleProjectionMouseExited(evt);
-            }
-        });
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(98, 30, 178, 41);
 
         BtnAjouter.setText("AJOUTER");
         BtnAjouter.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +110,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
                 BtnAjouterActionPerformed(evt);
             }
         });
+        jPanel1.add(BtnAjouter);
+        BtnAjouter.setBounds(70, 340, 132, 50);
 
         BtnSupprimer.setText("SUPPRIMER");
         BtnSupprimer.addActionListener(new java.awt.event.ActionListener() {
@@ -144,84 +119,65 @@ public class GestiondeSeance extends javax.swing.JFrame {
                 BtnSupprimerActionPerformed(evt);
             }
         });
+        jPanel1.add(BtnSupprimer);
+        BtnSupprimer.setBounds(240, 340, 137, 50);
 
         jScrollPane1.setViewportView(ListeSeance);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(BtnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(BtnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(HeureDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(SalleProjection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(DateSeance, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(NomFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(RechercheSeance, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(BtnRecherche, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25)
-                        .addComponent(BtnReset, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(RechercheSeance)
-                        .addComponent(BtnRecherche, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(BtnReset, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(NomFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(DateSeance, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(HeureDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SalleProjection, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(93, 93, 93)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtnAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BtnSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(25, Short.MAX_VALUE))
-        );
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(450, 120, 470, 300);
+
+        try {
+            HeureDebut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(HeureDebut);
+        HeureDebut.setBounds(48, 252, 132, 40);
+
+        jLabel2.setText("Heure de la séance : ");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(48, 231, 103, 15);
+
+        jPanel1.add(NomFilm);
+        NomFilm.setBounds(206, 158, 226, 40);
+
+        jPanel1.add(SalleProjection);
+        SalleProjection.setBounds(210, 250, 220, 40);
+
+        jLabel3.setText("Date de la séance :");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(50, 140, 100, 15);
+
+        try {
+            DateSeance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(DateSeance);
+        DateSeance.setBounds(50, 160, 130, 40);
+
+        try {
+            RechercheSeance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel1.add(RechercheSeance);
+        RechercheSeance.setBounds(450, 60, 280, 40);
+
+        jLabel4.setText("Recherche selon la date :");
+        jPanel1.add(jLabel4);
+        jLabel4.setBounds(450, 40, 150, 15);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 938, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 436, Short.MAX_VALUE)
         );
 
         pack();
@@ -258,10 +214,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSupprimerActionPerformed
 
     private void BtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjouterActionPerformed
-        if((DateSeance.getText().equals(""))||(DateSeance.getText().equals("Date de la seance"))||(NomFilm.getText().equals(""))||(NomFilm.getText().equals("Nom du Film"))||(HeureDebut.getText().equals(""))||(HeureDebut.getText().equals("Heure de Debut"))||(SalleProjection.getText().equals(""))||(SalleProjection.getText().equals("Salle de Projection"))){
+        if((DateSeance.getText().equals("    -  -  "))||(NomFilm.getSelectedItem()==null)||(HeureDebut.getText().equals("  :  :  "))||(SalleProjection.getSelectedItem()==null)){
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         }else{
-            String maRequete = "INSERT INTO seance(Heure de Debut,Nom du Film,Salle de Projection,Date de la seance,Affiche) VALUES('" + HeureDebut.getText() + "','" + NomFilm.getText() + "','" + SalleProjection.getText() + "','" + DateSeance.getText()+ "'" ;
+            String maRequete = "INSERT INTO seance(Heure de Debut,Nom du Film,Salle de Projection,Date de la seance,Affiche) VALUES('" + HeureDebut.getText() + "','" + NomFilm.getSelectedItem() + "','" + SalleProjection.getSelectedItem() + "','" + DateSeance.getText()+ "'" ;
             try {
                 connection.executeUpdate(maRequete);
             } catch (SQLException ex) {
@@ -269,89 +225,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
             }
             listModel1.addElement(DateSeance.getText());
             JOptionPane.showMessageDialog(null, "La seance a ete ajoute");
-            DateSeance.setText("Date de la Seance");
-            HeureDebut.setText("Heure de Debut");
-            NomFilm.setText("Nom du Film");
-            SalleProjection.setText("Salle de Projection");
         }
     }//GEN-LAST:event_BtnAjouterActionPerformed
 
-    private void DateSeanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DateSeanceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DateSeanceActionPerformed
-
-    private void RechercheSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheSeanceMouseClicked
-        // TODO add your handling code here:
-        if (RechercheSeance.getText().equals("Recherche de la seance")){
-            RechercheSeance.setText(null);
-        }
-    }//GEN-LAST:event_RechercheSeanceMouseClicked
-
-    private void RechercheSeanceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheSeanceMouseExited
-        // TODO add your handling code here:
-        if (RechercheSeance.getText().equals("")) {
-            RechercheSeance.setText("Recherche de la seance");
-        }
-    }//GEN-LAST:event_RechercheSeanceMouseExited
-
-    private void DateSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DateSeanceMouseClicked
-        // TODO add your handling code here:
-        if (DateSeance.getText().equals("Date de la seance")){
-            DateSeance.setText(null);
-        }
-    }//GEN-LAST:event_DateSeanceMouseClicked
-
-    private void DateSeanceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DateSeanceMouseExited
-        // TODO add your handling code here:
-        if (DateSeance.getText().equals("")) {
-            DateSeance.setText("Date de la seance");
-        }
-    }//GEN-LAST:event_DateSeanceMouseExited
-
-    private void NomFilmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomFilmMouseClicked
-        // TODO add your handling code here:
-        if (NomFilm.getText().equals("Nom du film")){
-            NomFilm.setText(null);
-        }
-    }//GEN-LAST:event_NomFilmMouseClicked
-
-    private void NomFilmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomFilmMouseExited
-        // TODO add your handling code here:
-        if (NomFilm.getText().equals("")) {
-            NomFilm.setText("Nom du film");
-        }
-    }//GEN-LAST:event_NomFilmMouseExited
-
-    private void HeureDebutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeureDebutMouseClicked
-        // TODO add your handling code here:
-        if (HeureDebut.getText().equals("Heure de Debut")){
-            HeureDebut.setText(null);
-        }
-    }//GEN-LAST:event_HeureDebutMouseClicked
-
-    private void HeureDebutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeureDebutMouseExited
-        // TODO add your handling code here:
-        if (HeureDebut.getText().equals("")) {
-            HeureDebut.setText("Heure de Debut");
-        }
-    }//GEN-LAST:event_HeureDebutMouseExited
-
-    private void SalleProjectionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalleProjectionMouseClicked
-        // TODO add your handling code here:
-        if (SalleProjection.getText().equals("Salle de projection")){
-            SalleProjection.setText(null);
-        }
-    }//GEN-LAST:event_SalleProjectionMouseClicked
-
-    private void SalleProjectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalleProjectionMouseExited
-        // TODO add your handling code here:
-        if (SalleProjection.getText().equals("")) {
-            SalleProjection.setText("Salle de projection");
-        }
-    }//GEN-LAST:event_SalleProjectionMouseExited
-
     private void BtnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRechercheActionPerformed
-        // TODO add your handling code here:
+        ListeSeance.setModel(listModel1);
         if ((RechercheSeance.getText().equals("")) || (DateSeance.getText().equals("Recherche de la seance"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer une date à chercher");
         } else {
@@ -410,9 +288,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
             public void run() {
                 try {
                     new GestiondeSeance().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -424,13 +300,16 @@ public class GestiondeSeance extends javax.swing.JFrame {
     private javax.swing.JButton BtnRecherche;
     private javax.swing.JButton BtnReset;
     private javax.swing.JButton BtnSupprimer;
-    private javax.swing.JTextField DateSeance;
-    private javax.swing.JTextField HeureDebut;
+    private javax.swing.JFormattedTextField DateSeance;
+    private javax.swing.JFormattedTextField HeureDebut;
     private javax.swing.JList<String> ListeSeance;
-    private javax.swing.JTextField NomFilm;
-    private javax.swing.JTextField RechercheSeance;
-    private javax.swing.JTextField SalleProjection;
+    private javax.swing.JComboBox<String> NomFilm;
+    private javax.swing.JFormattedTextField RechercheSeance;
+    private javax.swing.JComboBox<String> SalleProjection;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
