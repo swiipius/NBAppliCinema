@@ -45,4 +45,16 @@ public class ReductionDAO {
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT * FROM reduction;");
     }
+    
+    public DefaultListModel<String> getReducByFilm(String id_film) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requete = "SELECT pourcentage FROM reduction WHERE id_film = " + id_film + " ORDER BY pourcentage DESC;";
+        return connect.requestDemande(requete);
+    }
+    
+    public DefaultListModel<String> getReducBySeance(String id_seance) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requete = "SELECT pourcentage FROM reduction JOIN seance  WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+id_seance+" ORDER BY pourcentage DESC;";
+        return connect.requestDemande(requete);
+    }
 }

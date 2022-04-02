@@ -65,6 +65,8 @@ public class PageSelecPrix extends javax.swing.JFrame {
         connect = new Connexion("Cinema", "root", "");
         //Affichage du resume
         String textAffich;
+        
+        film = new FilmDAO("cinema", "root", "");
         listModel = film.getFilmByID(Integer.toString(id_film));
         //requete = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE ID_Film = " + id_film + ";";
         //listModel = connect.requestDemande(requete);
@@ -348,7 +350,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
         try {
             checkReduction(id_film, id_seance);
-        } catch (SQLException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
         }
         PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), id_film, id_seance, id_client);
@@ -391,9 +393,9 @@ public class PageSelecPrix extends javax.swing.JFrame {
         }
     }
     
-    public void checkReduction(int id_film, int id_seance) throws SQLException{
-        listModelFilm = connect.requestDemande("SELECT pourcentage FROM reduction WHERE id_film = " + id_film + " ORDER BY pourcentage DESC;");
-        listModelHeure = connect.requestDemande("SELECT pourcentage FROM reduction JOIN seance  WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+id_seance+" ORDER BY pourcentage DESC;");
+    public void checkReduction(int id_film, int id_seance) throws SQLException, ClassNotFoundException{
+        listModelFilm = reduc.getReducByFilm(Integer.toString(id_film));
+        listModelHeure = reduc.getReducBySeance(Integer.toString(id_seance));
         if(listModelFilm.size()!=0){
             int valeurReduc = Integer.parseInt(listModelFilm.get(0));
             somme =somme * (100-valeurReduc)/100;
