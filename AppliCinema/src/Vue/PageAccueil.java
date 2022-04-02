@@ -7,12 +7,16 @@ package Vue;
 
 import java.awt.event.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
+import java.net.URL;
+import java.io.*;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -21,29 +25,25 @@ import jdbc2020.*;
 public class PageAccueil extends javax.swing.JFrame {
 
     public Connexion connect;
-    private final String requete= "SELECT titre FROM film";
-    private final  String requete1= "SELECT nomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final  String requete2= "SELECT prenomRealisateur FROM film WHERE titre= titreSelectionne";
-    private final  String requete3= "SELECT duree FROM film WHERE titre= titreSelectionne";
-    private final  String requete4= "SELECT genre FROM film WHERE titre= titreSelectionne";
-    private final  String requete5= "SELECT note FROM film WHERE titre= titreSelectionne";
-    private final  String requete6= "SELECT synopsis FROM film WHERE titre= titreSelectionne";
-    private final String requete7= "SELECT titre FROM film WHERE titre= titreSelectionne";
+    private final String requete = "SELECT titre FROM film";
     private int taille;
     private String Synopsis;
     public int client;
     public int id_film;
     private String str;
-    
-    PageConnexion pc= new PageConnexion();
-    
-    
+    byte[] imageFilm = null;
+    ResultSet rs;
+    PreparedStatement pst;
+
+    PageConnexion pc = new PageConnexion();
+
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
+    DefaultListModel<byte[]> listModel2 = new DefaultListModel<>();
     private boolean connexionValid;
     private boolean IsEmp;
 
-     /**
+    /**
      * Creates new form PageAccueil
      *
      * @param connexionValid
@@ -62,10 +62,9 @@ public class PageAccueil extends javax.swing.JFrame {
         TitreFilmsAccueil.setModel(listModel);
         IsEmp = Emp;
         this.connexionValid = connexionValid;
-                    
+
         /*listModel1 = connect.requestDemande(requeteInfo);
         descriptionFilmsAccueil.setModel(listModel1);*/
-        
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
         affichageBtnCo(connexionValid, IsEmp);
     }
@@ -89,6 +88,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelDescriptionAccueil = new javax.swing.JPanel();
         descriptionFilmsAccueilText = new javax.swing.JTextPane();
         labelDescriptionFilmAccueil = new javax.swing.JLabel();
+        labelImages = new javax.swing.JLabel();
         PanelBoutonSeances = new javax.swing.JPanel();
         BoutonSeancesFilmSelectione = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
@@ -101,7 +101,6 @@ public class PageAccueil extends javax.swing.JFrame {
         btnSeances = new javax.swing.JButton();
         btnFilms = new javax.swing.JButton();
         BoutonStatisques = new javax.swing.JButton();
-        btnRed = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,13 +159,16 @@ public class PageAccueil extends javax.swing.JFrame {
             PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+            .addComponent(labelImages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         PanelDescriptionAccueilLayout.setVerticalGroup(
             PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDescriptionAccueilLayout.createSequentialGroup()
                 .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         BoutonSeancesFilmSelectione.setText("Seances Disponibles");
@@ -236,7 +238,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelCoInsLayout.setHorizontalGroup(
             PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCoInsLayout.createSequentialGroup()
-                .addContainerGap(56, Short.MAX_VALUE)
+                .addContainerGap(75, Short.MAX_VALUE)
                 .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -267,19 +269,9 @@ public class PageAccueil extends javax.swing.JFrame {
         });
 
         BoutonStatisques.setText("Statistiques");
-        BoutonStatisques.setMaximumSize(new java.awt.Dimension(98, 25));
-        BoutonStatisques.setMinimumSize(new java.awt.Dimension(98, 25));
-        BoutonStatisques.setPreferredSize(new java.awt.Dimension(98, 25));
         BoutonStatisques.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoutonStatisquesActionPerformed(evt);
-            }
-        });
-
-        btnRed.setText("Réduction");
-        btnRed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRedActionPerformed(evt);
             }
         });
 
@@ -289,14 +281,14 @@ public class PageAccueil extends javax.swing.JFrame {
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmpLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRed, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
+                .addComponent(btnSeances)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BoutonStatisques, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFilms, javax.swing.GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmpLayout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addComponent(BoutonStatisques)
+                .addGap(90, 90, 90))
         );
         PanelEmpLayout.setVerticalGroup(
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,9 +298,7 @@ public class PageAccueil extends javax.swing.JFrame {
                     .addComponent(btnSeances)
                     .addComponent(btnFilms))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BoutonStatisques, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRed))
+                .addComponent(BoutonStatisques)
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -406,14 +396,26 @@ public class PageAccueil extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void rechercheAccueilBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheAccueilBoutonActionPerformed
-        // TODO add your handling code here:
+        // si la barre de recherche n'est pas vide ou si elle n'est pas = "titre de film", on filtre l'affichage des films
+        if (!"titre de film".equals(barreRechercheAccueil.getText())) {
+            String requeteFiltre = "SELECT titre FROM film WHERE titre LIKE '%" + barreRechercheAccueil.getText() + "%'";
+            try {
+                listModel = connect.requestDemande(requeteFiltre);
+                TitreFilmsAccueil.setModel(listModel);
+            } catch (SQLException ex) {
+                Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_rechercheAccueilBoutonActionPerformed
 
     private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
@@ -433,7 +435,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
 
     private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_barreRechercheAccueilActionPerformed
 
     private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
@@ -449,18 +451,21 @@ public class PageAccueil extends javax.swing.JFrame {
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
-            if(!IsEmp){
+            if (!IsEmp) {
                 BoutonSeancesFilmSelectione.setEnabled(true);
-            }
-            else{
+            } else {
                 BoutonSeancesFilmSelectione.setEnabled(false);
             }
-            String textAffich="";
+            String textAffich;
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
-            String requeteInfo="SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film FROM film WHERE titre LIKE '" + titreSelectionne + "'";
-            
+            //on rceupere toute les info des films
+            String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film,affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
+            //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
+            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
+                System.out.println(listModel1);
+                connect.stmt.executeUpdate(requeteModifNBvues);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -470,14 +475,37 @@ public class PageAccueil extends javax.swing.JFrame {
             taille = listModel1.get(5).length();
             Synopsis = listModel1.get(5);
             StringBuilder str = new StringBuilder(Synopsis);
-            for(int i = 1; 70*i<taille; i++){
-                str.insert(70*i, '\n');
+            for (int i = 1; 70 * i < taille; i++) {
+                str.insert(70 * i, '\n');
             }
-            
+
             //Affichage des infos
-            textAffich="Titre : "+(String) TitreFilmsAccueil.getSelectedValue()+"\nRealisateur : "+listModel1.get(0)+" "+listModel1.get(1)+"\nDuree : "+(String)listModel1.get(2)+"\ngenre : "+listModel1.get(3)+"\nNote : "+(String)listModel1.get(4)+"\nSynopsis : \n"+str;
+            textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "min\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
             descriptionFilmsAccueilText.setText(textAffich);
-            
+
+            String path = listModel1.get(7);
+            ////////////////////
+            //affichage d'une image stockée avec son chemin dans la bdd des films
+            //code imspiré de la video youtube https://www.youtube.com/watch?v=oxT2G4gxsxc de Indra Subedi 
+            if (!"".equals(path)) {
+
+                ImageIcon ii = new ImageIcon(path);
+                Image im = ii.getImage().getScaledInstance(labelImages.getWidth(), labelImages.getHeight(), Image.SCALE_SMOOTH);
+                labelImages.setIcon(new ImageIcon(im));
+                try {
+                    File image = new File(path);
+                    FileInputStream fis = new FileInputStream(image);
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    byte[] buf = new byte[1024];
+                    for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                        bos.write(buf, 0, readNum);
+                    }
+                    imageFilm = bos.toByteArray();
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, e);
+                }
+            }
+
         }
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
 
@@ -514,7 +542,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCptActionPerformed
 
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
-       
+
     }//GEN-LAST:event_btnSeancesActionPerformed
 
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
@@ -527,41 +555,34 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilmsActionPerformed
 
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
-        PageStats pStats= new PageStats();
-        pStats.setVisible(true);
-    }//GEN-LAST:event_BoutonStatisquesActionPerformed
-
-    private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
-        PageReduction pr;
+        PageStats pStats = null;
         try {
-            pr = new PageReduction();
-            pr.setVisible(true);
+            pStats = new PageStats();
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnRedActionPerformed
+        pStats.setVisible(true);
+    }//GEN-LAST:event_BoutonStatisquesActionPerformed
 
-    public void affichageBtnCo( boolean COk, boolean Emp){
-        if(COk){
-            if(Emp){
+    public void affichageBtnCo(boolean COk, boolean Emp) {
+        if (COk) {
+            if (Emp) {
                 PanelAccesCpt.setVisible(false);
                 PanelCoIns.setVisible(false);
                 PanelEmp.setVisible(true);
                 BoutonSeancesFilmSelectione.setEnabled(false);
-            }
-            else{
+            } else {
                 PanelAccesCpt.setVisible(true);
                 PanelCoIns.setVisible(false);
                 PanelEmp.setVisible(false);
             }
-        }
-        else{
+        } else {
             PanelAccesCpt.setVisible(false);
             PanelCoIns.setVisible(true);
             PanelEmp.setVisible(false);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BoutonSeancesFilmSelectione;
     private javax.swing.JButton BoutonStatisques;
@@ -579,12 +600,12 @@ public class PageAccueil extends javax.swing.JFrame {
     private javax.swing.JTextField barreRechercheAccueil;
     private javax.swing.JButton btnCpt;
     private javax.swing.JButton btnFilms;
-    private javax.swing.JButton btnRed;
     private javax.swing.JButton btnSeances;
     private javax.swing.JTextPane descriptionFilmsAccueilText;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDescriptionFilmAccueil;
+    private javax.swing.JLabel labelImages;
     private javax.swing.JButton rechercheAccueilBouton;
     // End of variables declaration//GEN-END:variables
 }
