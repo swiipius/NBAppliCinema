@@ -10,7 +10,8 @@ import Vue.*;
 import java.sql.SQLException;
 import java.util.*;
 import javax.swing.*;
-//import Vue.*;
+import Vue.*;
+import java.text.ParseException;
 import jdbc2020.*;
 
 /**
@@ -24,7 +25,7 @@ public class ProjectCinema {
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, ParseException {
         PageSuppression ps = new PageSuppression();
         PageAccueil pa= new PageAccueil(false, false);
         PageInscription pi = new PageInscription();

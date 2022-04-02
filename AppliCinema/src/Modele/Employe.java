@@ -14,59 +14,72 @@ import java.util.*;
  * @author prohd
  */
 public class Employe {
-    String login,nom,prenom;
-    String titre,prenomRea,nomRea,genre,synopsis;
-    int duree;
-    float note;
-    String requete;
-    public void AjouterFilm() throws SQLException, ClassNotFoundException{//methode pour initialiser un film et l'ajouter vers sa bdd
-        Scanner scan= new Scanner(System.in);
-        Connexion connect = new Connexion("Cinema", "root", "");//connection a la bdd reussie
-        do{
-            System.out.println("rentrez le titre du film svp");
-            titre= scan.nextLine();
-        }while(titre.length()==0);
-        do{
-            System.out.println("rentrez le nom du realisateur du film svp");
-            nomRea= scan.nextLine();
-        }while(nomRea.length()==0);
-        do{
-            System.out.println("rentrez le prenom du realisateur du film svp");
-            prenomRea= scan.nextLine();
-        }while(prenomRea.length()==0);
-        do{
-            System.out.println("rentrez le genre du film svp");
-            genre= scan.nextLine();
-        }while(genre.length()==0);
-        do{
-            System.out.println("rentrez le synopsis du film svp");
-            synopsis= scan.nextLine();
-        }while(synopsis.length()==0);
-        do{
-            System.out.println("rentrez la duree du film svp");
-            duree= scan.nextInt();
-        }while(duree<0);
-        do{
-            System.out.println("rentrez la note du film svp");
-            note= scan.nextFloat();
-        }while((note<0)||(note>5));
-        
-        requete="INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis) VALUES('"+titre+"','"+nomRea+"','"+prenomRea+"','"+duree+"','"+genre+"','"+note+"','"+synopsis+"'"+")";
-        connect.executeUpdate(requete);
+    private int id;
+    private String nomEmploye;
+    private String Prenom;
+    private String loginEmploye;
+    
+    public Employe(){
     }
-    public void SupprimerFilm(){//methode pour supprimer un film de sa bdd
-        
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
     }
-    public void ModifierFilm(){//methode pour modifier les attributs d'un film et envoyer ces changments vers sa bdd
-        
+
+    /**
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
-    public void AjouterSeance(){//methode pour initialiser une seance et l'ajouter vers sa bdd
-        
+
+    /**
+     * @return the nomEmploye
+     */
+    public String getNomEmploye() {
+        return nomEmploye;
     }
-    public void SupprimerSeance(){//methode pour supprimer une seance de sa bdd
-        
+
+    /**
+     * @param nomEmploye the nomEmploye to set
+     */
+    public void setNomEmploye(String nomEmploye) {
+        this.nomEmploye = nomEmploye;
     }
-    public void ModifierSeance(){//methode pour modifier les attributs d'une seance et envoyer ces changments vers sa bdd
-        
+
+    /**
+     * @return the Prenom
+     */
+    public String getPrenom() {
+        return Prenom;
+    }
+
+    /**
+     * @param Prenom the Prenom to set
+     */
+    public void setPrenom(String Prenom) {
+        this.Prenom = Prenom;
+    }
+
+    /**
+     * @return the loginEmploye
+     */
+    public String getLoginEmploye() {
+        return loginEmploye;
+    }
+
+    /**
+     * @param loginEmploye the loginEmploye to set
+     */
+    public void setLoginEmploye(String loginEmploye) {
+        this.loginEmploye = loginEmploye;
+    }
+    
+    @Override
+    public String toString(){
+        return "Nom : "+nomEmploye+"\nPrenom : "+Prenom+"\nLogin Employe : "+loginEmploye;
     }
 }

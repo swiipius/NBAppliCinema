@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import DAO.*;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.*;
@@ -13,8 +14,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.io.*;
+import java.text.ParseException;
 import javax.swing.*;
 import jdbc2020.Connexion;
+import java.util.*;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -22,11 +26,21 @@ import jdbc2020.Connexion;
  */
 public class PagePayement extends javax.swing.JFrame {
 
+    //Initialisation DAO
+    private BilletDAO billet;
+    private SeanceDAO seance;
+    private FilmDAO film;
+    
+    //Import des variables
     private final boolean connexionValid;
     private boolean Emp;
     int nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_film, id_client, id_seance;
-    Connexion connect;
+
+    //Variables utiles uniquement dans ce programme
     boolean PayOK = false;
+    private String sdate;
+    private int countCrypto = 0;
+    private int countNum = 0;
 
     /**
      * Creates new form PagePayement
@@ -36,8 +50,8 @@ public class PagePayement extends javax.swing.JFrame {
     public PagePayement(boolean connexionValid, int nbMembre, int nbSenior, int nbEnfant, int nbPasCo, int film, int seance, int client) {
         super("Page De Payement");
         initComponents();
+        //recuperation de la valeur de chacun des attributs
         this.connexionValid = connexionValid;
-        this.Emp = Emp;
         nbVenduSernior = nbSenior;
         nbVenduMembre = nbMembre;
         nbVenduEnfant = nbEnfant;
@@ -47,8 +61,11 @@ public class PagePayement extends javax.swing.JFrame {
         id_seance = seance;
     }
 
-    private int countCrypto = 0;
-    private int countNum = 0;
+    //Sous méthode de conversion String to Date
+    private Date toDate(String sdate) throws ParseException {
+        Date date = new SimpleDateFormat("/MM/yyyy").parse(sdate);
+        return date;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,26 +76,38 @@ public class PagePayement extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        btnValid = new javax.swing.JButton();
         NumCarte = new javax.swing.JTextField();
         Crypto = new javax.swing.JTextField();
         Nom = new javax.swing.JTextField();
-        btnValid = new javax.swing.JButton();
         Date = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        DateExp = new javax.swing.JLabel();
+        ImageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(800, 400));
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
+        getContentPane().setLayout(null);
 
+        btnValid.setBackground(new java.awt.Color(204, 204, 204));
+        btnValid.setForeground(new java.awt.Color(0, 0, 0));
+        btnValid.setText("Valider");
+        btnValid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnValidActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnValid);
+        btnValid.setBounds(360, 290, 80, 40);
+
+        NumCarte.setBackground(new java.awt.Color(204, 204, 204));
+        NumCarte.setForeground(new java.awt.Color(0, 0, 0));
         NumCarte.setText("Numero de la carte");
         NumCarte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -96,7 +125,11 @@ public class PagePayement extends javax.swing.JFrame {
                 NumCarteKeyTyped(evt);
             }
         });
+        getContentPane().add(NumCarte);
+        NumCarte.setBounds(270, 140, 260, 40);
 
+        Crypto.setBackground(new java.awt.Color(204, 204, 204));
+        Crypto.setForeground(new java.awt.Color(0, 0, 0));
         Crypto.setText("Cryptogramme");
         Crypto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -114,7 +147,11 @@ public class PagePayement extends javax.swing.JFrame {
                 CryptoKeyTyped(evt);
             }
         });
+        getContentPane().add(Crypto);
+        Crypto.setBounds(440, 200, 90, 40);
 
+        Nom.setBackground(new java.awt.Color(204, 204, 204));
+        Nom.setForeground(new java.awt.Color(0, 0, 0));
         Nom.setText("Nom sur la  carte");
         Nom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -124,19 +161,11 @@ public class PagePayement extends javax.swing.JFrame {
                 NomMouseExited(evt);
             }
         });
-        Nom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomActionPerformed(evt);
-            }
-        });
+        getContentPane().add(Nom);
+        Nom.setBounds(270, 90, 260, 40);
 
-        btnValid.setText("Valider");
-        btnValid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidActionPerformed(evt);
-            }
-        });
-
+        Date.setBackground(new java.awt.Color(204, 204, 204));
+        Date.setForeground(new java.awt.Color(0, 0, 0));
         try {
             Date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## / ##")));
         } catch (java.text.ParseException ex) {
@@ -144,96 +173,57 @@ public class PagePayement extends javax.swing.JFrame {
         }
         Date.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         Date.setToolTipText("");
+        getContentPane().add(Date);
+        Date.setBounds(270, 210, 60, 30);
 
-        jLabel1.setText("Date d'expiration");
+        DateExp.setBackground(new java.awt.Color(0, 0, 0));
+        DateExp.setForeground(new java.awt.Color(0, 0, 0));
+        DateExp.setText("Date d'expiration");
+        getContentPane().add(DateExp);
+        DateExp.setBounds(270, 190, 80, 15);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(274, 274, 274)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NumCarte, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(Date, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(82, 82, 82)
-                                .addComponent(Crypto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Nom)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(363, 363, 363)
-                        .addComponent(btnValid)))
-                .addContainerGap(274, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(78, 78, 78)
-                .addComponent(Nom, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(NumCarte, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Date))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(Crypto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(68, 68, 68)
-                .addComponent(btnValid, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PagePayement.png"))); // NOI18N
+        getContentPane().add(ImageFond);
+        ImageFond.setBounds(0, 0, 850, 480);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Suppression du text quand la souris clique
     private void NomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomMouseClicked
         Nom.setText(null);
     }//GEN-LAST:event_NomMouseClicked
 
+    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
     private void NomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomMouseExited
         if (Nom.getText().equals("")) {
             Nom.setText("Nom sur la carte");
         }
     }//GEN-LAST:event_NomMouseExited
 
+    //Suppression du text quand la souris clique
     private void NumCarteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseClicked
         NumCarte.setText(null);
     }//GEN-LAST:event_NumCarteMouseClicked
 
+    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
     private void NumCarteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseExited
         if (NumCarte.getText().equals("")) {
             NumCarte.setText("Numéro de la carte");
         }    }//GEN-LAST:event_NumCarteMouseExited
 
+    //Suppression du text quand la souris clique
     private void CryptoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CryptoMouseClicked
         Crypto.setText(null);
     }//GEN-LAST:event_CryptoMouseClicked
 
+    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
     private void CryptoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CryptoMouseExited
         if (Crypto.getText().equals("")) {
             Crypto.setText("Cryptogramme");
         }    }//GEN-LAST:event_CryptoMouseExited
 
+    //Blindage de type et de longueure
     private void CryptoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CryptoKeyTyped
         char c = evt.getKeyChar();
         if (countCrypto <= 3) {
@@ -245,6 +235,7 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CryptoKeyTyped
 
+    //Blindage de longueure
     private void CryptoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CryptoKeyPressed
         char c = evt.getKeyChar();
         if ((evt.getKeyCode() == 8) && (countCrypto < 4)) {
@@ -256,6 +247,7 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CryptoKeyPressed
 
+    //Blindage de longueure
     private void NumCarteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyPressed
         char c = evt.getKeyChar();
         if ((evt.getKeyCode() == 8) && (countNum < 17)) {
@@ -267,6 +259,7 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NumCarteKeyPressed
 
+    //Blindage de type et de longueure
     private void NumCarteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyTyped
         char c = evt.getKeyChar();
         if (countNum <= 16) {
@@ -278,10 +271,12 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NumCarteKeyTyped
 
+    //Action lors de la validation du payement
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
+        //Initialisation du format de date et de la date actuelle
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM / yy");
         LocalDateTime now = LocalDateTime.now();
-        //System.out.println(dtf.format(now).compareTo(Date.getText()));
+
         //Verification que toutes les infos ont été rentré
         if ((NumCarte.getText().equals("Numero de la carte")) || (Nom.getText().equals("Nom sur la  carte")) || (Crypto.getText().equals("Cryptogramme")) || (Date.getText().equals("   /   "))) {
             JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
@@ -295,56 +290,65 @@ public class PagePayement extends javax.swing.JFrame {
             Crypto.setText(null);
             countCrypto = 0;
         } //verication de la validité
-        else if ((dtf.format(now).compareTo(Date.getText())) < 0) {
-            JOptionPane.showMessageDialog(null, "Carte périmée");
-            Date.setText(null);
-        } else {
-            JOptionPane.showMessageDialog(null, "Paiement Validé");
-            this.dispose();
+        else {
             try {
-                PageAccueil p = new PageAccueil(connexionValid, Emp);
-                PayOK = true;
-                if (!connexionValid) {
-                    String Seance[];
-                    String Film;
-                    Seance = getSeance(id_seance);
-                    Film = getFilm(id_film);
-                    String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[0] + " a " + Seance[1] + " en salle " + Seance[2];
-                    File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet.txt");
-
-                    if (!fBillet.exists()) {
-                        try {
-                            fBillet.createNewFile();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                //test pour voir si la carte est perimee
+                if (!testDate(Date.getText())) {
+                    JOptionPane.showMessageDialog(null, "Carte périmée");
+                    Date.setText(null);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Paiement Validé");
+                    this.dispose();
+                    try {
+                        PayOK = true;
+                        //Test si on a a faire a une personne connecte ou non
+                        if (!connexionValid) {
+                            //Recuperation des infos du billet
+                            String Seance[];
+                            String Film;
+                            Seance = getSeance(id_seance);
+                            Film = getFilm(id_film);
+                            
+                            //Creation du billet
+                            String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[2] + " a " + Seance[1] + " en salle " + Seance[0];
+                            String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
+                            File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet_" + Nom + ".txt");
+                            if (!fBillet.exists()) {
+                                try {
+                                    fBillet.createNewFile();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
+                                print.print(billet);
+                            } catch (FileNotFoundException ex) {
+                                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            JOptionPane.showMessageDialog(null, "Votre billet a été imprimé");
+                        //La personne est connectee
+                        } else {
+                            //Ajout du billet dans la BDD
+                            gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
                         }
-                    }
+                        
+                        //retour a la page d'accueil des lors que le billet est imprime
+                        PageAccueil p = new PageAccueil(connexionValid, Emp);
+                        p.setVisible(true);
 
-                    try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
-                        print.print(billet);
-                    } catch (FileNotFoundException ex) {
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ClassNotFoundException ex) {
                         Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else {
-                    p.setVisible(true);
-                    gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (ParseException ex) {
                 Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_btnValidActionPerformed
 
-    private void NomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NomActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        
-    }//GEN-LAST:event_formWindowClosed
-
+    //Mise en place d'une fermeture propre de la fenetre en fonction de si le payement a ete ec=ffcetue ou pas
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         System.out.println(PayOK);
         if (!PayOK) {
@@ -355,9 +359,7 @@ public class PagePayement extends javax.swing.JFrame {
                 try {
                     PageSelecPrix psp = new PageSelecPrix(connexionValid, id_film, id_client, id_seance);
                     psp.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
@@ -367,50 +369,68 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    //Ajout des différents billets dans la BDD
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
-        connect = new Connexion("cinema", "root", "");
-        String requeteAjout;
+        billet = new BilletDAO("cinema", "root", "");
         while (nbVenduSenior != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 8 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Senior';";
+            billet.addBillet(8, id_client, id_seance, id_film, "Senior");
+            nbVenduSenior--;
         }
         while (nbVenduMembre != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 10 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Membre';";
+            billet.addBillet(10, id_client, id_seance, id_film, "Membre");
+            nbVenduMembre--;
         }
         while (nbVenduEnfant != 0) {
-            requeteAjout = "INSERT INTO billet(facture,ID_Client,ID_film,ID_Seance,TypePlace) VALUES('" + 6 + "','" + id_client + "','" + id_film + "','" + id_seance + "','Enfant';";
+            billet.addBillet(6, id_client, id_seance, id_film, "Enfant");
+            nbVenduEnfant--;
         }
     }
 
+    //Recuperation des infos d'une séance
     public String[] getSeance(int id_seance) throws SQLException, ClassNotFoundException {
-        connect = new Connexion("cinema", "root", "");
+        seance = new SeanceDAO("cinema", "root", "");
         String strSeance[] = {"", "", ""};
-        String requete = "SELECT date, heureDebut, salle FROM seance WHERE id_seance = " + id_seance + ";";
         DefaultListModel<String> Seance = new DefaultListModel<>();
-        Seance = connect.requestDemande(requete);
-        for (int i = 0; i < 3; i++) {
-            strSeance[i] = Seance.get(i);
-        }
+        Seance = seance.getSeanceByID(id_seance);
+        strSeance[0] = Seance.get(0);
+        strSeance[2] = Seance.get(2);
+        strSeance[1] = Seance.get(3);
+
         return strSeance;
     }
 
+    //Recuperation du titre du film a partir de l'ID
     public String getFilm(int id_film) throws ClassNotFoundException, SQLException {
-        connect = new Connexion("cinema", "root", "");
-        String strFilm = "";
-        String requete = "SELECT titre FROM film WHERE id_film = " + id_film + ";";
-        DefaultListModel<String> Film = new DefaultListModel<>();
-        Film = connect.requestDemande(requete);
-        strFilm = Film.get(0);
-        return strFilm;
+        film = new FilmDAO("cinema", "root", "");
+        return (film.getFilmByID(Integer.toString(id_film))).get(0);
     }
 
+    //Comparaison de date (sert pour la validite de la CB)
+    public boolean testDate(String sDate) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM / yy");
+        boolean verif = false;
+        Date dCarte = new Date();
+        Date dAuj = new Date();
+        dAuj = sdf.parse(sdf.format(new Date()));
+        dCarte = sdf.parse(sDate);
+
+        int result;
+        result = dCarte.compareTo(dAuj);
+
+        if (result < 0) {
+            return verif;
+        } else {
+            return !verif;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Crypto;
     private javax.swing.JFormattedTextField Date;
+    private javax.swing.JLabel DateExp;
+    private javax.swing.JLabel ImageFond;
     private javax.swing.JTextField Nom;
     private javax.swing.JTextField NumCarte;
     private javax.swing.JButton btnValid;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
