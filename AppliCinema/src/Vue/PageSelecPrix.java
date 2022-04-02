@@ -5,14 +5,12 @@
  */
 package Vue;
 
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
+import DAO.*;
 
 /**
  *
@@ -20,6 +18,10 @@ import jdbc2020.*;
  */
 public class PageSelecPrix extends javax.swing.JFrame {
 
+    private FilmDAO film;
+    private ReductionDAO reduc;
+    
+    private 
     Integer somme = 0;
     int nbPlaceMembre, nbPlaceSenior, nbPlaceEnfant, nbPlacePasCo;
     public boolean isCo, choixOk = false;
@@ -30,10 +32,16 @@ public class PageSelecPrix extends javax.swing.JFrame {
     String Synopsis, requete;
     int taille;
     Connexion connect;
-    int film, client, seance;
+    int id_film, id_client, id_seance;
 
     /**
      * Creates new form PageSelecPrix
+     * @param ConnexionValid
+     * @param id_film
+     * @param id_client
+     * @param id_seance
+     * @throws java.sql.SQLException
+     * @throws java.lang.ClassNotFoundException
      */
     public PageSelecPrix(boolean ConnexionValid, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         initComponents();
@@ -50,16 +58,17 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
         btnAchat.setEnabled(false);
 
-        film = id_film;
-        client = id_client;
-        seance = id_seance;
+        this.id_film = id_film;
+        this.id_client = id_client;
+        this.id_seance = id_seance;
 
         connect = new Connexion("Cinema", "root", "");
         //Affichage du resume
         String textAffich;
-        requete = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE ID_Film = " + id_film + ";";
-        listModel = connect.requestDemande(requete);
-
+        listModel = film.getFilmByID(Integer.toString(id_film));
+        //requete = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE ID_Film = " + id_film + ";";
+        //listModel = connect.requestDemande(requete);
+        System.out.println(listModel);
         //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
         taille = listModel.get(5).length();
         Synopsis = listModel.get(5);
@@ -338,11 +347,11 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
         try {
-            checkReduction(film, seance);
+            checkReduction(id_film, id_seance);
         } catch (SQLException ex) {
             Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
         }
-        PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), film, seance, client);
+        PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), id_film, id_seance, id_client);
         nbPlaceVendu();
         this.dispose();
         pp.setVisible(true);
@@ -352,7 +361,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         if (!choixOk) {
             try {
-                PageSeance ps = new PageSeance(film, client, isCo);
+                PageSeance ps = new PageSeance(id_film, id_client, isCo);
                 ps.setVisible(true);
             } catch (SQLException ex) {
                 Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
@@ -384,7 +393,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
     
     public void checkReduction(int id_film, int id_seance) throws SQLException{
         listModelFilm = connect.requestDemande("SELECT pourcentage FROM reduction WHERE id_film = " + id_film + " ORDER BY pourcentage DESC;");
-        listModelHeure = connect.requestDemande("SELECT pourcentage FROM reduction JOIN seance  WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+seance+" ORDER BY pourcentage DESC;");
+        listModelHeure = connect.requestDemande("SELECT pourcentage FROM reduction JOIN seance  WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+id_seance+" ORDER BY pourcentage DESC;");
         if(listModelFilm.size()!=0){
             int valeurReduc = Integer.parseInt(listModelFilm.get(0));
             somme =somme * (100-valeurReduc)/100;

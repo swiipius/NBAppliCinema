@@ -38,7 +38,7 @@ public class PageSuppression extends javax.swing.JFrame {
         btnDel.setEnabled(false);
         //BtnAdd.setEnabled(true);
 
-        //Connection a la bdd
+        film = new FilmDAO("cinema", "root", "");
         listModelTitre = film.getFilmTitre();
         listTitreFilm.setModel(listModelTitre);
     }
@@ -468,7 +468,6 @@ public class PageSuppression extends javax.swing.JFrame {
         if ((Recherche.getText().equals("")) || (PrenomReal.getText().equals("Recherche"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer un titre à chercher");
         } else {
-            String requete = "SELECT titre FROM Film WHERE titre LIKE '%" + Recherche.getText() + "%'";
             try {
                 listModelTitre = film.getTitreByTitreApprox(Recherche.getText());
             } catch (SQLException | ClassNotFoundException ex) {

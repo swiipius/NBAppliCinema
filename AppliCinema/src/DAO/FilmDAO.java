@@ -67,4 +67,10 @@ public class FilmDAO {
         String requeteDemande = "SELECT NomRealisateur, PrenomRealisateur FROM film WHERE titre = '" + titre + "'";
         return connect.requestDemande(requeteDemande);
     }
+    
+    public DefaultListModel<String> getFilmTriNbVue(String titre) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT titre FROM film ORDER BY nombreVues DESC";
+        return connect.requestDemande(requeteDemande);
+    }
 }
