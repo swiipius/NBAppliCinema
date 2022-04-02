@@ -26,15 +26,21 @@ public class FilmDAO {
         this.password = password;
     }
     
-    public void addFilm(Film film) throws SQLException, ClassNotFoundException{
+    public void addFilm(String titre, String NReal, String PReal, String duree, String genre, String note, String synopsis, String affiche) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
-        String requetAjout = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + film.getTitre() + "','" + film.getNomRealisateur() + "','" + film.getPrenomRealisateur() + "','" + film.getDuree() + "','" + film.getGenre() + "','" + film.getNote() + "','" + film.getSynopsis() + "', '" + film.getAffiche()+ ")";
+        String requetAjout = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + titre + "','" + NReal + "','" + PReal + "','" + duree + "','" + genre + "','" + note + "','" + synopsis + "', '" + affiche + ")";
         connect.executeUpdate(requetAjout);
     }
     
     public DefaultListModel<String> getFilmByTitre(String Titre) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteDemande = "SELECT * FROM film WHERE titre = '" + Titre+"';";
+        return connect.requestDemande(requeteDemande);
+    }
+    
+    public DefaultListModel<String> getTitreByTitreApprox(String Titre) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT titre FROM film WHERE titre LIKE '%" + Titre+"%';";
         return connect.requestDemande(requeteDemande);
     }
     
@@ -53,6 +59,12 @@ public class FilmDAO {
     public DefaultListModel<String> getFilmTitre() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteDemande = "SELECT titre FROM film;";
+        return connect.requestDemande(requeteDemande);
+    }
+    
+    public DefaultListModel<String> getRealByTitre(String titre) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requeteDemande = "SELECT NomRealisateur, PrenomRealisateur FROM film WHERE titre = '" + titre + "'";
         return connect.requestDemande(requeteDemande);
     }
 }

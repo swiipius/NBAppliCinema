@@ -5,19 +5,15 @@
  */
 package Vue;
 
-import java.awt.event.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import jdbc2020.*;
+import DAO.*;
 
 /**
  *
@@ -25,13 +21,14 @@ import jdbc2020.*;
  */
 public class PageSuppression extends javax.swing.JFrame {
 
-    public Connexion connect;
-    private String requete;
+    
+    private FilmDAO film;
+    
     private int count = 0;
     private String path = "";
     private InputStream is;
 
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModelTitre = new DefaultListModel<>();
 
     public PageSuppression() throws SQLException, ClassNotFoundException {
         super("Gestion des Films");
@@ -41,10 +38,8 @@ public class PageSuppression extends javax.swing.JFrame {
         //BtnAdd.setEnabled(true);
 
         //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
-        requete = "SELECT titre FROM film";
-        listModel = connect.requestDemande(requete);
-        listTitreFilm.setModel(listModel);
+        listModelTitre = film.getFilmTitre();
+        listTitreFilm.setModel(listModelTitre);
     }
 
     /**
@@ -323,12 +318,11 @@ public class PageSuppression extends javax.swing.JFrame {
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         String SelectedTitle = (String) listTitreFilm.getSelectedValue();//Capture de l'element selectionne
         int index = listTitreFilm.getSelectedIndex();
-        //Creer et execute la requete sql pour obtenir les 
-        String requeteInfo = "SELECT NomRealisateur, PrenomRealisateur FROM film WHERE titre LIKE '" + SelectedTitle + "'";
         DefaultListModel<String> eltRech = new DefaultListModel<>();
+        
         try {
-            eltRech = connect.requestDemande(requeteInfo);
-        } catch (SQLException ex) {
+            eltRech = film.getRealByTitre(SelectedTitle);
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -336,11 +330,10 @@ public class PageSuppression extends javax.swing.JFrame {
         int result = JOptionPane.showConfirmDialog(null, textAffich, "Suppression", JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
-            listModel.removeElementAt(index);
-            String requeteSuppr = "DELETE FROM Film WHERE Titre LIKE '" + SelectedTitle + "' AND Nomrealisateur LIKE '" + eltRech.get(1) + "'";
+            listModelTitre.removeElementAt(index);
             try {
-                connect.executeUpdate(requeteSuppr);
-            } catch (SQLException ex) {
+                film.delFilmByTitreAndReal(SelectedTitle, eltRech.get(1));
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Film Supprime");
@@ -358,13 +351,12 @@ public class PageSuppression extends javax.swing.JFrame {
         if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis")) || ("".equals(path))) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         } else {
-            String requeteAjout = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + Titre.getText() + "','" + NomReal.getText() + "','" + PrenomReal.getText() + "','" + Duree.getText() + "','" + Genre.getText() + "','" + Note.getText() + "','" + Synopsis.getText() + "','" + path + "')";
             try {
-                connect.executeUpdate(requeteAjout);
-            } catch (SQLException ex) {
+                film.addFilm(Titre.getText(), NomReal.getText(), PrenomReal.getText(), Duree.getText(), Genre.getText(), Note.getText(), Synopsis.getText(), path);
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
-            listModel.addElement(Titre.getText());
+            listModelTitre.addElement(Titre.getText());
             JOptionPane.showMessageDialog(null, "Le film a ete ajoute");
             Titre.setText("Titre");
             PrenomReal.setText("Prenomreal");
@@ -477,23 +469,22 @@ public class PageSuppression extends javax.swing.JFrame {
         } else {
             String requete = "SELECT titre FROM Film WHERE titre LIKE '%" + Recherche.getText() + "%'";
             try {
-                listModel = connect.requestDemande(requete);
-            } catch (SQLException ex) {
+                listModelTitre = film.getTitreByTitreApprox(Recherche.getText());
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
-            listTitreFilm.setModel(listModel);
+            listTitreFilm.setModel(listModelTitre);
             Recherche.setText("Recherche");
         }
     }//GEN-LAST:event_btnRechActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        requete = "SELECT titre FROM film";
         try {
-            listModel = connect.requestDemande(requete);
-        } catch (SQLException ex) {
+            listModelTitre = film.getFilmTitre();
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
         }
-        listTitreFilm.setModel(listModel);
+        listTitreFilm.setModel(listModelTitre);
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void DureeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyPressed
