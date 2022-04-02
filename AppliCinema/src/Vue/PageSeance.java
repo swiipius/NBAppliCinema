@@ -11,6 +11,7 @@ import jdbc2020.Connexion;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import DAO.SeanceDAO;
 
 /**
  *
@@ -18,6 +19,7 @@ import java.util.logging.Logger;
  */
 public class PageSeance extends javax.swing.JFrame {
 
+    private SeanceDAO seance;
     public boolean ConnexionValid, choixOk = false;
     private String requeteSeance;
     public Connexion maconnection;
@@ -38,10 +40,10 @@ public class PageSeance extends javax.swing.JFrame {
         numFilm = ID_Film;
         this.ConnexionValid = ConnexionValid;
         //System.out.println(ConnexionValid);
-        // connection à la base de données
-        maconnection = new Connexion("Cinema", "root", "");
-        requeteSeance = "SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + ID_Film + " ORDER BY date ASC;";
-        ListModelSeance = maconnection.requestDemande(requeteSeance);
+        
+        
+        seance = new SeanceDAO("cinema", "root", "");
+        ListModelSeance = seance.getDateHeureByID(ID_Film);
         for (int i = 0; i < ListModelSeance.size(); i += 2) {
             ListModelSeanceConcat.add(i / 2, ListModelSeance.get(i) + ", " + ListModelSeance.get(i + 1));
 
@@ -182,9 +184,7 @@ public class PageSeance extends javax.swing.JFrame {
 
     private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
         try {
-            String requete = "SELECT id_seance FROM seance WHERE date LIKE '" + getDate(listSeance.getSelectedValue()) + "' AND heureDebut LIKE '" + getHour(listSeance.getSelectedValue()) + "' AND ID_Film = " + numFilm + ";";
-            //System.out.println(requete);
-            ListModelID = maconnection.requestDemande(requete);
+            ListModelID = seance.getIDByDateAndheureAndFilm(getDate(listSeance.getSelectedValue()), getHour(listSeance.getSelectedValue()), numFilm);
             numSeance = Integer.parseInt(ListModelID.get(0));
             PageSelecPrix pr = new PageSelecPrix(ConnexionValid, numFilm, numClient, numSeance);
             pr.setVisible(true);
