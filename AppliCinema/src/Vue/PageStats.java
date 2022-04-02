@@ -6,7 +6,7 @@
 package Vue;
 
 import java.sql.SQLException;
-import jdbc2020.Connexion;
+import DAO.FilmDAO;
 
 /**
  *
@@ -14,13 +14,11 @@ import jdbc2020.Connexion;
  */
 public class PageStats extends javax.swing.JFrame {
 
-    public Connexion connect;
-    private final String requeteTri= "SELECT titre FROM film ORDER BY nombreVues DESC";
+    private FilmDAO film;
     public PageStats() throws SQLException, ClassNotFoundException {
         super("Statistiques");
         initComponents();
-        //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
+        //film.getFilmTriNbVue();
     }
 
     /**
