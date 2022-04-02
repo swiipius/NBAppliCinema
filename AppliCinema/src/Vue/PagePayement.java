@@ -162,11 +162,6 @@ public class PagePayement extends javax.swing.JFrame {
                 NomMouseExited(evt);
             }
         });
-        Nom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomActionPerformed(evt);
-            }
-        });
         getContentPane().add(Nom);
         Nom.setBounds(270, 100, 260, 30);
 
@@ -320,10 +315,6 @@ public class PagePayement extends javax.swing.JFrame {
             labelNumCarte.setVisible(false);
         }
     }//GEN-LAST:event_NumCarteMouseExited
-
-    private void NomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NomActionPerformed
 
     //Ajout des différents billets dans la BDD
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
