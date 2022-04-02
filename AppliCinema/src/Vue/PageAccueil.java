@@ -551,7 +551,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCptActionPerformed
 
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
-
+        
     }//GEN-LAST:event_btnSeancesActionPerformed
 
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
