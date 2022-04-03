@@ -29,6 +29,7 @@ public class PageStats extends javax.swing.JFrame {
 
     private FilmDAO film;
     int nombreDeFilms = 0;
+    //on cree 2 listes de string
     public DefaultListModel<String> liste1 = new DefaultListModel<>();
     public ArrayList<Integer> liste2 = new ArrayList<>();
     public DefaultListModel<String> listeNbVue = new DefaultListModel<>();
@@ -40,16 +41,8 @@ public class PageStats extends javax.swing.JFrame {
         film = new FilmDAO("cinema", "root", "");
         //on ajoute tout les titres de film dans la liste1
         liste1 = film.getFilmTitre();
-        //on ajoute tout les nombres de vues de film dans la liste2
-        /*
-        connect.rset = connect.stmt.executeQuery(requeteNBVues);
-        connect.rsetMeta = connect.rset.getMetaData();
-        while ((connect.rset).next()) {
-            int nbVues = (connect.rset).getInt("nombreVues");
-            liste2.add(nbVues);
-            nombreDeFilms++;
-        }*/
-        
+
+        //on ajoute tout les nombres de vues de film dans la listeNBvues et ensuite
         listeNbVue = film.getNbVue();
         nombreDeFilms = film.getNbFilm();
 
@@ -119,14 +112,16 @@ public class PageStats extends javax.swing.JFrame {
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
         //on va rajouter les films sur le graphique, en utilisant les elements des deux listes precedentes au rang i jusqu'a atteindre le nombre de films qui est determine avant
         for (int i = 0; i < nombreDeFilms; i++) {
+            //on ajoute les elems un par un
             dcd.setValue(Integer.parseInt(listeNbVue.get(i)), "Nombre de vues", liste1.get(i));
         }
-
+        //on cree le graphique avec les bons labels
         JFreeChart jchart = ChartFactory.createBarChart("Popularite des films ", "Titre des films ", "Nombre de vues ", dcd, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = jchart.getCategoryPlot();
         plot.setRangeGridlinePaint(Color.black);
 
         ChartPanel chartPanel = new ChartPanel(jchart);
+        //on affiche le graphique
         graphique.removeAll();
         graphique.add(chartPanel);
         graphique.updateUI();

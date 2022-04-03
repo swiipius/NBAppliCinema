@@ -57,7 +57,6 @@ public class PageInscription extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBounds(new java.awt.Rectangle(750, 300, 0, 0));
-        setPreferredSize(new java.awt.Dimension(450, 600));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
@@ -171,38 +170,45 @@ public class PageInscription extends javax.swing.JFrame {
     }//GEN-LAST:event_LoginClientActionPerformed
 
     private void NomClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomClientMouseClicked
+        //si on clique sur le champ des noms, il se vide
         NomClient.setText(null);
     }//GEN-LAST:event_NomClientMouseClicked
 
     private void PrenomClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomClientMouseClicked
+        //si on clique sur le champ des prenoms, il se vide
         PrenomClient.setText(null);
     }//GEN-LAST:event_PrenomClientMouseClicked
 
     private void EmailClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseClicked
+        //si on clique sur le champ des email et qu'il est a sa valeur de base, il se vide
         if (EmailClient.getText().equals("Email")) {
             EmailClient.setText(null);
         }
     }//GEN-LAST:event_EmailClientMouseClicked
 
     private void LoginClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginClientMouseClicked
+        //si on clique le champ des mdp et qu'il est a sa valeur de base, il se vide
         if (LoginClient.getText().equals("Mot de passe")) {
             LoginClient.setText(null);
         }
     }//GEN-LAST:event_LoginClientMouseClicked
 
     private void NomClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomClientMouseExited
+        //si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
         if (NomClient.getText().equals("")) {
             NomClient.setText("Nom");
         }
     }//GEN-LAST:event_NomClientMouseExited
 
     private void PrenomClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomClientMouseExited
+        //si on quitte le champ des prenoms et qu'il est vide, il se remet a sa valeur de base
         if (PrenomClient.getText().equals("")) {
             PrenomClient.setText("Prenom");
         }
     }//GEN-LAST:event_PrenomClientMouseExited
 
     private void EmailClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseExited
+        //si on quitte le champ des email et qu'il est vide,ou bien s'il est incorrecte, il se remet a sa valeur de base
         String RegExpression = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         Pattern pattern = Pattern.compile(RegExpression);
         Matcher matcher = pattern.matcher(EmailClient.getText());
@@ -217,6 +223,7 @@ public class PageInscription extends javax.swing.JFrame {
     }//GEN-LAST:event_EmailClientMouseExited
 
     private void LoginClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginClientMouseExited
+        //si on quitte sur le champ des mdp et qu'il est vide, il se remet a sa valeur de base
         if (LoginClient.getText().equals("")) {
             LoginClient.setText("Mot de passe");
         }
@@ -264,6 +271,7 @@ public class PageInscription extends javax.swing.JFrame {
     }//GEN-LAST:event_BoutonInscriptionActionPerformed
 
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
+        //si on appuie sur le bouton de connexion, il nous redirige vers une page de connexion et ferme la page actuelle
         JOptionPane.showMessageDialog(null, "Vous allez être redirige vers la page de connexion");
         this.dispose();
         try {
@@ -277,10 +285,12 @@ public class PageInscription extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCoActionPerformed
 
     private void AgeClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseClicked
+        //si on clique sur le champ des ages,il se vide
         AgeClient.setText(null);
     }//GEN-LAST:event_AgeClientMouseClicked
 
     private void AgeClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseExited
+        //si on quitte sur le champ des ages et qu'il est vide, il se remet a sa valeur de base
         if(AgeClient.getText().equals("")){
             AgeClient.setText("Age");
         }

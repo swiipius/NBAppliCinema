@@ -34,6 +34,7 @@ public class PageConnexion extends javax.swing.JFrame {
     public PageConnexion() throws SQLException, ClassNotFoundException {
         super("Connexion");
         initComponents();
+        //connexion a la bdd
         employe = new EmployeDAO("cinema", "root", "");
         client = new ClientDAO("cinema", "root", "");
         //Initialisation Panel
@@ -258,12 +259,16 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_EmailActionPerformed
 
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
+        //cas d'un employé
+        //on verifie que les champs sont remplis
         if (!isEmploye) {
             if ((Identifiant.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             } else {
+                //on verifie que le mdp correspond au nom de l'employe
                 try {
                     employe = new EmployeDAO("cinema", "root", "");
+                    // si oui, nouvelle page d'accueil personalisée pour l'employé
                     if ((employe.getLoginByNom(Identifiant.getText())).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
@@ -271,6 +276,7 @@ public class PageConnexion extends javax.swing.JFrame {
                         this.dispose();
                         pa = new PageAccueil(connexionValid, EmpCo);
                         pa.setVisible(true);
+                        //sinon, message d'erreur et on recommence
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
                     }
@@ -283,11 +289,15 @@ public class PageConnexion extends javax.swing.JFrame {
                     Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        //cas d'un client
+        //on verifie que les champs sont remplis
         } else {
             if ((Email.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             } else {
+                //on verifie que le mdp correspond a l'email du client
                 try {
+                    // si oui, nouvelle page d'accueil personalisée pour le client
                     if ((client.getLoginByEmail(Email.getText())).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
@@ -296,6 +306,7 @@ public class PageConnexion extends javax.swing.JFrame {
                         pa = new PageAccueil(true, false);
                         pa.setVisible(true);
                         pa.client = Integer.parseInt((String) (client.getIDByMail(Email.getText())));
+                        //sinon, message d'erreur et on recommence
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
                     }
@@ -312,6 +323,7 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCoActionPerformed
 
     private void chechEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chechEmpActionPerformed
+        //si on choisit d'être un employé, les champs de connexion client, sont remplacés par ceux de employés
         if (isEmploye) {
             PanelEmploye.setVisible(true);
             PanelClient.setVisible(false);
@@ -323,6 +335,7 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_chechEmpActionPerformed
 
     private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed
+        //si on appuie sur le bouton d'inscription, on ouvre une page d'inscription et on ferme celle-ci
         JOptionPane.showMessageDialog(null, "Vous allez être redirige vers la page d'inscription");
         this.dispose();
         try {
@@ -340,6 +353,7 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_IdentifiantActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        //si on ferme la page,ça ouvre une page d'accueil avec l'accès d'un employé  
         try {
             if (!connexionValid) {
                 PageAccueil pa = new PageAccueil(connexionValid, EmpCo);

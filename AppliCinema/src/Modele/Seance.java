@@ -89,6 +89,7 @@ public class Seance {
         this.heuredebut = heuredebut;
     }
        
+    //on affiche les informations de la séance
     @Override
     public String toString(){
         return "Salle : "+salle+"\nID_Film : "+id_film+"\nDate : "+date+"\nHeure debut : "+heuredebut;

@@ -36,9 +36,9 @@ public class PageSuppression extends javax.swing.JFrame {
         initComponents();
 
         btnDel.setEnabled(false);
-        //BtnAdd.setEnabled(true);
-
+        //connection a la bdd
         film = new FilmDAO("cinema", "root", "");
+        //ajout des titres des films dans la liste
         listModelTitre = film.getFilmTitre();
         listTitreFilm.setModel(listModelTitre);
     }
@@ -330,6 +330,7 @@ public class PageSuppression extends javax.swing.JFrame {
         String textAffich = "Voulez vous supprimer ce film ?\n" + SelectedTitle + "\n" + eltRech.get(1) + ", " + eltRech.get(0);
         int result = JOptionPane.showConfirmDialog(null, textAffich, "Suppression", JOptionPane.YES_NO_OPTION);
 
+        //si on choisit de supprimer le film, on appel la methode delFilmByTitreAndReal qui supprime dans la bdd
         if (result == JOptionPane.YES_OPTION) {
             listModelTitre.removeElementAt(index);
             try {
@@ -337,11 +338,13 @@ public class PageSuppression extends javax.swing.JFrame {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //message de suppression
             JOptionPane.showMessageDialog(null, "Film Supprime");
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void listTitreFilmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTitreFilmMouseClicked
+        //si la liste des films n'est pas vide, on active le bouton de suprression
         if (listTitreFilm.getSelectedIndex() > -1) {
             btnDel.setEnabled(true);
             //BtnAdd.setEnabled(false);
@@ -349,16 +352,20 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_listTitreFilmMouseClicked
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        //si un champ est vide, on ne peut pas ajouter un film dans la bdd
         if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis")) || ("".equals(path))) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         } else {
             try {
+                //on ajoute le nouveau film dans la bdd avec les champs qu'on vient de remplir
                 film.addFilm(Titre.getText(), NomReal.getText(), PrenomReal.getText(), Duree.getText(), Genre.getText(), Note.getText(), Synopsis.getText(), path);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
+            //on ajoute le titre du nouveau film dans la liste
             listModelTitre.addElement(Titre.getText());
             JOptionPane.showMessageDialog(null, "Le film a ete ajoute");
+            //on vide les champs
             Titre.setText("Titre");
             PrenomReal.setText("Prenomreal");
             NomReal.setText("NomReal");
@@ -383,18 +390,21 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_PrenomRealMouseClicked
 
     private void NomRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseClicked
+        //si on clique sur l'espace d'entrée du champ, il se vide
         if (NomReal.getText().equals("NomReal")) {
             NomReal.setText(null);
         }
     }//GEN-LAST:event_NomRealMouseClicked
 
     private void DureeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseClicked
+        //si on clique sur l'espace d'entrée du champ, il se vide
         if (Duree.getText().equals("Duree")) {
             Duree.setText(null);
         }
     }//GEN-LAST:event_DureeMouseClicked
 
     private void GenreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseClicked
+        //si on clique sur l'espace d'entrée du champ, il se vide
         if (Genre.getText().equals("Genre")) {
             Genre.setText(null);
         }
@@ -407,64 +417,75 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_NoteMouseClicked
 
     private void SynopsisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseClicked
+        //si on clique sur l'espace d'entrée du champ, il se vide
         if (Synopsis.getText().equals("Synopsis")) {
             Synopsis.setText(null);
         }
     }//GEN-LAST:event_SynopsisMouseClicked
 
     private void TitreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Titre.getText().equals("")) {
             Titre.setText("Titre");
         }
     }//GEN-LAST:event_TitreMouseExited
 
     private void PrenomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomRealMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (PrenomReal.getText().equals("")) {
             PrenomReal.setText("PrenomReal");
         }
     }//GEN-LAST:event_PrenomRealMouseExited
 
     private void NomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (NomReal.getText().equals("")) {
             NomReal.setText("NomReal");
         }
     }//GEN-LAST:event_NomRealMouseExited
 
     private void DureeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Duree.getText().equals("")) {
             Duree.setText("Duree");
         }
     }//GEN-LAST:event_DureeMouseExited
 
     private void GenreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Genre.getText().equals("")) {
             Genre.setText("Genre");
         }
     }//GEN-LAST:event_GenreMouseExited
 
     private void NoteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NoteMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Note.getText().equals("")) {
             Note.setText("Note");
         }
     }//GEN-LAST:event_NoteMouseExited
 
     private void SynopsisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseExited
+        ///si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Synopsis.getText().equals("")) {
             Synopsis.setText("Synopsis");
         }
     }//GEN-LAST:event_SynopsisMouseExited
 
     private void RechercheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheMouseClicked
+        //si on clique sur l'espace d'entrée du champ, il se vide
         Recherche.setText(null);
     }//GEN-LAST:event_RechercheMouseClicked
 
     private void RechercheMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheMouseExited
+        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Recherche.getText().equals("")) {
             Recherche.setText("Recherche");
         }
     }//GEN-LAST:event_RechercheMouseExited
 
     private void btnRechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechActionPerformed
+        //on verifie que le champ de recherche soit rempli, et si c'est le cas, on filtre la liste en fonction du titre
         if ((Recherche.getText().equals("")) || (PrenomReal.getText().equals("Recherche"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer un titre à chercher");
         } else {
@@ -474,11 +495,13 @@ public class PageSuppression extends javax.swing.JFrame {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
             }
             listTitreFilm.setModel(listModelTitre);
+            //après coup, on reinitialise la barre de recherche
             Recherche.setText("Recherche");
         }
     }//GEN-LAST:event_btnRechActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        //on annulle le fitre de la barre de recherche
         try {
             listModelTitre = film.getFilmTitre();
         } catch (SQLException | ClassNotFoundException ex) {
@@ -488,6 +511,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResetActionPerformed
 
     private void DureeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyPressed
+        //blindage du la durée
         char c = evt.getKeyChar();
         if ((evt.getKeyCode() == 8) && (count < 4)) {
             count--;
@@ -499,6 +523,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_DureeKeyPressed
 
     private void DureeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyTyped
+        //blindage du la durée
         char c = evt.getKeyChar();
         if (count <= 3) {
             if (!Character.isDigit(c)) {
@@ -510,6 +535,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_DureeKeyTyped
 
     private void NoteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoteKeyTyped
+        //blindage du la note
         char c = evt.getKeyChar();
         if ((!Character.isDigit(c)) && (!(c == '.'))) {
             evt.consume();
@@ -517,6 +543,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_NoteKeyTyped
 
     private void TitreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TitreKeyTyped
+        //blindage du titre
         char c = evt.getKeyChar();
         if ((c == '"') || (c == ';')) {
             evt.consume();
@@ -524,6 +551,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_TitreKeyTyped
 
     private void PrenomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrenomRealKeyTyped
+        //blindage du prenomRea
         char c = evt.getKeyChar();
         if ((c == '"') || (c == '\'')) {
             evt.consume();
@@ -531,6 +559,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_PrenomRealKeyTyped
 
     private void NomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomRealKeyTyped
+        //blindage du nomRea
         char c = evt.getKeyChar();
         if ((c == '"') || (c == ';')) {
             evt.consume();
@@ -538,6 +567,7 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_NomRealKeyTyped
 
     private void GenreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenreKeyTyped
+        //blindage du genre
         char c = evt.getKeyChar();
         if ((c == '"') || (c == ';')) {
             evt.consume();
@@ -547,15 +577,19 @@ public class PageSuppression extends javax.swing.JFrame {
     private void RechercheImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechercheImageActionPerformed
         //https://www.youtube.com/watch?v=4syhRRe6iDg
         //youtiber: Source Code PH 
+        //methode pour ajouter une image dans la bdd
         JFileChooser fileChooser = new JFileChooser();
+        //retriction du type de fichier cherché
         FileNameExtensionFilter filtre = new FileNameExtensionFilter("PNG JPG  ET JPEG", "png", "jpeg", "jpg");
         fileChooser.addChoosableFileFilter(filtre);
         int load = fileChooser.showOpenDialog(null);
 
         if (load == JFileChooser.APPROVE_OPTION) {
             File file = fileChooser.getSelectedFile();
+            //on receptionne le chemin absolu de l'image
             path = file.getAbsolutePath();
             int taille = path.length();
+            //on rajaoute un antislash a chaque reccurence d'un autre, afin que cela ne soit pas supprimé dans la bdd
             String chaine2 = "";
             for (int i = 0; i < taille; i++) {
                 chaine2 += path.charAt(i);
@@ -566,6 +600,7 @@ public class PageSuppression extends javax.swing.JFrame {
             path = "";
             path = chaine2;
             try {
+                
                 is = new FileInputStream(file);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
