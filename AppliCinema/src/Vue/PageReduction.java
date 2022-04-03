@@ -59,7 +59,6 @@ public class PageReduction extends javax.swing.JFrame {
         //creation de la JList
         reduc = new ReductionDAO("cinema", "root", "");
         listModelReduc = reduc.getReduc();
-        System.out.println(listModelReduc);
         //Mise en forme de la JList
         for(int i = 0; i<listModelReduc.size(); i+=4){
             
