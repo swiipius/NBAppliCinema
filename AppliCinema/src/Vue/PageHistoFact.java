@@ -63,14 +63,29 @@ public class PageHistoFact extends javax.swing.JFrame {
     private void initComponents() {
 
         PanelInfoCpt = new javax.swing.JPanel();
+        btnImpr = new javax.swing.JButton();
+        Dereserver = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listHistorique = new javax.swing.JList<>();
-        PanelInfoFilm = new javax.swing.JPanel();
-        Dereserver = new javax.swing.JButton();
-        btnImpr = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        PanelInfoCpt.setBackground(new java.awt.Color(168, 26, 3));
+
+        btnImpr.setText("Imprimer le billet");
+        btnImpr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprActionPerformed(evt);
+            }
+        });
+
+        Dereserver.setText("Déreserver la séance ");
+        Dereserver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DereserverActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -83,31 +98,6 @@ public class PageHistoFact extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listHistorique);
 
-        javax.swing.GroupLayout PanelInfoFilmLayout = new javax.swing.GroupLayout(PanelInfoFilm);
-        PanelInfoFilm.setLayout(PanelInfoFilmLayout);
-        PanelInfoFilmLayout.setHorizontalGroup(
-            PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 14, Short.MAX_VALUE)
-        );
-        PanelInfoFilmLayout.setVerticalGroup(
-            PanelInfoFilmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-
-        Dereserver.setText("Déreserver la séance ");
-        Dereserver.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DereserverActionPerformed(evt);
-            }
-        });
-
-        btnImpr.setText("Imprimer le billet");
-        btnImpr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout PanelInfoCptLayout = new javax.swing.GroupLayout(PanelInfoCpt);
         PanelInfoCpt.setLayout(PanelInfoCptLayout);
         PanelInfoCptLayout.setHorizontalGroup(
@@ -116,8 +106,7 @@ public class PageHistoFact extends javax.swing.JFrame {
                 .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelInfoCptLayout.createSequentialGroup()
                         .addGap(188, 188, 188)
-                        .addComponent(jLabel1)
-                        .addGap(0, 229, Short.MAX_VALUE))
+                        .addComponent(jLabel1))
                     .addGroup(PanelInfoCptLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -125,10 +114,8 @@ public class PageHistoFact extends javax.swing.JFrame {
                             .addGroup(PanelInfoCptLayout.createSequentialGroup()
                                 .addComponent(btnImpr, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Dereserver)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PanelInfoFilm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addComponent(Dereserver)))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         PanelInfoCptLayout.setVerticalGroup(
             PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,15 +123,12 @@ public class PageHistoFact extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelInfoFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelInfoCptLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Dereserver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnImpr, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(PanelInfoCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Dereserver, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImpr, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -161,17 +145,52 @@ public class PageHistoFact extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void listHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHistoriqueMouseClicked
-        if (listHistorique.getSelectedIndex() > -1) {   
-            btnImpr.setEnabled(true);
-            Dereserver.setEnabled(true);
+    private void btnImprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprActionPerformed
+        //Demande du nom inscrit sur le billet
+        String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
+
+        //Recuperation des infos du billet
+        int index = listHistorique.getSelectedIndex();
+        String sPrix, sFilm, sDate, sHeure, sSalle, sTypePlace;
+        sFilm = listModelTitre.get(index*5);
+        sPrix = listModelTitre.get(index*5 + 2);
+        sDate = listModelTitre.get(index*5 + 1);
+        sTypePlace = listModelTitre.get(index*5 + 3);
+        try {
+            listModelInfoManquante = seance.getSalleHeureByBillet(listModelTitre.get(5*index+4));
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_listHistoriqueMouseClicked
+        sHeure = listModelInfoManquante.get(0);
+        sSalle = listModelInfoManquante.get(1);
+        //System.out.println(sFilm + ", " + sPrix + ", "+ sDate+ ", " + sTypePlace+ ", " + sHeure+ ", " + sSalle);
+        String billet = "Résumé Achat :\nPlace " + sTypePlace + ", " + sPrix + "€\nFilm : " + sFilm + "\nSeance du " + sDate + " a " + sHeure + " en salle " + sSalle;
+
+        //Enregistrement du billet
+        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet_"+ Nom +".txt");
+
+        if (!fBillet.exists()) {
+            try {
+                fBillet.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
+            print.print(billet);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        JOptionPane.showMessageDialog(null, "Votre billet a été imprimé");
+
+    }//GEN-LAST:event_btnImprActionPerformed
 
     private void DereserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DereserverActionPerformed
         int result = JOptionPane.showConfirmDialog(null, "Etes vous sur de ne pas venir a cette séance ?", "Annulation", JOptionPane.YES_NO_OPTION);
         int index =  listHistorique.getSelectedIndex();
-        
+
         if (result == JOptionPane.YES_OPTION) {
             try {
                 billet.delBilletByID(listModelTitre.get(5*index+4));
@@ -191,52 +210,16 @@ public class PageHistoFact extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_DereserverActionPerformed
 
-    private void btnImprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprActionPerformed
-        //Demande du nom inscrit sur le billet
-        String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
-        
-        //Recuperation des infos du billet
-        int index = listHistorique.getSelectedIndex();
-        String sPrix, sFilm, sDate, sHeure, sSalle, sTypePlace;
-        sFilm = listModelTitre.get(index*5);
-        sPrix = listModelTitre.get(index*5 + 2);
-        sDate = listModelTitre.get(index*5 + 1);
-        sTypePlace = listModelTitre.get(index*5 + 3);
-        try {
-            listModelInfoManquante = seance.getSalleHeureByBillet(listModelTitre.get(5*index+4));
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
+    private void listHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHistoriqueMouseClicked
+        if (listHistorique.getSelectedIndex() > -1) {
+            btnImpr.setEnabled(true);
+            Dereserver.setEnabled(true);
         }
-        sHeure = listModelInfoManquante.get(0);
-        sSalle = listModelInfoManquante.get(1);       
-        //System.out.println(sFilm + ", " + sPrix + ", "+ sDate+ ", " + sTypePlace+ ", " + sHeure+ ", " + sSalle);
-        String billet = "Résumé Achat :\nPlace " + sTypePlace + ", " + sPrix + "€\nFilm : " + sFilm + "\nSeance du " + sDate + " a " + sHeure + " en salle " + sSalle;
-        
-        //Enregistrement du billet
-        File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet_"+ Nom +".txt");
-
-                            if (!fBillet.exists()) {
-                                try {
-                                    fBillet.createNewFile();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
-                                print.print(billet);
-                            } catch (FileNotFoundException ex) {
-                                Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                            
-                            JOptionPane.showMessageDialog(null, "Votre billet a été imprimé");
-        
-    }//GEN-LAST:event_btnImprActionPerformed
+    }//GEN-LAST:event_listHistoriqueMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Dereserver;
     private javax.swing.JPanel PanelInfoCpt;
-    private javax.swing.JPanel PanelInfoFilm;
     private javax.swing.JButton btnImpr;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

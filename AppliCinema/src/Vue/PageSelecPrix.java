@@ -154,16 +154,13 @@ public class PageSelecPrix extends javax.swing.JFrame {
         });
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tarif Membre : (10€)");
         jLabel2.setToolTipText("");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tarif Senior : (8€)");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tarif enfant : (6€)");
 
         javax.swing.GroupLayout PanelCoLayout = new javax.swing.GroupLayout(PanelCo);
@@ -208,7 +205,6 @@ public class PageSelecPrix extends javax.swing.JFrame {
         PanelPasCo.setBackground(new java.awt.Color(168, 26, 3));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Plein tarif : (12€)");
 
         pasCo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
@@ -270,10 +266,9 @@ public class PageSelecPrix extends javax.swing.JFrame {
         );
 
         jPanel1.add(jLayeredPane1);
-        jLayeredPane1.setBounds(234, 260, 346, 254);
+        jLayeredPane1.setBounds(234, 260, 346, 259);
 
         btnAchat.setBackground(new java.awt.Color(168, 26, 3));
-        btnAchat.setForeground(new java.awt.Color(0, 0, 0));
         btnAchat.setText("Finaliser la commande");
         btnAchat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,7 +276,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnAchat);
-        btnAchat.setBounds(420, 530, 140, 25);
+        btnAchat.setBounds(420, 530, 159, 25);
 
         jScrollPane1.setViewportView(ResumeFilm);
 
@@ -289,14 +284,13 @@ public class PageSelecPrix extends javax.swing.JFrame {
         jScrollPane1.setBounds(0, 90, 860, 161);
 
         Selecplace.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        Selecplace.setForeground(new java.awt.Color(0, 0, 0));
         Selecplace.setText("Selection des places");
         jPanel1.add(Selecplace);
         Selecplace.setBounds(260, 20, 440, 47);
 
         jLabel1.setText("Total Commande :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(234, 533, 85, 25);
+        jLabel1.setBounds(234, 533, 102, 25);
 
         ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PageSelecPrix.png"))); // NOI18N
         jPanel1.add(ImageFond);

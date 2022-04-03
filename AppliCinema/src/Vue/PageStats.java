@@ -69,7 +69,9 @@ public class PageStats extends javax.swing.JFrame {
         graphique = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(168, 26, 3));
 
+        PanelStats.setBackground(new java.awt.Color(168, 26, 3));
         PanelStats.setLayout(new java.awt.BorderLayout());
 
         boutonStats.setText("Afficher Statistiques");

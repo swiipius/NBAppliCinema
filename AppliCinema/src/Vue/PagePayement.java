@@ -88,6 +88,7 @@ public class PagePayement extends javax.swing.JFrame {
         ImageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(168, 26, 3));
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(800, 400));
@@ -100,7 +101,6 @@ public class PagePayement extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         btnValid.setBackground(new java.awt.Color(204, 204, 204));
-        btnValid.setForeground(new java.awt.Color(0, 0, 0));
         btnValid.setText("Valider");
         btnValid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,23 +110,19 @@ public class PagePayement extends javax.swing.JFrame {
         getContentPane().add(btnValid);
         btnValid.setBounds(350, 300, 80, 40);
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("  Nom sur la  carte");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(270, 70, 150, 15);
+        jLabel1.setBounds(270, 70, 150, 16);
 
-        labelCrypto.setForeground(new java.awt.Color(0, 0, 0));
         labelCrypto.setText(" Cryptogramme");
         getContentPane().add(labelCrypto);
-        labelCrypto.setBounds(450, 190, 80, 15);
+        labelCrypto.setBounds(450, 190, 80, 16);
 
-        labelNumCarte.setForeground(new java.awt.Color(0, 0, 0));
         labelNumCarte.setText("Numéro de la carte");
         getContentPane().add(labelNumCarte);
         labelNumCarte.setBounds(270, 120, 200, 20);
 
         Crypto.setBackground(new java.awt.Color(204, 204, 204));
-        Crypto.setForeground(new java.awt.Color(0, 0, 0));
         try {
             Crypto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
         } catch (java.text.ParseException ex) {
@@ -145,7 +141,6 @@ public class PagePayement extends javax.swing.JFrame {
         NumCarte.setBounds(270, 140, 260, 30);
 
         Nom.setBackground(new java.awt.Color(204, 204, 204));
-        Nom.setForeground(new java.awt.Color(0, 0, 0));
         Nom.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 NomMouseClicked(evt);
@@ -158,7 +153,6 @@ public class PagePayement extends javax.swing.JFrame {
         Nom.setBounds(270, 90, 260, 30);
 
         Date.setBackground(new java.awt.Color(204, 204, 204));
-        Date.setForeground(new java.awt.Color(0, 0, 0));
         try {
             Date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("## / ##")));
         } catch (java.text.ParseException ex) {
@@ -170,12 +164,11 @@ public class PagePayement extends javax.swing.JFrame {
         Date.setBounds(270, 210, 60, 30);
 
         DateExp.setBackground(new java.awt.Color(0, 0, 0));
-        DateExp.setForeground(new java.awt.Color(0, 0, 0));
         DateExp.setText("Date d'expiration");
         getContentPane().add(DateExp);
-        DateExp.setBounds(270, 190, 80, 15);
+        DateExp.setBounds(270, 190, 91, 16);
 
-        ImageFond.setIcon(new javax.swing.ImageIcon("C:\\Users\\pierr\\OneDrive\\Bureau\\ECE\\Cours\\Java\\Projet\\Image\\pagepayement.png")); // NOI18N
+        ImageFond.setBackground(new java.awt.Color(168, 26, 3));
         getContentPane().add(ImageFond);
         ImageFond.setBounds(0, 0, 850, 480);
 

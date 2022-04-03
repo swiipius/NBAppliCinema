@@ -105,6 +105,10 @@ public class PageReduction extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        AjoutReduc.setBackground(new java.awt.Color(168, 26, 3));
+
+        PanelChoixFilm.setBackground(new java.awt.Color(168, 26, 3));
+
         choixFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choixFilmActionPerformed(evt);
@@ -277,7 +281,7 @@ public class PageReduction extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sReduction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         PanelReducLayout.setVerticalGroup(
             PanelReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,7 +296,7 @@ public class PageReduction extends javax.swing.JFrame {
                 .addComponent(btnFilm)
                 .addGap(26, 26, 26)
                 .addComponent(btnValid)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         AjoutReduc.setLayer(PanelChoixFilm, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -324,11 +328,13 @@ public class PageReduction extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AjoutReducLayout.createSequentialGroup()
-                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
         jTabbedPane1.addTab("Ajout Réduction", AjoutReduc);
+
+        SupprReduc.setBackground(new java.awt.Color(168, 26, 3));
 
         ListReduc.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {

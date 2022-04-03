@@ -105,6 +105,10 @@ public class PageAccueil extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        PanelAccueil.setBackground(new java.awt.Color(168, 26, 3));
+
+        jScrollPane1.setBackground(new java.awt.Color(168, 26, 3));
+
         TitreFilmsAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         TitreFilmsAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -147,6 +151,7 @@ public class PageAccueil extends javax.swing.JFrame {
             }
         });
 
+        PanelDescriptionAccueil.setBackground(new java.awt.Color(168, 26, 3));
         PanelDescriptionAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         descriptionFilmsAccueilText.setMaximumSize(new java.awt.Dimension(6, 22));
@@ -172,6 +177,8 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        PanelBoutonSeances.setBackground(new java.awt.Color(168, 26, 3));
+
         BoutonSeancesFilmSelectione.setText("Seances Disponibles");
         BoutonSeancesFilmSelectione.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,6 +199,8 @@ public class PageAccueil extends javax.swing.JFrame {
             PanelBoutonSeancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(BoutonSeancesFilmSelectione, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
         );
+
+        PanelAccesCpt.setBackground(new java.awt.Color(168, 26, 3));
 
         btnCpt.setText("Mon Compte");
         btnCpt.addActionListener(new java.awt.event.ActionListener() {
@@ -216,6 +225,8 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addComponent(btnCpt)
                 .addContainerGap(47, Short.MAX_VALUE))
         );
+
+        PanelCoIns.setBackground(new java.awt.Color(168, 26, 3));
 
         ConnexionBoutonAccueil.setText("Connexion");
         ConnexionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
@@ -254,6 +265,8 @@ public class PageAccueil extends javax.swing.JFrame {
                     .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        PanelEmp.setBackground(new java.awt.Color(168, 26, 3));
 
         btnSeances.setText("Gestion Seances");
         btnSeances.addActionListener(new java.awt.event.ActionListener() {

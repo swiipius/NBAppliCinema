@@ -86,6 +86,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(168, 26, 3));
         jPanel1.setLayout(null);
 
         BtnRecherche.setText("Recherche");
@@ -156,11 +157,6 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(jLabel2);
         jLabel2.setBounds(48, 231, 117, 16);
 
-        NomFilm.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                NomFilmMouseExited(evt);
-            }
-        });
         jPanel1.add(NomFilm);
         NomFilm.setBounds(206, 158, 226, 40);
 
@@ -193,12 +189,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(450, 40, 150, 16);
 
-        SalleProjection.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
-        SalleProjection.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SalleProjectionMouseExited(evt);
-            }
-        });
+        SalleProjection.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
         jPanel1.add(SalleProjection);
         SalleProjection.setBounds(370, 250, 60, 40);
 
@@ -302,22 +293,6 @@ public class GestiondeSeance extends javax.swing.JFrame {
             BtnAjouter.setEnabled(true);
         }
     }//GEN-LAST:event_HeureDebutMouseExited
-
-    private void SalleProjectionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SalleProjectionMouseExited
-        if (((DateSeance.getText().equals("    -  -  ") || NomFilm.getSelectedItem() == null) || HeureDebut.getText().equals("  :  :  ")) || SalleProjection.getValue() == null) {
-            BtnAjouter.setEnabled(false);
-        } else {
-            BtnAjouter.setEnabled(true);
-        }
-    }//GEN-LAST:event_SalleProjectionMouseExited
-
-    private void NomFilmMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomFilmMouseExited
-        if (((DateSeance.getText().equals("    -  -  ") || NomFilm.getSelectedItem() == null) || HeureDebut.getText().equals("  :  :  ")) || SalleProjection.getValue() == null) {
-            BtnAjouter.setEnabled(false);
-        } else {
-            BtnAjouter.setEnabled(true);
-        }
-    }//GEN-LAST:event_NomFilmMouseExited
 
     private DefaultListModel<String> affichage(DefaultListModel<String> listModel) {
         DefaultListModel<String> list = new DefaultListModel<>();

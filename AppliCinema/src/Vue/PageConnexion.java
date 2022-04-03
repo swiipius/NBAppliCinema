@@ -64,12 +64,17 @@ public class PageConnexion extends javax.swing.JFrame {
         btnInscription = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setBackground(new java.awt.Color(168, 26, 3));
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
+
+        jLayeredPane1.setBackground(new java.awt.Color(168, 26, 3));
+
+        PanelEmploye.setBackground(new java.awt.Color(168, 26, 3));
 
         lblIdentifiant.setText("Identifiant :");
 
@@ -99,6 +104,8 @@ public class PageConnexion extends javax.swing.JFrame {
                 .addComponent(Identifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        PanelClient.setBackground(new java.awt.Color(168, 26, 3));
 
         lblEmail.setText("Email :");
 
@@ -159,6 +166,8 @@ public class PageConnexion extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
+        PanelCommun.setBackground(new java.awt.Color(168, 26, 3));
+
         jLabel2.setText("Mot de passe :");
 
         btnCo.setText("Connexion");
@@ -190,15 +199,16 @@ public class PageConnexion extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelCommunLayout.createSequentialGroup()
-                        .addComponent(MotDePasse)
-                        .addContainerGap())
-                    .addGroup(PanelCommunLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelCommunLayout.createSequentialGroup()
-                        .addComponent(btnCo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
-                        .addComponent(chechEmp))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCommunLayout.createSequentialGroup()
+                        .addGroup(PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(PanelCommunLayout.createSequentialGroup()
+                                .addComponent(btnCo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(chechEmp))
+                            .addComponent(MotDePasse))
+                        .addContainerGap())))
             .addGroup(PanelCommunLayout.createSequentialGroup()
                 .addGap(90, 90, 90)
                 .addComponent(btnInscription)
@@ -224,10 +234,11 @@ public class PageConnexion extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(PanelCommun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(PanelCommun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
@@ -235,8 +246,7 @@ public class PageConnexion extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelCommun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(PanelCommun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
