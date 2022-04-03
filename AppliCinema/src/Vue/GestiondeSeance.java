@@ -155,14 +155,14 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
         jLabel2.setText("Heure de la séance : ");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(48, 231, 117, 16);
+        jLabel2.setBounds(48, 231, 103, 15);
 
         jPanel1.add(NomFilm);
         NomFilm.setBounds(206, 158, 226, 40);
 
         jLabel3.setText("Date de la séance :");
         jPanel1.add(jLabel3);
-        jLabel3.setBounds(50, 140, 100, 16);
+        jLabel3.setBounds(50, 140, 100, 15);
 
         try {
             DateSeance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
@@ -187,7 +187,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
         jLabel4.setText("Recherche selon la date :");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(450, 40, 150, 16);
+        jLabel4.setBounds(450, 40, 150, 15);
 
         SalleProjection.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
         jPanel1.add(SalleProjection);
@@ -205,6 +205,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupprimerActionPerformed

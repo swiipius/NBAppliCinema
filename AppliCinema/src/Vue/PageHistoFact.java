@@ -156,6 +156,7 @@ public class PageHistoFact extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //"Impression du billet (creation du fichier text)

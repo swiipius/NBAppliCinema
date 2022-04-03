@@ -174,6 +174,7 @@ public class PagePayement extends javax.swing.JFrame {
         ImageFond.setBounds(0, 0, 850, 480);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Suppression du text quand la souris clique

@@ -284,7 +284,7 @@ public class PageReduction extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sReduction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         PanelReducLayout.setVerticalGroup(
             PanelReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +299,7 @@ public class PageReduction extends javax.swing.JFrame {
                 .addComponent(btnFilm)
                 .addGap(26, 26, 26)
                 .addComponent(btnValid)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         AjoutReduc.setLayer(PanelChoixFilm, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -390,6 +390,7 @@ public class PageReduction extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Bouton de selection de l'heure

@@ -225,6 +225,7 @@ public class PageConnexion extends javax.swing.JFrame {
         Background.setBounds(0, 0, 30, 30);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
