@@ -58,6 +58,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelDescriptionAccueil.setVisible(false);
         //Connection a la bdd
         film = new FilmDAO("cinema", "root", "");
+        //on ajoute les titres de films dans la liste
         listModeTitre = film.getFilmTitre();
         TitreFilmsAccueil.setModel(listModeTitre);
         IsEmp = Emp;
@@ -359,18 +360,22 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_barreRechercheAccueilActionPerformed
 
     private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
+        //si on lcique sur la barre de recherche, elle se vide
         barreRechercheAccueil.setText(null);
     }//GEN-LAST:event_barreRechercheAccueilMouseClicked
 
     private void barreRechercheAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseExited
+        //si on quitte la barre de recherche alors qu'elle vide, elle reinitialise
         if (barreRechercheAccueil.getText().equals("")) {
             barreRechercheAccueil.setText("titre de film");
         }
     }//GEN-LAST:event_barreRechercheAccueilMouseExited
 
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
+        //so la liste n'est pas vide, on affiche le panel des description
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
             PanelDescriptionAccueil.setVisible(true);
+            //si on est un employe le bouton de seances->reservation est inactif
             if (!IsEmp) {
                 BoutonSeancesFilmSelectione.setEnabled(true);
             } else {
@@ -379,6 +384,7 @@ public class PageAccueil extends javax.swing.JFrame {
             String textAffich;
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
 
+            //en fonction du tire cliqué, on affiche les infos de ce film, et en plus, on incrémente le nombre de vues de ce film
             try {
                 listModel1 = film.getFilmByTitre(titreSelectionne);
                 film.majNbVueByTitre(titreSelectionne);
@@ -427,17 +433,18 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
 
     private void TitreFilmsAccueilMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseReleased
+        //si on ne clique plus sur un titre de film, la description disparait
         PanelDescriptionAccueil.setVisible(false);
         //BoutonSeancesFilmSelectione.setEnabled(false);
         descriptionFilmsAccueilText.setText("");
     }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
 
     private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
-        /*PanelDescriptionAccueil.setVisible(false);
-        descriptionFilmsAccueilText.setText("");*/
+
     }//GEN-LAST:event_TitreFilmsAccueilMouseExited
 
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
+        //si on appuie sur le bouton seance, ça ouvre une page avec la liste des seances qui ont le meme id que le film selectionné
         PageSeance pse;
         try {
             pse = new PageSeance(id_film, client, connexionValid);
@@ -445,10 +452,12 @@ public class PageAccueil extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //on ferme la page d'accueil par la meme occasion
         this.dispose();
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
 
     private void btnCptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCptActionPerformed
+        //si on appuie sur le bouton compte, ça ouvre une page avec la liste des historique d'acht du client
         PageHistoFact ph;
         try {
             ph = new PageHistoFact(connexionValid, client);
@@ -459,6 +468,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCptActionPerformed
 
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
+        //si on appuie sur le bouton gestion des seances, ça ouvre une page avec le menu de gestion des seances(exlusif aux employes)
         try {
             GestiondeSeance gs = new GestiondeSeance();
             gs.setVisible(true);
@@ -468,6 +478,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSeancesActionPerformed
 
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
+        //si on appuie sur le bouton gestion des films, ça ouvre une page avec le menu de gestion des films(exlusif aux employes)
         try {
             PageSuppression ps = new PageSuppression();
             ps.setVisible(true);
@@ -477,6 +488,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFilmsActionPerformed
 
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
+         //si on appuie sur le bouton statistiques, ça ouvre une page avec  un graph de la popularite des films(exlusif aux employes)
         PageStats pStats = null;
         try {
             pStats = new PageStats();
@@ -487,6 +499,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
 
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
+         //si on appuie sur le bouton reductions, ça ouvre une page avec le menu de gestion des reductions(exlusif aux employes)
         PageReduction pr;
         try {
             pr = new PageReduction();
@@ -497,6 +510,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRedActionPerformed
 
     public void affichageBtnCo(boolean COk, boolean Emp) {
+        //en fonction de la connection et du status du connecté, des panels apparaissent et/ou disparaissent
         if (COk) {
             if (Emp) {
                 PanelAccesCpt.setVisible(false);

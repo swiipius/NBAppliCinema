@@ -266,7 +266,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         );
 
         jPanel1.add(jLayeredPane1);
-        jLayeredPane1.setBounds(234, 260, 346, 254);
+        jLayeredPane1.setBounds(234, 260, 346, 259);
 
         btnAchat.setBackground(new java.awt.Color(168, 26, 3));
         btnAchat.setText("Finaliser la commande");
@@ -276,7 +276,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnAchat);
-        btnAchat.setBounds(420, 530, 140, 25);
+        btnAchat.setBounds(420, 530, 159, 25);
 
         jScrollPane1.setViewportView(ResumeFilm);
 
@@ -290,7 +290,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
         jLabel1.setText("Total Commande :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(234, 533, 85, 25);
+        jLabel1.setBounds(234, 533, 102, 25);
 
         ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PageSelecPrix.png"))); // NOI18N
         jPanel1.add(ImageFond);

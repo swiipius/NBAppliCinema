@@ -105,6 +105,7 @@ public class Client {
         this.loginClient = loginClient;
     }
     
+    //on affiche les infromations du client
     @Override
     public String toString(){
         return "Nom : "+nom+"\nPrenom : "+prenom+"\nAge : "+age+"\nE-mail : "+email+"\nloginClient : "+loginClient;
