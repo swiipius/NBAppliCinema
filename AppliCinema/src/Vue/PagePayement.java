@@ -112,11 +112,11 @@ public class PagePayement extends javax.swing.JFrame {
 
         jLabel1.setText("  Nom sur la  carte");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(270, 70, 150, 16);
+        jLabel1.setBounds(270, 70, 150, 15);
 
         labelCrypto.setText(" Cryptogramme");
         getContentPane().add(labelCrypto);
-        labelCrypto.setBounds(450, 190, 80, 16);
+        labelCrypto.setBounds(450, 190, 80, 15);
 
         labelNumCarte.setText("Numéro de la carte");
         getContentPane().add(labelNumCarte);
@@ -166,9 +166,10 @@ public class PagePayement extends javax.swing.JFrame {
         DateExp.setBackground(new java.awt.Color(0, 0, 0));
         DateExp.setText("Date d'expiration");
         getContentPane().add(DateExp);
-        DateExp.setBounds(270, 190, 91, 16);
+        DateExp.setBounds(270, 190, 80, 15);
 
         ImageFond.setBackground(new java.awt.Color(168, 26, 3));
+        ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/pagepayement.png"))); // NOI18N
         getContentPane().add(ImageFond);
         ImageFond.setBounds(0, 0, 850, 480);
 
