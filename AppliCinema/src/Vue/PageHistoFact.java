@@ -86,6 +86,8 @@ public class PageHistoFact extends javax.swing.JFrame {
 
         PanelInfoCpt.setBackground(new java.awt.Color(168, 26, 3));
 
+        btnImpr.setBackground(new java.awt.Color(0, 0, 0));
+        btnImpr.setForeground(new java.awt.Color(168, 26, 3));
         btnImpr.setText("Imprimer le billet");
         btnImpr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +95,8 @@ public class PageHistoFact extends javax.swing.JFrame {
             }
         });
 
+        Dereserver.setBackground(new java.awt.Color(0, 0, 0));
+        Dereserver.setForeground(new java.awt.Color(168, 26, 3));
         Dereserver.setText("Déreserver la séance ");
         Dereserver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,9 +105,12 @@ public class PageHistoFact extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Historique des factures");
 
+        listHistorique.setBackground(new java.awt.Color(0, 0, 0));
+        listHistorique.setForeground(new java.awt.Color(255, 255, 255));
         listHistorique.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listHistoriqueMouseClicked(evt);
