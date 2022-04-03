@@ -120,9 +120,6 @@ public class PageAccueil extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TitreFilmsAccueilMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TitreFilmsAccueilMouseExited(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 TitreFilmsAccueilMouseReleased(evt);
             }
@@ -161,11 +158,6 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 barreRechercheAccueilMouseExited(evt);
-            }
-        });
-        barreRechercheAccueil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                barreRechercheAccueilActionPerformed(evt);
             }
         });
         PanelAccueil.add(barreRechercheAccueil);
@@ -387,10 +379,6 @@ public class PageAccueil extends javax.swing.JFrame {
         }
         pi.setVisible(true);
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
-
-    private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
-
-    }//GEN-LAST:event_barreRechercheAccueilActionPerformed
     /**
      * //si on lcique sur la barre de recherche, elle se vide
      * @param evt 
@@ -483,10 +471,6 @@ public class PageAccueil extends javax.swing.JFrame {
         //BoutonSeancesFilmSelectione.setEnabled(false);
         descriptionFilmsAccueilText.setText("");
     }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
-
-    private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
-
-    }//GEN-LAST:event_TitreFilmsAccueilMouseExited
     /**
      * // Seance liée au film
      * @param evt 
@@ -544,11 +528,10 @@ public class PageAccueil extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnFilmsActionPerformed
     /**
-     * Affichage du graphe
+     * si on appuie sur le bouton statistiques, ça ouvre une page avec  un graph de la popularite des films(exlusif aux employes)
      * @param evt 
      */
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
-         //si on appuie sur le bouton statistiques, ça ouvre une page avec  un graph de la popularite des films(exlusif aux employes)
         PageStats pStats = null;
         try {
             pStats = new PageStats();
@@ -562,7 +545,6 @@ public class PageAccueil extends javax.swing.JFrame {
      * @param evt 
      */
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
-         //si on appuie sur le bouton reductions, ça ouvre une page avec le menu de gestion des reductions(exlusif aux employes)
         PageReduction pr;
         try {
             pr = new PageReduction();

@@ -59,15 +59,17 @@ public class PageReduction extends javax.swing.JFrame {
         //creation de la JList
         reduc = new ReductionDAO("cinema", "root", "");
         listModelReduc = reduc.getReduc();
+        System.out.println(listModelReduc);
         //Mise en forme de la JList
         for(int i = 0; i<listModelReduc.size(); i+=4){
+            
             if(listModelReduc.get(i+2)==null){
-                listModelReducAffich.add(i/3, listModelReduc.get(i)+ ", "+ null+ ", "+listModelReduc.get(i+1));
+                listModelReducAffich.add(i/4, listModelReduc.get(i)+ ", "+ null+ ", "+listModelReduc.get(i+1));
             }
             else{
-                listModelReducAffich.add(i/3, listModelReduc.get(i)+ ", "+ film.getFilmByID(listModelReduc.get(i+3)).get(0)+ ", "+listModelReduc.get(i+1));
+                listModelReducAffich.add(i/4, listModelReduc.get(i)+ ", "+ film.getFilmByID(listModelReduc.get(i+2)).get(0)+ ", "+listModelReduc.get(i+1));
             }
-        }    
+        } 
         ListReduc.setModel(listModelReducAffich);
     }
 
@@ -112,12 +114,16 @@ public class PageReduction extends javax.swing.JFrame {
 
         PanelChoixFilm.setBackground(new java.awt.Color(168, 26, 3));
 
+        choixFilm.setBackground(new java.awt.Color(0, 0, 0));
+        choixFilm.setForeground(new java.awt.Color(255, 255, 255));
         choixFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 choixFilmActionPerformed(evt);
             }
         });
 
+        btnValidChoix.setBackground(new java.awt.Color(0, 0, 0));
+        btnValidChoix.setForeground(new java.awt.Color(168, 26, 3));
         btnValidChoix.setText("Valider");
         btnValidChoix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,7 +152,7 @@ public class PageReduction extends javax.swing.JFrame {
                 .addComponent(choixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(67, 67, 67)
                 .addComponent(btnValidChoix)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         PanelChoixHeure.setBackground(new java.awt.Color(168, 26, 3));
@@ -337,11 +343,11 @@ public class PageReduction extends javax.swing.JFrame {
             AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AjoutReducLayout.createSequentialGroup()
                 .addComponent(PanelReduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 28, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
             .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AjoutReducLayout.createSequentialGroup()
                     .addComponent(PanelChoixFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 14, Short.MAX_VALUE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
             .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AjoutReducLayout.createSequentialGroup()
                     .addComponent(PanelChoixHeure, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -356,7 +362,7 @@ public class PageReduction extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AjoutReducLayout.createSequentialGroup()
-                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -384,7 +390,7 @@ public class PageReduction extends javax.swing.JFrame {
             SupprReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(SupprReducLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(SupprReducLayout.createSequentialGroup()
                 .addGap(113, 113, 113)
@@ -398,7 +404,7 @@ public class PageReduction extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDel)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Suppression Réduction", SupprReduc);

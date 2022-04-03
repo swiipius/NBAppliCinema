@@ -68,6 +68,7 @@ public class PageConnexion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(168, 26, 3));
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
+        setPreferredSize(new java.awt.Dimension(305, 295));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -88,11 +89,6 @@ public class PageConnexion extends javax.swing.JFrame {
 
         Email.setBackground(new java.awt.Color(0, 0, 0));
         Email.setForeground(new java.awt.Color(255, 255, 255));
-        Email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailActionPerformed(evt);
-            }
-        });
         PanelClient.add(Email);
         Email.setBounds(12, 42, 280, 40);
 
