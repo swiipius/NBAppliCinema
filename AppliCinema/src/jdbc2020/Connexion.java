@@ -27,8 +27,8 @@ public class Connexion {
      */
     private final Connection conn;
     public final Statement stmt;
-    private ResultSet rset;
-    private ResultSetMetaData rsetMeta;
+    public ResultSet rset;
+    public ResultSetMetaData rsetMeta;
     /**
      * ArrayList public pour les tables
      */
