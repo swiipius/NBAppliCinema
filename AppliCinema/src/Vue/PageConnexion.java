@@ -52,126 +52,109 @@ public class PageConnexion extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        PanelEmploye = new javax.swing.JPanel();
-        lblIdentifiant = new javax.swing.JLabel();
-        Identifiant = new javax.swing.JTextField();
         PanelClient = new javax.swing.JPanel();
         lblEmail = new javax.swing.JLabel();
         Email = new javax.swing.JTextField();
+        PanelEmploye = new javax.swing.JPanel();
+        lblIdentifiant = new javax.swing.JLabel();
+        Identifiant = new javax.swing.JTextField();
         PanelCommun = new javax.swing.JPanel();
         MotDePasse = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         btnCo = new javax.swing.JButton();
         chechEmp = new javax.swing.JCheckBox();
         btnInscription = new javax.swing.JButton();
+        Background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(168, 26, 3));
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
+        setPreferredSize(new java.awt.Dimension(300, 295));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
+        getContentPane().setLayout(null);
 
         jLayeredPane1.setBackground(new java.awt.Color(168, 26, 3));
 
-        PanelEmploye.setBackground(new java.awt.Color(168, 26, 3));
-
-        lblIdentifiant.setText("Identifiant :");
-
-        Identifiant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IdentifiantActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PanelEmployeLayout = new javax.swing.GroupLayout(PanelEmploye);
-        PanelEmploye.setLayout(PanelEmployeLayout);
-        PanelEmployeLayout.setHorizontalGroup(
-            PanelEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEmployeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Identifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblIdentifiant))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        PanelEmployeLayout.setVerticalGroup(
-            PanelEmployeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEmployeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblIdentifiant)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Identifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-
         PanelClient.setBackground(new java.awt.Color(168, 26, 3));
+        PanelClient.setLayout(null);
 
-        lblEmail.setText("Email :");
+        lblEmail.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
+        lblEmail.setText(" Email :");
+        PanelClient.add(lblEmail);
+        lblEmail.setBounds(10, 20, 60, 19);
 
+        Email.setBackground(new java.awt.Color(0, 0, 0));
+        Email.setForeground(new java.awt.Color(255, 255, 255));
         Email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmailActionPerformed(evt);
             }
         });
+        PanelClient.add(Email);
+        Email.setBounds(12, 42, 280, 40);
 
-        javax.swing.GroupLayout PanelClientLayout = new javax.swing.GroupLayout(PanelClient);
-        PanelClient.setLayout(PanelClientLayout);
-        PanelClientLayout.setHorizontalGroup(
-            PanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelClientLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblEmail))
-                .addContainerGap(46, Short.MAX_VALUE))
-        );
-        PanelClientLayout.setVerticalGroup(
-            PanelClientLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelClientLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblEmail)
-                .addGap(8, 8, 8)
-                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        PanelEmploye.setBackground(new java.awt.Color(168, 26, 3));
+        PanelEmploye.setLayout(null);
 
-        jLayeredPane1.setLayer(PanelEmploye, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lblIdentifiant.setBackground(new java.awt.Color(0, 0, 0));
+        lblIdentifiant.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        lblIdentifiant.setForeground(new java.awt.Color(0, 0, 0));
+        lblIdentifiant.setText("Identifiant :");
+        PanelEmploye.add(lblIdentifiant);
+        lblIdentifiant.setBounds(12, 21, 80, 19);
+
+        Identifiant.setBackground(new java.awt.Color(0, 0, 0));
+        Identifiant.setForeground(new java.awt.Color(255, 255, 255));
+        Identifiant.setMaximumSize(new java.awt.Dimension(4, 19));
+        Identifiant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IdentifiantActionPerformed(evt);
+            }
+        });
+        PanelEmploye.add(Identifiant);
+        Identifiant.setBounds(10, 40, 274, 40);
+
         jLayeredPane1.setLayer(PanelClient, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(PanelEmploye, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(PanelClient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(PanelClient, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(PanelEmploye, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                .addComponent(PanelEmploye, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(PanelClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(PanelClient, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap(105, Short.MAX_VALUE)
-                    .addComponent(PanelEmploye, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addComponent(PanelEmploye, javax.swing.GroupLayout.DEFAULT_SIZE, 91, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jLayeredPane1);
+        jLayeredPane1.setBounds(0, 0, 300, 90);
 
         PanelCommun.setBackground(new java.awt.Color(168, 26, 3));
 
+        MotDePasse.setBackground(new java.awt.Color(0, 0, 0));
+        MotDePasse.setForeground(new java.awt.Color(255, 255, 255));
+        MotDePasse.setMaximumSize(new java.awt.Dimension(4, 19));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mot de passe :");
 
+        btnCo.setBackground(new java.awt.Color(0, 0, 0));
+        btnCo.setForeground(new java.awt.Color(168, 26, 3));
         btnCo.setText("Connexion");
         btnCo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +162,9 @@ public class PageConnexion extends javax.swing.JFrame {
             }
         });
 
+        chechEmp.setBackground(new java.awt.Color(168, 26, 3));
+        chechEmp.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        chechEmp.setForeground(new java.awt.Color(0, 0, 0));
         chechEmp.setText("Employé");
         chechEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +172,8 @@ public class PageConnexion extends javax.swing.JFrame {
             }
         });
 
+        btnInscription.setBackground(new java.awt.Color(0, 0, 0));
+        btnInscription.setForeground(new java.awt.Color(168, 26, 3));
         btnInscription.setText("Inscription");
         btnInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,12 +195,12 @@ public class PageConnexion extends javax.swing.JFrame {
                         .addGroup(PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(PanelCommunLayout.createSequentialGroup()
                                 .addComponent(btnCo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
                                 .addComponent(chechEmp))
-                            .addComponent(MotDePasse))
+                            .addComponent(MotDePasse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())))
             .addGroup(PanelCommunLayout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addGap(95, 95, 95)
                 .addComponent(btnInscription)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -226,30 +214,15 @@ public class PageConnexion extends javax.swing.JFrame {
                 .addGroup(PanelCommunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCo)
                     .addComponent(chechEmp))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(btnInscription))
+                .addGap(18, 18, 18)
+                .addComponent(btnInscription)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(PanelCommun, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(PanelCommun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(PanelCommun);
+        PanelCommun.setBounds(0, 90, 300, 170);
+        getContentPane().add(Background);
+        Background.setBounds(0, 0, 30, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -406,6 +379,7 @@ public class PageConnexion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Background;
     private javax.swing.JTextField Email;
     private javax.swing.JTextField Identifiant;
     private javax.swing.JPasswordField MotDePasse;
