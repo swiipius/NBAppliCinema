@@ -26,7 +26,6 @@ import DAO.*;
 public class PageAccueil extends javax.swing.JFrame {
 
     private FilmDAO film;
-    private final String requete = "SELECT titre FROM film";
     private int taille;
     private String Synopsis;
     public int client;
@@ -477,18 +476,19 @@ public class PageAccueil extends javax.swing.JFrame {
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
-            id_film = Integer.parseInt(listModel1.get(6));
-            //System.out.println(id_film);
+            
+            id_film = Integer.parseInt(listModel1.get(9));
+            
             //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
-            taille = listModel1.get(5).length();
-            Synopsis = listModel1.get(5);
+            taille = listModel1.get(6).length();
+            Synopsis = listModel1.get(6);
             StringBuilder str = new StringBuilder(Synopsis);
             for (int i = 1; 70 * i < taille; i++) {
                 str.insert(70 * i, '\n');
             }
 
             //Affichage des infos
-            textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(0) + " " + listModel1.get(1) + "\nDuree : " + (String) listModel1.get(2) + "min\ngenre : " + listModel1.get(3) + "\nNote : " + (String) listModel1.get(4) + "\nSynopsis : \n" + str;
+            textAffich = "Titre : " + (String) TitreFilmsAccueil.getSelectedValue() + "\nRealisateur : " + listModel1.get(1) + " " + listModel1.get(2) + "\nDuree : " + (String) listModel1.get(3) + "min\ngenre : " + listModel1.get(4) + "\nNote : " + (String) listModel1.get(5) + "\nSynopsis : \n" + str;
             descriptionFilmsAccueilText.setText(textAffich);
 
             String path = listModel1.get(7);
