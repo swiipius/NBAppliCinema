@@ -84,7 +84,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         SalleProjection = new javax.swing.JSpinner();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
         jPanel1.setLayout(null);
@@ -189,7 +189,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(450, 40, 150, 16);
 
-        SalleProjection.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        SalleProjection.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
         jPanel1.add(SalleProjection);
         SalleProjection.setBounds(370, 250, 60, 40);
 
