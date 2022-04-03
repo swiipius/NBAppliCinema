@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdbc2020.*;
 import DAO.*;
 
 /**
@@ -23,13 +22,15 @@ import DAO.*;
  */
 public class PageHistoFact extends javax.swing.JFrame {
 
+    //Initialisation pour la connection a la bdd
     private BilletDAO billet;
     private SeanceDAO seance;
-    private String requeteSuppr, requeteInfo, NomClient, Date, Titre, Prix, selectTitre, TypePlace, requeteID;
+    
+    //Variables recuperees a partir des arguments
     public boolean connexionValid;
     public int client;
-    public int nbBillet;
 
+    //Variable interne au programme
     DefaultListModel<String> listModelTitre = new DefaultListModel<>();
     DefaultListModel<String> listModelInfo = new DefaultListModel<>();
     DefaultListModel<String> listModelTitreInfo = new DefaultListModel<>();
@@ -37,19 +38,30 @@ public class PageHistoFact extends javax.swing.JFrame {
     DefaultListModel<String> listModelInfoManquante = new DefaultListModel<>();
     
     public PageHistoFact(boolean connexionValid, int client) throws SQLException, ClassNotFoundException {
+        //Ajout du titre de la fenetre
         super("Liste des achats");
+        
+        //Initialisation des composants du design
+        initComponents();
+        
+        //Recuperation des donnees passees en argument
         this.client = client;
         this.connexionValid = connexionValid;
-        initComponents();
+        
+        //Instanciation des objets de connection a la bdd
         billet = new BilletDAO("cinema", "root", "");
         seance = new SeanceDAO("cinema", "root", "");
+        
+        //Recuperation des billets d'un client
         listModelTitre = billet.getIDTitreDateFactureTypeplaceByIDClient(Integer.toString(client));
+        //Mise en forme de la Jlist
         for (int i = 0; i < listModelTitre.size(); i += 5) {
             listModelTitreInfo.add(i / 5, listModelTitre.get(i) + ", " + listModelTitre.get(i + 3) + ", " + listModelTitre.get(i + 2) + ", " + listModelTitre.get(i + 1));
 
         }
-        //nbBillet = listModelTitre.size();
         listHistorique.setModel(listModelTitreInfo);
+        
+        //Initialisation des boutons en non cliquable car rien n'a pu etre selectionne
         btnImpr.setEnabled(false);
         Dereserver.setEnabled(false);
     }
@@ -146,6 +158,7 @@ public class PageHistoFact extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //"Impression du billet (creation du fichier text)
     private void btnImprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprActionPerformed
         //Demande du nom inscrit sur le billet
         String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
@@ -164,12 +177,12 @@ public class PageHistoFact extends javax.swing.JFrame {
         }
         sHeure = listModelInfoManquante.get(0);
         sSalle = listModelInfoManquante.get(1);
-        //System.out.println(sFilm + ", " + sPrix + ", "+ sDate+ ", " + sTypePlace+ ", " + sHeure+ ", " + sSalle);
         String billet = "Résumé Achat :\nPlace " + sTypePlace + ", " + sPrix + "€\nFilm : " + sFilm + "\nSeance du " + sDate + " a " + sHeure + " en salle " + sSalle;
 
         //Enregistrement du billet
         File fBillet = new File("C:\\Users\\pierr\\Documents\\Billet_"+ Nom +".txt");
 
+        //Creation du fichier txt
         if (!fBillet.exists()) {
             try {
                 fBillet.createNewFile();
@@ -178,6 +191,7 @@ public class PageHistoFact extends javax.swing.JFrame {
             }
         }
 
+        //Ajout du contenu dans le billet
         try (PrintWriter print = new PrintWriter(new FileOutputStream(fBillet))) {
             print.print(billet);
         } catch (FileNotFoundException ex) {
@@ -188,11 +202,16 @@ public class PageHistoFact extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnImprActionPerformed
 
+    //Annuler un billet
     private void DereserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DereserverActionPerformed
-        int result = JOptionPane.showConfirmDialog(null, "Etes vous sur de ne pas venir a cette séance ?", "Annulation", JOptionPane.YES_NO_OPTION);
+        //Recuperation du billet que le client veut supprimer
         int index =  listHistorique.getSelectedIndex();
 
+        //Validation de la suppression du billet
+        int result = JOptionPane.showConfirmDialog(null, "Etes vous sur de ne pas venir a cette séance ?", "Annulation", JOptionPane.YES_NO_OPTION);
+
         if (result == JOptionPane.YES_OPTION) {
+            //Suppression du billet
             try {
                 billet.delBilletByID(listModelTitre.get(5*index+4));
             } catch (SQLException | ClassNotFoundException ex) {
@@ -201,16 +220,17 @@ public class PageHistoFact extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Séance annulée");
         } else {
             try {
+                //Retour a la page de consultation des billets
                 PageHistoFact phf = new PageHistoFact(connexionValid, client);
                 phf.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_DereserverActionPerformed
 
+    
+    //Affichage des bouton si on clique sur un billet
     private void listHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHistoriqueMouseClicked
         if (listHistorique.getSelectedIndex() > -1) {
             btnImpr.setEnabled(true);

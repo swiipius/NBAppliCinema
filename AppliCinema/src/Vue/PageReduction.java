@@ -20,9 +20,11 @@ import jdbc2020.*;
  */
 public class PageReduction extends javax.swing.JFrame {
 
+    //Initialisation pour la connection a la bdd
     public ReductionDAO reduc;
     public FilmDAO film;
 
+    //Variable interne au programme
     private String Heure = "", titreFilm, id_film = "";
     DefaultListModel<String> listModelTitre = new DefaultListModel<>();
     DefaultListModel<String> listModelID = new DefaultListModel<>();
@@ -57,6 +59,7 @@ public class PageReduction extends javax.swing.JFrame {
         //creation de la JList
         reduc = new ReductionDAO("cinema", "root", "");
         listModelReduc = reduc.getReduc();
+        //Mise en forme de la JList
         for(int i = 0; i<listModelReduc.size(); i+=4){
             if(listModelReduc.get(i+2)==null){
                 listModelReducAffich.add(i/3, listModelReduc.get(i)+ ", "+ null+ ", "+listModelReduc.get(i+1));

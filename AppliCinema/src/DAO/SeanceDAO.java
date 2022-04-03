@@ -79,4 +79,11 @@ public class SeanceDAO {
         String requete = "SELECT seance.date, seance.heureDebut, film.titre FROM seance JOIN film ON seance.id_film = film.id_film;";
         return connect.requestDemande(requete);
     }
+    
+    //Requete pour obtenir la date et l'heure de la seance a partir de l'id du film
+    public DefaultListModel<String> getDateHeureFilmByIDAnddate(int id_film, String date) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requete = "SELECT seance.date, seance.heureDebut FROM seance JOIN film ON seance.id_film = film.id_film WHERE seance.Date LIKE '%"+date+"%' AND film.id_film = "+id_film+"';";
+        return connect.requestDemande(requete);
+    }
 }

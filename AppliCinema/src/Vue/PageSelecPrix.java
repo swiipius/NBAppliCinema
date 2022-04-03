@@ -18,21 +18,24 @@ import DAO.*;
  */
 public class PageSelecPrix extends javax.swing.JFrame {
 
+    //Initialisation pour la connection a la bdd
     private FilmDAO film;
     private ReductionDAO reduc;
     
-    private 
-    Integer somme = 0;
-    int nbPlaceMembre, nbPlaceSenior, nbPlaceEnfant, nbPlacePasCo;
-    public boolean isCo, choixOk = false;
+    //Variables recuperees a partir des arguments
+    public boolean isCo;
+    public int id_film, id_client, id_seance;
+    
+    //Variable interne au programme
+    private Integer somme = 0;
+    public boolean choixOk = false;
     String sommeStr;
     DefaultListModel<String> listModel = new DefaultListModel<>();
     DefaultListModel<String> listModelFilm = new DefaultListModel<>();
     DefaultListModel<String> listModelHeure = new DefaultListModel<>();
     String Synopsis, requete;
-    int taille;
-    Connexion connect;
-    int id_film, id_client, id_seance;
+    private int taille;
+    private int nbPlaceMembre, nbPlaceSenior, nbPlaceEnfant, nbPlacePasCo;
 
     /**
      * Creates new form PageSelecPrix
@@ -45,9 +48,9 @@ public class PageSelecPrix extends javax.swing.JFrame {
      */
     public PageSelecPrix(boolean ConnexionValid, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         initComponents();
-
+        
+        //Test pour savoir si on a a faire a un membre ou pas et donc afficher la bonne fenetre
         isCo = ConnexionValid;
-
         if (ConnexionValid) {
             PanelCo.setVisible(true);
             PanelPasCo.setVisible(false);
@@ -56,8 +59,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
             PanelPasCo.setVisible(true);
         }
 
+        //Initialisation du bouton de valisation en non cliquable car rien n'a pu etre selectionne
         btnAchat.setEnabled(false);
 
+        //Recuperation des elements recus en arguments
         this.id_film = id_film;
         this.id_client = id_client;
         this.id_seance = id_seance;
@@ -65,11 +70,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         //Affichage du resume
         String textAffich;
         
+        //Instanciation de l'objet permettant la co a la bdd et obtention des films
         film = new FilmDAO("cinema", "root", "");
         listModel = film.getFilmByID(Integer.toString(id_film));
-        //requete = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis FROM film WHERE ID_Film = " + id_film + ";";
-        //listModel = connect.requestDemande(requete);
-        System.out.println(listModel);
+
         //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
         taille = listModel.get(6).length();
         Synopsis = listModel.get(6);
@@ -310,6 +314,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "membre"
     private void MembreStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_MembreStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -317,6 +322,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_MembreStateChanged
 
+    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "pas co"
     private void pasCoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pasCoStateChanged
         String spinner;
 
@@ -326,6 +332,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_pasCoStateChanged
 
+    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "senior"
     private void SeniorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SeniorStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -333,6 +340,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_SeniorStateChanged
 
+    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "enfant"
     private void EnfantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_EnfantStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -340,36 +348,52 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_EnfantStateChanged
 
+    //Validation de la selection
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
         try {
+            //Verif pour savoir si il y a des reducs ou non
             checkReduction(id_film, id_seance);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        //Lancement de la page de payement
         PagePayement pp = new PagePayement(isCo, (Integer) Membre.getValue(), (Integer) Senior.getValue(), (Integer) Enfant.getValue(), (Integer) pasCo.getValue(), id_film, id_seance, id_client);
+        
+        //Mise a jour du nombre de place venudes
         nbPlaceVendu();
+        
+        //Fermeture de la fenetre
         this.dispose();
+        
+        //Affichage de la fenetre de payement
         pp.setVisible(true);
+        
+        //Passage du bolleen a true pour confirmer le payement
         choixOk = true;
     }//GEN-LAST:event_btnAchatActionPerformed
 
+    
+    //Action lors de la fermeture de la fenete
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        //Test pour savoir si le payement est fini ou si il s'agit d'un abandon
         if (!choixOk) {
             try {
+                //On relance une nouvelle page de selection des seance
                 PageSeance ps = new PageSeance(id_film, id_client, isCo);
                 ps.setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_formWindowClosed
 
+    //Calcul de la somme totale
     public void total() {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
     }
 
+    //Maj interne a la classe pour mettre a jour le nombre de place vendue
     public void nbPlaceVendu() {
         nbPlaceMembre = (int) Membre.getValue();
         nbPlaceSenior = (int) Senior.getValue();
@@ -378,6 +402,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
     }
 
+    //Test pour l'affiche du bouton d'achat ou non suivant si le total et nul ou non
     public void affichageBtn(int total) {
         if (total > 0) {
             btnAchat.setEnabled(true);
@@ -385,59 +410,31 @@ public class PageSelecPrix extends javax.swing.JFrame {
             btnAchat.setEnabled(false);
         }
     }
-    
+   
+    //verification pour savoir si il y a une reduction ou pas
     public void checkReduction(int id_film, int id_seance) throws SQLException, ClassNotFoundException{
+        //Instanciation de l'objet pour la connection a la bdd
         reduc = new ReductionDAO("cinema", "root", "");
+        
+        //Recuperation des reductions dans la bdd
         listModelFilm = reduc.getReducByFilm(Integer.toString(id_film));
         listModelHeure = reduc.getReducBySeance(Integer.toString(id_seance));
+        
+        //Test pour savoir de quel type de reduction il s'agit (horaire ou film)
         if(listModelFilm.size()!=0){
+            //Modification de la somme
             int valeurReduc = Integer.parseInt(listModelFilm.get(0));
             somme =somme * (100-valeurReduc)/100;
+            //Message informant le client que la reduction a ete effectuee
             JOptionPane.showMessageDialog(null, "La reduction a été appliquée, le nouveau prix est de "+somme);
         }
         else if(listModelHeure.size()!=0){
+            //Modification de la somme
             int valeurReduc = Integer.parseInt(listModelHeure.get(0));
             somme =somme * (100-valeurReduc)/100;
+            //Message informant le client que la reduction a ete effectuee
             JOptionPane.showMessageDialog(null, "La reduction a été appliquée, le nouveau prix est de "+somme);
         }
-    }
-    
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageReduction.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageSelecPrix(false, 2, 0, 0).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
