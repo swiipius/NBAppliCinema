@@ -93,6 +93,7 @@ public class PageSeance extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
 
+        btnRecherche.setForeground(new java.awt.Color(168, 26, 3));
         btnRecherche.setText("Recherche");
         btnRecherche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,6 +119,7 @@ public class PageSeance extends javax.swing.JFrame {
 
         Instruction.setText("Liste des seances a venir pour votre film:");
 
+        btnResa.setForeground(new java.awt.Color(168, 26, 3));
         btnResa.setText("Reserver");
         btnResa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +127,7 @@ public class PageSeance extends javax.swing.JFrame {
             }
         });
 
+        btnReset.setForeground(new java.awt.Color(168, 26, 3));
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

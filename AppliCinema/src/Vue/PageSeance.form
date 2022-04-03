@@ -104,6 +104,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="btnRecherche">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3" green="1a" red="a8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Recherche"/>
           </Properties>
           <Events>
@@ -154,6 +157,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnResa">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3" green="1a" red="a8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Reserver"/>
           </Properties>
           <Events>
@@ -162,6 +168,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnReset">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3" green="1a" red="a8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Reset"/>
           </Properties>
           <Events>
