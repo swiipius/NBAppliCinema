@@ -63,6 +63,7 @@ public class PageAccueil extends javax.swing.JFrame {
         IsEmp = Emp;
         this.connexionValid = connexionValid;
 
+
         /*listModel1 = connect.requestDemande(requeteInfo);
         descriptionFilmsAccueil.setModel(listModel1);*/
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
@@ -83,32 +84,35 @@ public class PageAccueil extends javax.swing.JFrame {
         TitreFilmsAccueil = new javax.swing.JList<>();
         LabelTitreFilmAccueil = new javax.swing.JLabel();
         rechercheAccueilBouton = new javax.swing.JButton();
-        LabelLogoAccueil = new javax.swing.JLabel();
         barreRechercheAccueil = new javax.swing.JTextField();
+        BoutonSeancesFilmSelectione = new javax.swing.JButton();
         PanelDescriptionAccueil = new javax.swing.JPanel();
         descriptionFilmsAccueilText = new javax.swing.JTextPane();
         labelDescriptionFilmAccueil = new javax.swing.JLabel();
         labelImages = new javax.swing.JLabel();
-        PanelBoutonSeances = new javax.swing.JPanel();
-        BoutonSeancesFilmSelectione = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        PanelAccesCpt = new javax.swing.JPanel();
-        btnCpt = new javax.swing.JButton();
-        PanelCoIns = new javax.swing.JPanel();
-        ConnexionBoutonAccueil = new javax.swing.JButton();
-        InscriptionBoutonAccueil = new javax.swing.JButton();
         PanelEmp = new javax.swing.JPanel();
         btnSeances = new javax.swing.JButton();
         btnFilms = new javax.swing.JButton();
         BoutonStatisques = new javax.swing.JButton();
         btnRed = new javax.swing.JButton();
+        PanelAccesCpt = new javax.swing.JPanel();
+        btnCpt = new javax.swing.JButton();
+        PanelCoIns = new javax.swing.JPanel();
+        ConnexionBoutonAccueil = new javax.swing.JButton();
+        InscriptionBoutonAccueil = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 900));
 
         PanelAccueil.setBackground(new java.awt.Color(168, 26, 3));
+        PanelAccueil.setLayout(null);
 
         jScrollPane1.setBackground(new java.awt.Color(168, 26, 3));
 
+        TitreFilmsAccueil.setBackground(new java.awt.Color(0, 0, 0));
+        TitreFilmsAccueil.setForeground(new java.awt.Color(255, 255, 255));
         TitreFilmsAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         TitreFilmsAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,18 +129,28 @@ public class PageAccueil extends javax.swing.JFrame {
         TitreFilmsAccueil.getAccessibleContext().setAccessibleName("ListefilmsAccueil");
         TitreFilmsAccueil.getAccessibleContext().setAccessibleDescription("affichage des titres des films sur la page accueil");
 
-        LabelTitreFilmAccueil.setText("                                        Liste des Films");
-        LabelTitreFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelAccueil.add(jScrollPane1);
+        jScrollPane1.setBounds(20, 180, 351, 609);
 
-        rechercheAccueilBouton.setText("recherche");
+        LabelTitreFilmAccueil.setBackground(new java.awt.Color(255, 255, 255));
+        LabelTitreFilmAccueil.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        LabelTitreFilmAccueil.setForeground(new java.awt.Color(255, 255, 255));
+        LabelTitreFilmAccueil.setText("Liste des Films");
+        LabelTitreFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        PanelAccueil.add(LabelTitreFilmAccueil);
+        LabelTitreFilmAccueil.setBounds(120, 150, 160, 25);
+
+        rechercheAccueilBouton.setText("Recherche");
         rechercheAccueilBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rechercheAccueilBoutonActionPerformed(evt);
             }
         });
+        PanelAccueil.add(rechercheAccueilBouton);
+        rechercheAccueilBouton.setBounds(790, 30, 110, 20);
 
-        LabelLogoAccueil.setText("                                           ECE CINEMA");
-
+        barreRechercheAccueil.setBackground(new java.awt.Color(0, 0, 0));
+        barreRechercheAccueil.setForeground(new java.awt.Color(255, 255, 255));
         barreRechercheAccueil.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 barreRechercheAccueilMouseClicked(evt);
@@ -150,57 +164,104 @@ public class PageAccueil extends javax.swing.JFrame {
                 barreRechercheAccueilActionPerformed(evt);
             }
         });
+        PanelAccueil.add(barreRechercheAccueil);
+        barreRechercheAccueil.setBounds(480, 30, 305, 19);
 
-        PanelDescriptionAccueil.setBackground(new java.awt.Color(168, 26, 3));
-        PanelDescriptionAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        descriptionFilmsAccueilText.setMaximumSize(new java.awt.Dimension(6, 22));
-
-        labelDescriptionFilmAccueil.setText("                                       Description des films");
-        labelDescriptionFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout PanelDescriptionAccueilLayout = new javax.swing.GroupLayout(PanelDescriptionAccueil);
-        PanelDescriptionAccueil.setLayout(PanelDescriptionAccueilLayout);
-        PanelDescriptionAccueilLayout.setHorizontalGroup(
-            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-            .addComponent(labelImages, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        PanelDescriptionAccueilLayout.setVerticalGroup(
-            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDescriptionAccueilLayout.createSequentialGroup()
-                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        PanelBoutonSeances.setBackground(new java.awt.Color(168, 26, 3));
-
+        BoutonSeancesFilmSelectione.setBackground(new java.awt.Color(0, 0, 0));
         BoutonSeancesFilmSelectione.setText("Seances Disponibles");
         BoutonSeancesFilmSelectione.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BoutonSeancesFilmSelectioneActionPerformed(evt);
             }
         });
+        PanelAccueil.add(BoutonSeancesFilmSelectione);
+        BoutonSeancesFilmSelectione.setBounds(1100, 760, 150, 40);
 
-        javax.swing.GroupLayout PanelBoutonSeancesLayout = new javax.swing.GroupLayout(PanelBoutonSeances);
-        PanelBoutonSeances.setLayout(PanelBoutonSeancesLayout);
-        PanelBoutonSeancesLayout.setHorizontalGroup(
-            PanelBoutonSeancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelBoutonSeancesLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BoutonSeancesFilmSelectione, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+        PanelDescriptionAccueil.setBackground(new java.awt.Color(0, 0, 0));
+        PanelDescriptionAccueil.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        descriptionFilmsAccueilText.setBackground(new java.awt.Color(0, 0, 0));
+        descriptionFilmsAccueilText.setBorder(null);
+        descriptionFilmsAccueilText.setMaximumSize(new java.awt.Dimension(6, 22));
+
+        labelDescriptionFilmAccueil.setBackground(new java.awt.Color(255, 255, 255));
+        labelDescriptionFilmAccueil.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        labelDescriptionFilmAccueil.setForeground(new java.awt.Color(255, 255, 255));
+        labelDescriptionFilmAccueil.setText("Description des films");
+        labelDescriptionFilmAccueil.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout PanelDescriptionAccueilLayout = new javax.swing.GroupLayout(PanelDescriptionAccueil);
+        PanelDescriptionAccueil.setLayout(PanelDescriptionAccueilLayout);
+        PanelDescriptionAccueilLayout.setHorizontalGroup(
+            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                .addComponent(labelImages, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+                .addGap(421, 421, 421))
+            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                .addGap(138, 138, 138)
+                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PanelBoutonSeancesLayout.setVerticalGroup(
-            PanelBoutonSeancesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BoutonSeancesFilmSelectione, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
+        PanelDescriptionAccueilLayout.setVerticalGroup(
+            PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDescriptionAccueilLayout.createSequentialGroup()
+                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        PanelAccesCpt.setBackground(new java.awt.Color(168, 26, 3));
+        PanelAccueil.add(PanelDescriptionAccueil);
+        PanelDescriptionAccueil.setBounds(400, 150, 478, 320);
+
+        PanelEmp.setBackground(new java.awt.Color(0, 0, 0));
+        PanelEmp.setLayout(null);
+
+        btnSeances.setText("Gestion Seances");
+        btnSeances.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeancesActionPerformed(evt);
+            }
+        });
+        PanelEmp.add(btnSeances);
+        btnSeances.setBounds(134, 49, 117, 25);
+
+        btnFilms.setText("Gestion Films");
+        btnFilms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilmsActionPerformed(evt);
+            }
+        });
+        PanelEmp.add(btnFilms);
+        btnFilms.setBounds(134, 19, 117, 25);
+
+        BoutonStatisques.setText("Statistiques");
+        BoutonStatisques.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BoutonStatisquesActionPerformed(evt);
+            }
+        });
+        PanelEmp.add(BoutonStatisques);
+        BoutonStatisques.setBounds(12, 19, 117, 25);
+
+        btnRed.setText("Réduction");
+        btnRed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRedActionPerformed(evt);
+            }
+        });
+        PanelEmp.add(btnRed);
+        btnRed.setBounds(12, 49, 117, 25);
+
+        jLayeredPane1.add(PanelEmp);
+        PanelEmp.setBounds(70, 0, 260, 90);
+
+        PanelAccesCpt.setBackground(new java.awt.Color(0, 0, 0));
+        PanelAccesCpt.setLayout(null);
 
         btnCpt.setText("Mon Compte");
         btnCpt.addActionListener(new java.awt.event.ActionListener() {
@@ -208,25 +269,14 @@ public class PageAccueil extends javax.swing.JFrame {
                 btnCptActionPerformed(evt);
             }
         });
+        PanelAccesCpt.add(btnCpt);
+        btnCpt.setBounds(30, 10, 123, 25);
 
-        javax.swing.GroupLayout PanelAccesCptLayout = new javax.swing.GroupLayout(PanelAccesCpt);
-        PanelAccesCpt.setLayout(PanelAccesCptLayout);
-        PanelAccesCptLayout.setHorizontalGroup(
-            PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAccesCptLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(btnCpt, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
-        );
-        PanelAccesCptLayout.setVerticalGroup(
-            PanelAccesCptLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelAccesCptLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(btnCpt)
-                .addContainerGap(47, Short.MAX_VALUE))
-        );
+        jLayeredPane1.add(PanelAccesCpt);
+        PanelAccesCpt.setBounds(100, 20, 180, 50);
 
-        PanelCoIns.setBackground(new java.awt.Color(168, 26, 3));
+        PanelCoIns.setBackground(new java.awt.Color(0, 0, 0));
+        PanelCoIns.setLayout(null);
 
         ConnexionBoutonAccueil.setText("Connexion");
         ConnexionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +284,8 @@ public class PageAccueil extends javax.swing.JFrame {
                 ConnexionBoutonAccueilActionPerformed(evt);
             }
         });
+        PanelCoIns.add(ConnexionBoutonAccueil);
+        ConnexionBoutonAccueil.setBounds(16, 14, 109, 25);
 
         InscriptionBoutonAccueil.setText("Inscription");
         InscriptionBoutonAccueil.setMaximumSize(new java.awt.Dimension(85, 25));
@@ -244,186 +296,30 @@ public class PageAccueil extends javax.swing.JFrame {
                 InscriptionBoutonAccueilActionPerformed(evt);
             }
         });
+        PanelCoIns.add(InscriptionBoutonAccueil);
+        InscriptionBoutonAccueil.setBounds(163, 13, 97, 26);
 
-        javax.swing.GroupLayout PanelCoInsLayout = new javax.swing.GroupLayout(PanelCoIns);
-        PanelCoIns.setLayout(PanelCoInsLayout);
-        PanelCoInsLayout.setHorizontalGroup(
-            PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelCoInsLayout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
-                .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
-        );
-        PanelCoInsLayout.setVerticalGroup(
-            PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelCoInsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ConnexionBoutonAccueil)
-                    .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
+        jLayeredPane1.add(PanelCoIns);
+        PanelCoIns.setBounds(80, 10, 280, 60);
 
-        PanelEmp.setBackground(new java.awt.Color(168, 26, 3));
+        PanelAccueil.add(jLayeredPane1);
+        jLayeredPane1.setBounds(880, 0, 410, 520);
 
-        btnSeances.setText("Gestion Seances");
-        btnSeances.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSeancesActionPerformed(evt);
-            }
-        });
-
-        btnFilms.setText("Gestion Films");
-        btnFilms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFilmsActionPerformed(evt);
-            }
-        });
-
-        BoutonStatisques.setText("Statistiques");
-        BoutonStatisques.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BoutonStatisquesActionPerformed(evt);
-            }
-        });
-
-        btnRed.setText("Réduction");
-        btnRed.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRedActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PanelEmpLayout = new javax.swing.GroupLayout(PanelEmp);
-        PanelEmp.setLayout(PanelEmpLayout);
-        PanelEmpLayout.setHorizontalGroup(
-            PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEmpLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(btnSeances)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmpLayout.createSequentialGroup()
-                .addContainerGap(81, Short.MAX_VALUE)
-                .addComponent(btnRed)
-                .addGap(39, 39, 39)
-                .addComponent(BoutonStatisques)
-                .addGap(21, 21, 21))
-        );
-        PanelEmpLayout.setVerticalGroup(
-            PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelEmpLayout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSeances)
-                    .addComponent(btnFilms))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BoutonStatisques)
-                    .addComponent(btnRed))
-                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        jLayeredPane1.setLayer(PanelAccesCpt, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(PanelCoIns, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(PanelEmp, javax.swing.JLayeredPane.DEFAULT_LAYER);
-
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(PanelCoIns, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PanelAccesCpt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(18, 18, 18)
-                    .addComponent(PanelEmp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(18, 18, 18)))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addComponent(PanelCoIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(PanelAccesCpt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addComponent(PanelEmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-        );
-
-        javax.swing.GroupLayout PanelAccueilLayout = new javax.swing.GroupLayout(PanelAccueil);
-        PanelAccueil.setLayout(PanelAccueilLayout);
-        PanelAccueilLayout.setHorizontalGroup(
-            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccueilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(LabelLogoAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(LabelTitreFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 96, Short.MAX_VALUE)
-                        .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rechercheAccueilBouton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(PanelBoutonSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        PanelAccueilLayout.setVerticalGroup(
-            PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelAccueilLayout.createSequentialGroup()
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LabelLogoAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rechercheAccueilBouton)
-                            .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGroup(PanelAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelAccueilLayout.createSequentialGroup()
-                                .addComponent(LabelTitreFilmAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(PanelBoutonSeances, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PageAccueil.png"))); // NOI18N
+        PanelAccueil.add(jLabel1);
+        jLabel1.setBounds(0, 0, 1300, 841);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -482,16 +378,16 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             String textAffich;
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
-            
+
             try {
                 listModel1 = film.getFilmByTitre(titreSelectionne);
                 film.majNbVueByTitre(titreSelectionne);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
             id_film = Integer.parseInt(listModel1.get(9));
-            
+
             //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
             taille = listModel1.get(6).length();
             Synopsis = listModel1.get(6);
@@ -593,7 +489,7 @@ public class PageAccueil extends javax.swing.JFrame {
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
         PageReduction pr;
         try {
-            pr= new PageReduction();
+            pr = new PageReduction();
             pr.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -624,11 +520,9 @@ public class PageAccueil extends javax.swing.JFrame {
     private javax.swing.JButton BoutonStatisques;
     private javax.swing.JButton ConnexionBoutonAccueil;
     private javax.swing.JButton InscriptionBoutonAccueil;
-    private javax.swing.JLabel LabelLogoAccueil;
     private javax.swing.JLabel LabelTitreFilmAccueil;
     private javax.swing.JPanel PanelAccesCpt;
     private javax.swing.JPanel PanelAccueil;
-    private javax.swing.JPanel PanelBoutonSeances;
     private javax.swing.JPanel PanelCoIns;
     private javax.swing.JPanel PanelDescriptionAccueil;
     private javax.swing.JPanel PanelEmp;
@@ -639,6 +533,7 @@ public class PageAccueil extends javax.swing.JFrame {
     private javax.swing.JButton btnRed;
     private javax.swing.JButton btnSeances;
     private javax.swing.JTextPane descriptionFilmsAccueilText;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDescriptionFilmAccueil;
