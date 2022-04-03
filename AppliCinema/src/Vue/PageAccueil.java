@@ -186,6 +186,8 @@ public class PageAccueil extends javax.swing.JFrame {
 
         descriptionFilmsAccueilText.setBackground(new java.awt.Color(0, 0, 0));
         descriptionFilmsAccueilText.setBorder(null);
+        descriptionFilmsAccueilText.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        descriptionFilmsAccueilText.setForeground(new java.awt.Color(255, 255, 255));
         descriptionFilmsAccueilText.setMaximumSize(new java.awt.Dimension(6, 22));
 
         labelDescriptionFilmAccueil.setBackground(new java.awt.Color(255, 255, 255));
@@ -199,28 +201,32 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelDescriptionAccueilLayout.setHorizontalGroup(
             PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
-                .addComponent(labelImages, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-                .addGap(421, 421, 421))
-            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
-                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                        .addGroup(PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                                .addGap(138, 138, 138)
+                                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 139, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(PanelDescriptionAccueilLayout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         PanelDescriptionAccueilLayout.setVerticalGroup(
             PanelDescriptionAccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDescriptionAccueilLayout.createSequentialGroup()
                 .addComponent(labelDescriptionFilmAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
-                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(descriptionFilmsAccueilText, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(labelImages, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(279, 279, 279))
         );
 
         PanelAccueil.add(PanelDescriptionAccueil);
-        PanelDescriptionAccueil.setBounds(400, 150, 478, 320);
+        PanelDescriptionAccueil.setBounds(390, 160, 510, 660);
 
         PanelEmp.setBackground(new java.awt.Color(0, 0, 0));
         PanelEmp.setLayout(null);
