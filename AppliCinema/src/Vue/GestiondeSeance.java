@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vue;
+
 import DAO.FilmDAO;
 import java.sql.*;
 import java.util.logging.Level;
@@ -11,32 +12,42 @@ import java.util.logging.Logger;
 import static javax.management.remote.JMXConnectorFactory.connect;
 import javax.swing.*;
 import jdbc2020.*;
+import DAO.*;
 
 /**
  *
  * @author user
  */
 public class GestiondeSeance extends javax.swing.JFrame {
-    public Connexion connection;
+
+    private SeanceDAO seance;
     private String maRequete;
     private int count = 0;
     private FilmDAO film;
     public int nbSalle = 10;
-    
+    public Connexion connection;
+
     DefaultListModel<String> listModelTitre = new DefaultListModel<>();
-    DefaultListModel<String> listModel1 = new DefaultListModel<>();
+    DefaultListModel<String> listModelInfoSeance = new DefaultListModel<>();
+    DefaultListModel<String> listModelRech = new DefaultListModel<>();
+
     /**
      * Creates new form GestiondeSeance
+     *
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
     public GestiondeSeance() throws SQLException, ClassNotFoundException {
         super("Gestion des seances");
         initComponents();
-        
-        connection = new Connexion("Cinema", "root", "");
-        maRequete = "SELECT date FROM seance";
-        listModel1 = connection.requestDemande(maRequete);
+
+        //desactivation btn de suppression
+        BtnSupprimer.setEnabled(false);
+
+        //Creation JList
+        seance = new SeanceDAO("cinema", "root", "");
+        listModelRech = seance.getDateHeureFilm();
+        ListeSeance.setModel(affichage(listModelRech));
         
         //Creation de la combo box des films
         film = new FilmDAO("cinema", "root", "");
@@ -44,11 +55,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         for (int i = 0; i < listModelTitre.size(); i++) {
             NomFilm.addItem(listModelTitre.get(i));
         }
-        
-        //Creation de la combo box des films
-        for(int i = 1; i<nbSalle+1; i++){
-            SalleProjection.addItem(Integer.toString(i));
-        }
+
     }
 
     /**
@@ -71,11 +78,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
         HeureDebut = new javax.swing.JFormattedTextField();
         jLabel2 = new javax.swing.JLabel();
         NomFilm = new javax.swing.JComboBox<>();
-        SalleProjection = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         DateSeance = new javax.swing.JFormattedTextField();
         RechercheSeance = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
+        SalleProjection = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,6 +129,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(BtnSupprimer);
         BtnSupprimer.setBounds(240, 340, 137, 50);
 
+        ListeSeance.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListeSeanceMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(ListeSeance);
 
         jPanel1.add(jScrollPane1);
@@ -141,9 +153,6 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
         jPanel1.add(NomFilm);
         NomFilm.setBounds(206, 158, 226, 40);
-
-        jPanel1.add(SalleProjection);
-        SalleProjection.setBounds(210, 250, 220, 40);
 
         jLabel3.setText("Date de la séance :");
         jPanel1.add(jLabel3);
@@ -169,6 +178,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(jLabel4);
         jLabel4.setBounds(450, 40, 150, 15);
 
+        SalleProjection.setModel(new javax.swing.SpinnerNumberModel(0, 0, 10, 1));
+        jPanel1.add(SalleProjection);
+        SalleProjection.setBounds(370, 250, 60, 40);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,76 +198,82 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
     private void BtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupprimerActionPerformed
         // TODO add your handling code here:
-        String Selecteddate = (String) ListeSeance.getSelectedValue();//Capture de l'element selectionne
-        int index = ListeSeance.getSelectedIndex();
+        int index = ListeSeance.getSelectedIndex();//Capture de l'element selectionne
         //Creer et execute la requete sql pour obtenir les 
-        String requeteInfo = "SELECT heureDebut,salle FROM seance WHERE date LIKE '" + Selecteddate + "'";
         DefaultListModel<String> eltRech = new DefaultListModel<>();
-        try {
-            eltRech = connection.requestDemande(requeteInfo);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        String textAffich = "Voulez vous supprimer cette seance ?\n" + Selecteddate + "\n" + eltRech.get(1) + ", " + eltRech.get(0);
+        String textAffich = "Voulez vous supprimer cette seance ?\n" + listModelRech.get(index + 2) + ", " + listModelRech.get(index) + ", " + listModelRech.get(index + 1);
         int result = JOptionPane.showConfirmDialog(null, textAffich, "Suppression", JOptionPane.YES_NO_OPTION);
 
         if (result == JOptionPane.YES_OPTION) {
-            listModel1.removeElementAt(index);
-            String requeteSuppr = "DELETE FROM seance WHERE date LIKE '" + Selecteddate + "' AND heureDebut LIKE '" + eltRech.get(1) + "'";
+            listModelRech.removeElementAt(index);
             try {
-                connection.executeUpdate(requeteSuppr);
-            } catch (SQLException ex) {
-                Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
+                seance.delSeanceByFilmDateHeure(Integer.parseInt(film.getIDByTitre(listModelRech.get(index + 1))), listModelRech.get(index + 2), listModelRech.get(index));
+            } catch (SQLException | ClassNotFoundException ex) {
+                Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "seance Supprime");
+            JOptionPane.showMessageDialog(null, "Seance Supprimée");
         } else {
 
-        }                   
+        }
     }//GEN-LAST:event_BtnSupprimerActionPerformed
 
     private void BtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjouterActionPerformed
-        if((DateSeance.getText().equals("    -  -  "))||(NomFilm.getSelectedItem()==null)||(HeureDebut.getText().equals("  :  :  "))||(SalleProjection.getSelectedItem()==null)){
+        if ((DateSeance.getText().equals("    -  -  ")) || (NomFilm.getSelectedItem() == null) || (HeureDebut.getText().equals("  :  :  ")) || (SalleProjection.getValue() == null)) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
-        }else{
-            String maRequete = "INSERT INTO seance(Heure de Debut,Nom du Film,Salle de Projection,Date de la seance,Affiche) VALUES('" + HeureDebut.getText() + "','" + NomFilm.getSelectedItem() + "','" + SalleProjection.getSelectedItem() + "','" + DateSeance.getText()+ "'" ;
+        } else {
+            //String maRequete = "INSERT INTO seance(heureDebut,ID_Film,salle,Date) VALUES('" + HeureDebut.getText() + "'," + NomFilm.getSelectedItem() + "," + SalleProjection.getValue() + ",'" + DateSeance.getText()+ "'" ;           
             try {
-                connection.executeUpdate(maRequete);
-            } catch (SQLException ex) {
+                seance.addSeance((int) SalleProjection.getValue(), Integer.parseInt(film.getIDByTitre((String) NomFilm.getSelectedItem())), DateSeance.getText(), HeureDebut.getText());
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
             }
-            listModel1.addElement(DateSeance.getText());
+            listModelRech.addElement(DateSeance.getText());
             JOptionPane.showMessageDialog(null, "La seance a ete ajoute");
         }
     }//GEN-LAST:event_BtnAjouterActionPerformed
 
     private void BtnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRechercheActionPerformed
-        ListeSeance.setModel(listModel1);
         if ((RechercheSeance.getText().equals("")) || (DateSeance.getText().equals("Recherche de la seance"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer une date à chercher");
         } else {
-            String MaRequete = "SELECT date FROM seance WHERE date = '" + RechercheSeance.getText() + "'";
             try {
-                listModel1 = connection.requestDemande(maRequete);
+                listModelRech = seance.getDateHeureFilmByDate(RechercheSeance.getText());
             } catch (SQLException ex) {
                 Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
             }
-            ListeSeance.setModel(listModel1);
+            
+            ListeSeance.setModel(affichage(listModelRech));
+            //ListeSeance.setModel(listModelInfoSeance);
             //RechercheSeance.setText("Recherche de la seance ");
         }
     }//GEN-LAST:event_BtnRechercheActionPerformed
 
     private void BtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnResetActionPerformed
-        // TODO add your handling code here:
-        String Marequete = "SELECT date FROM seance";
         try {
-            listModel1 = connection.requestDemande(Marequete);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
+            listModelRech = seance.getDateHeureFilm();
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(GestiondeSeance.class.getName()).log(Level.SEVERE, null, ex);
         }
-        ListeSeance.setModel(listModel1);
-        
+        RechercheSeance.setText(null);
+        ListeSeance.setModel(affichage(listModelRech));
+
     }//GEN-LAST:event_BtnResetActionPerformed
+
+    private void ListeSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListeSeanceMouseClicked
+        if (ListeSeance.getSelectedIndex() > -1) {
+            BtnSupprimer.setEnabled(true);
+        }
+    }//GEN-LAST:event_ListeSeanceMouseClicked
+
+    private DefaultListModel<String> affichage(DefaultListModel<String> listModel) {
+        DefaultListModel<String> list = new DefaultListModel<>();
+        for (int i = 0; i < listModel.size(); i += 3) {
+            list.add(i / 3, listModel.get(i + 2) + ", " + listModel.get(i) + ", " + listModel.get(i + 1));
+        }
+        return list;
+    }
 
     /**
      * @param args the command line arguments
@@ -272,15 +291,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GestiondeSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GestiondeSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GestiondeSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GestiondeSeance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
@@ -305,7 +320,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
     private javax.swing.JList<String> ListeSeance;
     private javax.swing.JComboBox<String> NomFilm;
     private javax.swing.JFormattedTextField RechercheSeance;
-    private javax.swing.JComboBox<String> SalleProjection;
+    private javax.swing.JSpinner SalleProjection;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
