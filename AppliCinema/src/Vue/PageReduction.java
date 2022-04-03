@@ -149,9 +149,11 @@ public class PageReduction extends javax.swing.JFrame {
                 .addContainerGap(84, Short.MAX_VALUE))
         );
 
+        PanelChoixHeure.setBackground(new java.awt.Color(168, 26, 3));
         PanelChoixHeure.setPreferredSize(new java.awt.Dimension(280, 280));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText(":");
 
         SliderMinute.setMaximum(59);
@@ -163,9 +165,12 @@ public class PageReduction extends javax.swing.JFrame {
         });
 
         HeureAffiche.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        HeureAffiche.setForeground(new java.awt.Color(0, 0, 0));
 
         MinuteAffiche.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        MinuteAffiche.setForeground(new java.awt.Color(0, 0, 0));
 
+        SliderHeure.setForeground(new java.awt.Color(0, 0, 0));
         SliderHeure.setMaximum(24);
         SliderHeure.setValue(12);
         SliderHeure.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -174,10 +179,17 @@ public class PageReduction extends javax.swing.JFrame {
             }
         });
 
+        HeureTxt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        HeureTxt.setForeground(new java.awt.Color(0, 0, 0));
         HeureTxt.setText("Heures :");
 
+        MinuteTxt.setBackground(new java.awt.Color(0, 0, 0));
+        MinuteTxt.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        MinuteTxt.setForeground(new java.awt.Color(0, 0, 0));
         MinuteTxt.setText("Minutes");
 
+        btnValidHeure.setBackground(new java.awt.Color(0, 0, 0));
+        btnValidHeure.setForeground(new java.awt.Color(168, 26, 3));
         btnValidHeure.setText("Valider");
         btnValidHeure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,17 +246,25 @@ public class PageReduction extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        PanelReduc.setBackground(new java.awt.Color(168, 26, 3));
         PanelReduc.setPreferredSize(new java.awt.Dimension(280, 280));
 
+        sReduction.setBackground(new java.awt.Color(0, 0, 0));
+        sReduction.setForeground(new java.awt.Color(255, 255, 255));
         sReduction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 sReductionMouseExited(evt);
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Pourcentage de Reduction :");
 
+        btnHeure.setBackground(new java.awt.Color(168, 26, 3));
         buttonGroup1.add(btnHeure);
+        btnHeure.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnHeure.setForeground(new java.awt.Color(0, 0, 0));
         btnHeure.setText("Heure");
         btnHeure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,7 +272,10 @@ public class PageReduction extends javax.swing.JFrame {
             }
         });
 
+        btnFilm.setBackground(new java.awt.Color(168, 26, 3));
         buttonGroup1.add(btnFilm);
+        btnFilm.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btnFilm.setForeground(new java.awt.Color(0, 0, 0));
         btnFilm.setText("Film");
         btnFilm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,6 +283,8 @@ public class PageReduction extends javax.swing.JFrame {
             }
         });
 
+        btnValid.setBackground(new java.awt.Color(0, 0, 0));
+        btnValid.setForeground(new java.awt.Color(168, 26, 3));
         btnValid.setText("Valider");
         btnValid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,7 +309,7 @@ public class PageReduction extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sReduction, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         PanelReducLayout.setVerticalGroup(
             PanelReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,7 +324,7 @@ public class PageReduction extends javax.swing.JFrame {
                 .addComponent(btnFilm)
                 .addGap(26, 26, 26)
                 .addComponent(btnValid)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         AjoutReduc.setLayer(PanelChoixFilm, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -331,7 +356,7 @@ public class PageReduction extends javax.swing.JFrame {
                     .addContainerGap()))
             .addGroup(AjoutReducLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(AjoutReducLayout.createSequentialGroup()
-                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 307, Short.MAX_VALUE)
+                    .addComponent(PanelChoixHeure, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
