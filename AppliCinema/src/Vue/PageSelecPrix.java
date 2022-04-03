@@ -62,7 +62,6 @@ public class PageSelecPrix extends javax.swing.JFrame {
         this.id_client = id_client;
         this.id_seance = id_seance;
 
-        connect = new Connexion("Cinema", "root", "");
         //Affichage du resume
         String textAffich;
         

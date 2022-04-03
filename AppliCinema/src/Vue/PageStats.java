@@ -28,16 +28,16 @@ import DAO.FilmDAO;
 public class PageStats extends javax.swing.JFrame {
 
     private FilmDAO film;
-    private final String requeteNBVues = "SELECT nombreVues FROM film ";
     int nombreDeFilms = 0;
     public DefaultListModel<String> liste1 = new DefaultListModel<>();
     public ArrayList<Integer> liste2 = new ArrayList<>();
-    public DefaultListModel<Integer> listeNbVue = new DefaultListModel<>();
+    public DefaultListModel<String> listeNbVue = new DefaultListModel<>();
 
     public PageStats() throws SQLException, ClassNotFoundException {
         super("Statistiques");
         initComponents();
 
+        film = new FilmDAO("cinema", "root", "");
         //on ajoute tout les titres de film dans la liste1
         liste1 = film.getFilmTitre();
         //on ajoute tout les nombres de vues de film dans la liste2
@@ -68,7 +68,7 @@ public class PageStats extends javax.swing.JFrame {
         boutonStats = new javax.swing.JButton();
         graphique = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         PanelStats.setLayout(new java.awt.BorderLayout());
 
@@ -117,7 +117,7 @@ public class PageStats extends javax.swing.JFrame {
         DefaultCategoryDataset dcd = new DefaultCategoryDataset();
         //on va rajouter les films sur le graphique, en utilisant les elements des deux listes precedentes au rang i jusqu'a atteindre le nombre de films qui est determine avant
         for (int i = 0; i < nombreDeFilms; i++) {
-            dcd.setValue(liste2.get(i), "Nombre de vues", liste1.get(i));
+            dcd.setValue(Integer.parseInt(listeNbVue.get(i)), "Nombre de vues", liste1.get(i));
         }
 
         JFreeChart jchart = ChartFactory.createBarChart("Popularite des films ", "Titre des films ", "Nombre de vues ", dcd, PlotOrientation.VERTICAL, true, true, false);

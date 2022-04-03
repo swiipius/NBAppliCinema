@@ -58,6 +58,7 @@ public class PageAccueil extends javax.swing.JFrame {
         BoutonSeancesFilmSelectione.setEnabled(false);
         PanelDescriptionAccueil.setVisible(false);
         //Connection a la bdd
+        film = new FilmDAO("cinema", "root", "");
         listModeTitre = film.getFilmTitre();
         TitreFilmsAccueil.setModel(listModeTitre);
         IsEmp = Emp;

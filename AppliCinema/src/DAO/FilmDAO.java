@@ -68,20 +68,20 @@ public class FilmDAO {
         return connect.requestDemande(requeteDemande);
     }
     
-    public DefaultListModel<String> getFilmTriNbVue(String titre) throws SQLException, ClassNotFoundException{
+    public DefaultListModel<String> getFilmTriNbVue() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteDemande = "SELECT titre FROM film ORDER BY nombreVues DESC";
         return connect.requestDemande(requeteDemande);
     }
     
-    public DefaultListModel<Integer> getNbVue() throws SQLException, ClassNotFoundException{
+    public DefaultListModel<String> getNbVue() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT nombreVues FROM film ");
     }
     
     public int getNbFilm() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
-        return Integer.parseInt((String)connect.requestDemande("SELECT nombreVues FROM film ").get(0));
+        return Integer.parseInt((String)connect.requestDemande("SELECT COUNT(*) FROM film ").get(0));
     }
     
     public void majNbVueByTitre(String titre) throws SQLException, ClassNotFoundException{

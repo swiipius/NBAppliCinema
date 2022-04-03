@@ -251,8 +251,8 @@ public class PageConnexion extends javax.swing.JFrame {
             if ((Identifiant.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             } else {
-                requeteEmploye = "SELECT loginEmploye FROM employe WHERE NomEmploye LIKE '" + Identifiant.getText() + "'";
                 try {
+                    employe = new EmployeDAO("cinema", "root", "");
                     if ((employe.getLoginByNom(Identifiant.getText())).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
