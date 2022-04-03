@@ -63,10 +63,13 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Formulaire d'inscription Client:");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(35, 25, 369, 39);
 
+        PrenomClient.setBackground(new java.awt.Color(0, 0, 0));
+        PrenomClient.setForeground(new java.awt.Color(255, 255, 255));
         PrenomClient.setText("Prenom");
         PrenomClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -79,6 +82,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(PrenomClient);
         PrenomClient.setBounds(218, 82, 200, 45);
 
+        NomClient.setBackground(new java.awt.Color(0, 0, 0));
+        NomClient.setForeground(new java.awt.Color(255, 255, 255));
         NomClient.setText("Nom");
         NomClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,6 +96,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(NomClient);
         NomClient.setBounds(12, 82, 200, 45);
 
+        EmailClient.setBackground(new java.awt.Color(0, 0, 0));
+        EmailClient.setForeground(new java.awt.Color(255, 255, 255));
         EmailClient.setText("Email");
         EmailClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,6 +110,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(EmailClient);
         EmailClient.setBounds(12, 133, 406, 45);
 
+        AgeClient.setBackground(new java.awt.Color(0, 0, 0));
+        AgeClient.setForeground(new java.awt.Color(255, 255, 255));
         AgeClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
         AgeClient.setText("Age");
         AgeClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -116,6 +125,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(AgeClient);
         AgeClient.setBounds(20, 190, 50, 40);
 
+        LoginClient.setBackground(new java.awt.Color(0, 0, 0));
+        LoginClient.setForeground(new java.awt.Color(255, 255, 255));
         LoginClient.setText("Mot de passe");
         LoginClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -128,6 +139,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(LoginClient);
         LoginClient.setBounds(80, 190, 338, 45);
 
+        BoutonInscription.setBackground(new java.awt.Color(0, 0, 0));
+        BoutonInscription.setForeground(new java.awt.Color(168, 26, 3));
         BoutonInscription.setText("Inscription");
         BoutonInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +150,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(BoutonInscription);
         BoutonInscription.setBounds(151, 396, 143, 58);
 
+        btnCo.setBackground(new java.awt.Color(0, 0, 0));
+        btnCo.setForeground(new java.awt.Color(168, 2, 3));
         btnCo.setText("Connexion");
         btnCo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
