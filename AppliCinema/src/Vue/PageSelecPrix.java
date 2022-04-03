@@ -82,14 +82,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ResumeFilm = new javax.swing.JTextPane();
-        Selecplace = new javax.swing.JLabel();
-        btnAchat = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Total = new javax.swing.JTextPane();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        PanelPasCo = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        pasCo = new javax.swing.JSpinner();
         PanelCo = new javax.swing.JPanel();
         Membre = new javax.swing.JSpinner();
         Senior = new javax.swing.JSpinner();
@@ -97,59 +93,34 @@ public class PageSelecPrix extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Total = new javax.swing.JTextPane();
+        PanelPasCo = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        pasCo = new javax.swing.JSpinner();
+        btnAchat = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        ResumeFilm = new javax.swing.JTextPane();
+        Selecplace = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        ImageFond = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(954, 604));
+        setPreferredSize(new java.awt.Dimension(860, 604));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        jScrollPane1.setViewportView(ResumeFilm);
+        jPanel1.setLayout(null);
 
-        Selecplace.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
-        Selecplace.setText("Selection des places");
+        jScrollPane2.setViewportView(Total);
 
-        btnAchat.setText("Finaliser la commande");
-        btnAchat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAchatActionPerformed(evt);
-            }
-        });
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(323, 528, 86, 30);
 
-        jLabel5.setText("Plein tarif : (12€)");
-
-        pasCo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        pasCo.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                pasCoStateChanged(evt);
-            }
-        });
-
-        javax.swing.GroupLayout PanelPasCoLayout = new javax.swing.GroupLayout(PanelPasCo);
-        PanelPasCo.setLayout(PanelPasCoLayout);
-        PanelPasCoLayout.setHorizontalGroup(
-            PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPasCoLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(pasCo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-        );
-        PanelPasCoLayout.setVerticalGroup(
-            PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelPasCoLayout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addGroup(PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(pasCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        PanelCo.setBackground(new java.awt.Color(168, 26, 3));
 
         Membre.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         Membre.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -172,10 +143,17 @@ public class PageSelecPrix extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Tarif Membre : (10€)");
+        jLabel2.setToolTipText("");
 
+        jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Tarif Senior : (8€)");
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Tarif enfant : (6€)");
 
         javax.swing.GroupLayout PanelCoLayout = new javax.swing.GroupLayout(PanelCo);
@@ -197,7 +175,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Membre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(86, 86, 86))
+                .addGap(48, 48, 48))
         );
         PanelCoLayout.setVerticalGroup(
             PanelCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,36 +192,66 @@ public class PageSelecPrix extends javax.swing.JFrame {
                 .addGroup(PanelCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Enfant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
-        jLayeredPane1.setLayer(PanelPasCo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        PanelPasCo.setBackground(new java.awt.Color(168, 26, 3));
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setText("Plein tarif : (12€)");
+
+        pasCo.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        pasCo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                pasCoStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PanelPasCoLayout = new javax.swing.GroupLayout(PanelPasCo);
+        PanelPasCo.setLayout(PanelPasCoLayout);
+        PanelPasCoLayout.setHorizontalGroup(
+            PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPasCoLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(pasCo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
+        );
+        PanelPasCoLayout.setVerticalGroup(
+            PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelPasCoLayout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addGroup(PanelPasCoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(pasCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(129, Short.MAX_VALUE))
+        );
+
         jLayeredPane1.setLayer(PanelCo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(PanelPasCo, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addComponent(PanelPasCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(42, 42, 42))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(41, 41, 41)
-                    .addComponent(PanelPasCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(42, 42, 42)))
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addGap(23, 23, 23)
-                    .addComponent(PanelCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(24, 24, 24)))
+                    .addGap(31, 31, 31)
+                    .addComponent(PanelCo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(PanelPasCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelPasCo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jLayeredPane1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -251,63 +259,48 @@ public class PageSelecPrix extends javax.swing.JFrame {
                     .addContainerGap()))
         );
 
-        jScrollPane2.setViewportView(Total);
+        jPanel1.add(jLayeredPane1);
+        jLayeredPane1.setBounds(234, 260, 346, 254);
 
-        jLabel1.setText("Total Commande :");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAchat.setBackground(new java.awt.Color(168, 26, 3));
+        btnAchat.setForeground(new java.awt.Color(0, 0, 0));
+        btnAchat.setText("Finaliser la commande");
+        btnAchat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAchatActionPerformed(evt);
             }
         });
+        jPanel1.add(btnAchat);
+        btnAchat.setBounds(420, 530, 140, 25);
+
+        jScrollPane1.setViewportView(ResumeFilm);
+
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(0, 90, 860, 161);
+
+        Selecplace.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        Selecplace.setForeground(new java.awt.Color(0, 0, 0));
+        Selecplace.setText("Selection des places");
+        jPanel1.add(Selecplace);
+        Selecplace.setBounds(260, 20, 440, 47);
+
+        jLabel1.setText("Total Commande :");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(234, 533, 85, 25);
+
+        ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PageSelecPrix.png"))); // NOI18N
+        jPanel1.add(ImageFond);
+        ImageFond.setBounds(-20, 0, 930, 580);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(Selecplace))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(234, 234, 234)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(4, 4, 4)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnAchat))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
-                                .addComponent(jButton1)))))
-                .addGap(89, 89, 89))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 856, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addComponent(Selecplace)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLayeredPane1)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(151, 151, 151)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnAchat)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
 
         pack();
@@ -368,14 +361,6 @@ public class PageSelecPrix extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_formWindowClosed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            checkReduction(film, seance);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageSelecPrix.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     public void total() {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
@@ -452,6 +437,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSpinner Enfant;
+    private javax.swing.JLabel ImageFond;
     private javax.swing.JSpinner Membre;
     private javax.swing.JPanel PanelCo;
     private javax.swing.JPanel PanelPasCo;
@@ -460,13 +446,13 @@ public class PageSelecPrix extends javax.swing.JFrame {
     private javax.swing.JSpinner Senior;
     private javax.swing.JTextPane Total;
     private javax.swing.JButton btnAchat;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner pasCo;

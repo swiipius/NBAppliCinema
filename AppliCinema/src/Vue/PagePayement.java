@@ -30,7 +30,7 @@ public class PagePayement extends javax.swing.JFrame {
     private BilletDAO billet;
     private SeanceDAO seance;
     private FilmDAO film;
-    
+
     //Import des variables
     private final boolean connexionValid;
     private boolean Emp;
@@ -77,8 +77,10 @@ public class PagePayement extends javax.swing.JFrame {
     private void initComponents() {
 
         btnValid = new javax.swing.JButton();
-        NumCarte = new javax.swing.JTextField();
-        Crypto = new javax.swing.JTextField();
+        labelCrypto = new javax.swing.JLabel();
+        labelNumCarte = new javax.swing.JLabel();
+        Crypto = new javax.swing.JFormattedTextField();
+        NumCarte = new javax.swing.JFormattedTextField();
         Nom = new javax.swing.JTextField();
         Date = new javax.swing.JFormattedTextField();
         DateExp = new javax.swing.JLabel();
@@ -88,6 +90,7 @@ public class PagePayement extends javax.swing.JFrame {
         setBounds(new java.awt.Rectangle(600, 300, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(800, 400));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -106,9 +109,32 @@ public class PagePayement extends javax.swing.JFrame {
         getContentPane().add(btnValid);
         btnValid.setBounds(360, 290, 80, 40);
 
+        labelCrypto.setForeground(new java.awt.Color(0, 0, 0));
+        labelCrypto.setText(" Cryptogramme");
+        getContentPane().add(labelCrypto);
+        labelCrypto.setBounds(450, 210, 80, 15);
+
+        labelNumCarte.setForeground(new java.awt.Color(0, 0, 0));
+        labelNumCarte.setText("Numéro de la carte");
+        getContentPane().add(labelNumCarte);
+        labelNumCarte.setBounds(280, 150, 200, 15);
+
+        Crypto.setBackground(new java.awt.Color(204, 204, 204));
+        Crypto.setForeground(new java.awt.Color(0, 0, 0));
+        try {
+            Crypto.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        getContentPane().add(Crypto);
+        Crypto.setBounds(450, 200, 80, 40);
+
         NumCarte.setBackground(new java.awt.Color(204, 204, 204));
-        NumCarte.setForeground(new java.awt.Color(0, 0, 0));
-        NumCarte.setText("Numero de la carte");
+        try {
+            NumCarte.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("################")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         NumCarte.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 NumCarteMouseClicked(evt);
@@ -121,34 +147,9 @@ public class PagePayement extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 NumCarteKeyPressed(evt);
             }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                NumCarteKeyTyped(evt);
-            }
         });
         getContentPane().add(NumCarte);
-        NumCarte.setBounds(270, 140, 260, 40);
-
-        Crypto.setBackground(new java.awt.Color(204, 204, 204));
-        Crypto.setForeground(new java.awt.Color(0, 0, 0));
-        Crypto.setText("Cryptogramme");
-        Crypto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CryptoMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                CryptoMouseExited(evt);
-            }
-        });
-        Crypto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                CryptoKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                CryptoKeyTyped(evt);
-            }
-        });
-        getContentPane().add(Crypto);
-        Crypto.setBounds(440, 200, 90, 40);
+        NumCarte.setBounds(270, 140, 260, 30);
 
         Nom.setBackground(new java.awt.Color(204, 204, 204));
         Nom.setForeground(new java.awt.Color(0, 0, 0));
@@ -162,7 +163,7 @@ public class PagePayement extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Nom);
-        Nom.setBounds(270, 90, 260, 40);
+        Nom.setBounds(270, 100, 260, 30);
 
         Date.setBackground(new java.awt.Color(204, 204, 204));
         Date.setForeground(new java.awt.Color(0, 0, 0));
@@ -201,76 +202,6 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NomMouseExited
 
-    //Suppression du text quand la souris clique
-    private void NumCarteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseClicked
-        NumCarte.setText(null);
-    }//GEN-LAST:event_NumCarteMouseClicked
-
-    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
-    private void NumCarteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseExited
-        if (NumCarte.getText().equals("")) {
-            NumCarte.setText("Numéro de la carte");
-        }    }//GEN-LAST:event_NumCarteMouseExited
-
-    //Suppression du text quand la souris clique
-    private void CryptoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CryptoMouseClicked
-        Crypto.setText(null);
-    }//GEN-LAST:event_CryptoMouseClicked
-
-    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
-    private void CryptoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CryptoMouseExited
-        if (Crypto.getText().equals("")) {
-            Crypto.setText("Cryptogramme");
-        }    }//GEN-LAST:event_CryptoMouseExited
-
-    //Blindage de type et de longueure
-    private void CryptoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CryptoKeyTyped
-        char c = evt.getKeyChar();
-        if (countCrypto <= 3) {
-            if (!Character.isDigit(c)) {
-                evt.consume();
-            }
-        } else {
-            evt.consume();
-        }
-    }//GEN-LAST:event_CryptoKeyTyped
-
-    //Blindage de longueure
-    private void CryptoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CryptoKeyPressed
-        char c = evt.getKeyChar();
-        if ((evt.getKeyCode() == 8) && (countCrypto < 4)) {
-            countCrypto--;
-        } else if ((evt.getKeyCode() == 8) && (countCrypto == 4)) {
-            countCrypto -= 2;
-        } else if ((Character.isDigit(c)) && (4 > countCrypto)) {
-            countCrypto++;
-        }
-    }//GEN-LAST:event_CryptoKeyPressed
-
-    //Blindage de longueure
-    private void NumCarteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyPressed
-        char c = evt.getKeyChar();
-        if ((evt.getKeyCode() == 8) && (countNum < 17)) {
-            countNum--;
-        } else if ((evt.getKeyCode() == 8) && (countNum == 17)) {
-            countNum -= 2;
-        } else if ((Character.isDigit(c)) && (17 > countNum)) {
-            countNum++;
-        }
-    }//GEN-LAST:event_NumCarteKeyPressed
-
-    //Blindage de type et de longueure
-    private void NumCarteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyTyped
-        char c = evt.getKeyChar();
-        if (countNum <= 16) {
-            if (!Character.isDigit(c)) {
-                evt.consume();
-            }
-        } else {
-            evt.consume();
-        }
-    }//GEN-LAST:event_NumCarteKeyTyped
-
     //Action lors de la validation du payement
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
         //Initialisation du format de date et de la date actuelle
@@ -308,7 +239,7 @@ public class PagePayement extends javax.swing.JFrame {
                             String Film;
                             Seance = getSeance(id_seance);
                             Film = getFilm(id_film);
-                            
+
                             //Creation du billet
                             String billet = "Résumé Achat :\nNombre de place : " + nbVenduPasCo + "\nPrix total : " + 12 * nbVenduPasCo + "\nFilm : " + Film + "\nSeance du " + Seance[2] + " a " + Seance[1] + " en salle " + Seance[0];
                             String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
@@ -326,12 +257,12 @@ public class PagePayement extends javax.swing.JFrame {
                                 Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             JOptionPane.showMessageDialog(null, "Votre billet a été imprimé");
-                        //La personne est connectee
+                            //La personne est connectee
                         } else {
                             //Ajout du billet dans la BDD
                             gestionBDD(nbVenduSernior, nbVenduMembre, nbVenduEnfant, nbVenduPasCo, id_client, id_film, id_seance);
                         }
-                        
+
                         //retour a la page d'accueil des lors que le billet est imprime
                         PageAccueil p = new PageAccueil(connexionValid, Emp);
                         p.setVisible(true);
@@ -350,7 +281,6 @@ public class PagePayement extends javax.swing.JFrame {
 
     //Mise en place d'une fermeture propre de la fenetre en fonction de si le payement a ete ec=ffcetue ou pas
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.out.println(PayOK);
         if (!PayOK) {
             int result = JOptionPane.showConfirmDialog(null, "Voulez vous abandonner le payement ?", "Suppression", JOptionPane.YES_NO_OPTION);
 
@@ -368,6 +298,23 @@ public class PagePayement extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void NumCarteKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NumCarteKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NumCarteKeyPressed
+
+    private void NumCarteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseClicked
+        labelNumCarte.setVisible(false);
+    }//GEN-LAST:event_NumCarteMouseClicked
+
+    private void NumCarteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NumCarteMouseExited
+        System.out.println("'"+NumCarte.getText()+"'");
+        if (NumCarte.getText().equals("                ")) {
+            labelNumCarte.setVisible(true);
+        } else {
+            labelNumCarte.setVisible(false);
+        }
+    }//GEN-LAST:event_NumCarteMouseExited
 
     //Ajout des différents billets dans la BDD
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
@@ -425,12 +372,14 @@ public class PagePayement extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Crypto;
+    private javax.swing.JFormattedTextField Crypto;
     private javax.swing.JFormattedTextField Date;
     private javax.swing.JLabel DateExp;
     private javax.swing.JLabel ImageFond;
     private javax.swing.JTextField Nom;
-    private javax.swing.JTextField NumCarte;
+    private javax.swing.JFormattedTextField NumCarte;
     private javax.swing.JButton btnValid;
+    private javax.swing.JLabel labelCrypto;
+    private javax.swing.JLabel labelNumCarte;
     // End of variables declaration//GEN-END:variables
 }

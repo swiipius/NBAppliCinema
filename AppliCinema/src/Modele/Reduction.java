@@ -6,9 +6,6 @@
 package Modele;
 
 import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import jdbc2020.*;
 /**
  *
  * @author pierr
