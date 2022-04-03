@@ -239,7 +239,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelCoInsLayout.setHorizontalGroup(
             PanelCoInsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCoInsLayout.createSequentialGroup()
-                .addContainerGap(75, Short.MAX_VALUE)
+                .addContainerGap(87, Short.MAX_VALUE)
                 .addComponent(ConnexionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33)
                 .addComponent(InscriptionBoutonAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -289,14 +289,16 @@ public class PageAccueil extends javax.swing.JFrame {
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelEmpLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnSeances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnSeances)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(BoutonStatisques, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFilms, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                .addComponent(btnFilms, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelEmpLayout.createSequentialGroup()
+                .addContainerGap(81, Short.MAX_VALUE)
+                .addComponent(btnRed)
+                .addGap(39, 39, 39)
+                .addComponent(BoutonStatisques)
+                .addGap(21, 21, 21))
         );
         PanelEmpLayout.setVerticalGroup(
             PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,11 +307,11 @@ public class PageAccueil extends javax.swing.JFrame {
                 .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSeances)
                     .addComponent(btnFilms))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelEmpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BoutonStatisques)
                     .addComponent(btnRed))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jLayeredPane1.setLayer(PanelAccesCpt, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -335,7 +337,7 @@ public class PageAccueil extends javax.swing.JFrame {
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
                 .addComponent(PanelCoIns, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(PanelAccesCpt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,7 +361,7 @@ public class PageAccueil extends javax.swing.JFrame {
                         .addGap(22, 22, 22)
                         .addComponent(PanelDescriptionAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PanelAccueilLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 108, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 96, Short.MAX_VALUE)
                         .addComponent(barreRechercheAccueil, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rechercheAccueilBouton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -471,9 +473,10 @@ public class PageAccueil extends javax.swing.JFrame {
             //on rceupere toute les info des films
             String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film,affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
             //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
-            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre = '" + titreSelectionne + "'";
+            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
             try {
                 listModel1 = connect.requestDemande(requeteInfo);
+                System.out.println(listModel1);
                 connect.stmt.executeUpdate(requeteModifNBvues);
             } catch (SQLException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
@@ -551,12 +554,7 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCptActionPerformed
 
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
-        try {
-            GestiondeSeance gs = new GestiondeSeance();
-            gs.setVisible(true);
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
     }//GEN-LAST:event_btnSeancesActionPerformed
 
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
@@ -579,8 +577,9 @@ public class PageAccueil extends javax.swing.JFrame {
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
 
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
+        PageReduction pr;
         try {
-            PageReduction pr = new PageReduction();
+            pr= new PageReduction();
             pr.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
