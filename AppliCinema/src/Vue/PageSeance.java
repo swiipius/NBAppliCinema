@@ -99,7 +99,7 @@ public class PageSeance extends javax.swing.JFrame {
         jLabel1.setText(" Seances");
 
         try {
-            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("")));
+            date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -175,8 +175,8 @@ public class PageSeance extends javax.swing.JFrame {
 
     private void dateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dateMouseExited
         // TODO add your handling code here:
-        if (date.getText().equals("")) {
-            date.setText("Recherche de la date");
+        if (date.getText().equals("    -  -  ")) {
+            date.setText(null);
         }
     }//GEN-LAST:event_dateMouseExited
 
