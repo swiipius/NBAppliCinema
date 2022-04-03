@@ -58,7 +58,8 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="389" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnResa" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -85,9 +86,14 @@
                       <Component id="date" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="Instruction" min="-2" pref="20" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" min="-2" pref="503" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="Instruction" min="-2" pref="20" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="503" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnResa" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -146,6 +152,14 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Liste des seances a venir pour votre film:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnResa">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Reserver"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

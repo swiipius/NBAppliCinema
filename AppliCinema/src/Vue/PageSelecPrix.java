@@ -71,15 +71,15 @@ public class PageSelecPrix extends javax.swing.JFrame {
         //listModel = connect.requestDemande(requete);
         System.out.println(listModel);
         //Reduction de la longueur du synopsis avec des '\n' pour que le panneau ne soit pas trop grand
-        taille = listModel.get(5).length();
-        Synopsis = listModel.get(5);
+        taille = listModel.get(6).length();
+        Synopsis = listModel.get(6);
         StringBuilder str = new StringBuilder(Synopsis);
         for (int i = 1; 150 * i < taille; i++) {
             str.insert(150 * i, '\n');
         }
 
         //Affichage des infos
-        textAffich = "Titre : " + listModel.get(6) + "\nRealisateur : " + listModel.get(0) + " " + listModel.get(1) + "\nDuree : " + (String) listModel.get(2) + "\ngenre : " + listModel.get(3) + "\nNote : " + (String) listModel.get(4) + "\nSynopsis : \n" + str;
+        textAffich = "Titre : " + (String) listModel.get(0) + "\nRealisateur : " + listModel.get(2) + " " + listModel.get(1) + "\nDuree : " + (String) listModel.get(3) + "\ngenre : " + listModel.get(4) + "\nNote : " + (String) listModel.get(5) + "\nSynopsis : \n" + str;
         ResumeFilm.setText(textAffich);
     }
 
