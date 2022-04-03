@@ -91,11 +91,6 @@ public class PageConnexion extends javax.swing.JFrame {
 
         Email.setBackground(new java.awt.Color(0, 0, 0));
         Email.setForeground(new java.awt.Color(255, 255, 255));
-        Email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EmailActionPerformed(evt);
-            }
-        });
         PanelClient.add(Email);
         Email.setBounds(12, 42, 280, 40);
 
@@ -227,10 +222,6 @@ public class PageConnexion extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EmailActionPerformed
 
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
         //cas d'un employé

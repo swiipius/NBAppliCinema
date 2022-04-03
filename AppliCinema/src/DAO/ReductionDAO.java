@@ -28,7 +28,14 @@ public class ReductionDAO {
         this.password = password;
     }
     
-    //Requete pour ajouter une reduction
+    /**
+     * Requete pour ajouter une reduction
+     * @param Film
+     * @param Heure
+     * @param Reduction
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void addReduction(String Film, String Heure, String Reduction) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         if(Film == null){;
@@ -39,26 +46,48 @@ public class ReductionDAO {
         }
     }
     
-    //Requete pour supprimer une reduction
+    /**
+     * Requete pour supprimer une reduction
+     * @param id
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void delReducByID(String id) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         connect.executeUpdate("DELETE FROM reduction WHERE id_reduction = " + id + ";");
     }
     
-    //Requete pour obtenir les reductions
+    /**
+     * Requete pour obtenir les reductions
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getReduc() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT * FROM reduction;");
     }
     
-    //Requete pour les reduction a partir d'un film (triees par ordre decroissant)
+    /**
+     * Requete pour les reduction a partir d'un film (triees par ordre decroissant)
+     * @param id_film
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getReducByFilm(String id_film) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT pourcentage FROM reduction WHERE id_film = " + id_film + " ORDER BY pourcentage DESC;";
         return connect.requestDemande(requete);
     }
     
-    //Requete pour les reduction a partir d'une seance (triees par ordre decroissant)
+    /**
+     * Requete pour les reduction a partir d'une seance (triees par ordre decroissant)
+     * @param id_seance
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getReducBySeance(String id_seance) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT pourcentage FROM reduction JOIN seance WHERE seance.heureDebut < reduction.conditionHeure AND seance.id_seance = "+id_seance+" ORDER BY pourcentage DESC;";

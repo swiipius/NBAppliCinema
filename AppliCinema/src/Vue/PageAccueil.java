@@ -120,9 +120,6 @@ public class PageAccueil extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TitreFilmsAccueilMouseClicked(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                TitreFilmsAccueilMouseExited(evt);
-            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 TitreFilmsAccueilMouseReleased(evt);
             }
@@ -161,11 +158,6 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 barreRechercheAccueilMouseExited(evt);
-            }
-        });
-        barreRechercheAccueil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                barreRechercheAccueilActionPerformed(evt);
             }
         });
         PanelAccueil.add(barreRechercheAccueil);
@@ -385,10 +377,6 @@ public class PageAccueil extends javax.swing.JFrame {
         pi.setVisible(true);
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
 
-    private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
-
-    }//GEN-LAST:event_barreRechercheAccueilActionPerformed
-
     private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
         //si on lcique sur la barre de recherche, elle se vide
         barreRechercheAccueil.setText(null);
@@ -468,10 +456,6 @@ public class PageAccueil extends javax.swing.JFrame {
         //BoutonSeancesFilmSelectione.setEnabled(false);
         descriptionFilmsAccueilText.setText("");
     }//GEN-LAST:event_TitreFilmsAccueilMouseReleased
-
-    private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
-
-    }//GEN-LAST:event_TitreFilmsAccueilMouseExited
 
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
         //si on appuie sur le bouton seance, ça ouvre une page avec la liste des seances qui ont le meme id que le film selectionné
