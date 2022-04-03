@@ -5,14 +5,10 @@
  */
 package Vue;
 
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdbc2020.*;
 import DAO.*;
 
 /**
@@ -23,8 +19,6 @@ public class PageConnexion extends javax.swing.JFrame {
 
     private ClientDAO client;
     private EmployeDAO employe;
-    private String requeteClient, requeteEmploye;
-    private String email, NomEmploye;
     private boolean isEmploye = true;
     public boolean connexionValid = false;
     public boolean EmpCo;
@@ -245,13 +239,11 @@ public class PageConnexion extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
                     }
-                } catch (SQLException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     JOptionPane.showMessageDialog(null, "Identifiant inconnu");
                     Identifiant.setText(null);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             //cas d'un client
@@ -275,13 +267,11 @@ public class PageConnexion extends javax.swing.JFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
                     }
-                } catch (SQLException ex) {
+                } catch (SQLException | ClassNotFoundException ex) {
                     Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     JOptionPane.showMessageDialog(null, "Identifiant inconnu");
                     Email.setText(null);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -316,9 +306,7 @@ public class PageConnexion extends javax.swing.JFrame {
         try {
             PageInscription p = new PageInscription();
             p.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnInscriptionActionPerformed
@@ -334,51 +322,10 @@ public class PageConnexion extends javax.swing.JFrame {
                 PageAccueil pa = new PageAccueil(connexionValid, EmpCo);
                 pa.setVisible(true);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formWindowClosed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PageConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PageConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PageConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PageConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new PageConnexion().setVisible(true);
-                } catch (SQLException | ClassNotFoundException ex) {
-                    Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Background;

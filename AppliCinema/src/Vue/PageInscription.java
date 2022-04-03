@@ -5,17 +5,11 @@
  */
 package Vue;
 
-import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
-import java.awt.event.*;
-import java.awt.*;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdbc2020.*;
 import java.util.regex.*;
-import java.util.*;
 import DAO.*;
 
 /**
@@ -25,9 +19,7 @@ import DAO.*;
 public class PageInscription extends javax.swing.JFrame {
 
     private ClientDAO client;
-    private String requete;
     boolean inscriptionOK;
-    private int countAge = 0;
 
     private String testPresence;
 
@@ -312,9 +304,7 @@ public class PageInscription extends javax.swing.JFrame {
         try {
             PageConnexion p = new PageConnexion();
             p.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCoActionPerformed

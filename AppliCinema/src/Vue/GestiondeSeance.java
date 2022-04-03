@@ -9,7 +9,6 @@ import DAO.FilmDAO;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static javax.management.remote.JMXConnectorFactory.connect;
 import javax.swing.*;
 import jdbc2020.*;
 import DAO.*;
@@ -21,8 +20,6 @@ import DAO.*;
 public class GestiondeSeance extends javax.swing.JFrame {
 
     private SeanceDAO seance;
-    private String maRequete;
-    private int count = 0;
     private FilmDAO film;
     public int nbSalle = 10;
     public Connexion connection;

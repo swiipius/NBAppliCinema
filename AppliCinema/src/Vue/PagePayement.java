@@ -6,7 +6,6 @@
 package Vue;
 
 import DAO.*;
-import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +15,6 @@ import javax.swing.JOptionPane;
 import java.io.*;
 import java.text.ParseException;
 import javax.swing.*;
-import jdbc2020.Connexion;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
@@ -46,6 +44,13 @@ public class PagePayement extends javax.swing.JFrame {
      * Creates new form PagePayement
      *
      * @param connexionValid
+     * @param nbMembre
+     * @param nbSenior
+     * @param nbEnfant
+     * @param nbPasCo
+     * @param film
+     * @param seance
+     * @param client
      */
     public PagePayement(boolean connexionValid, int nbMembre, int nbSenior, int nbEnfant, int nbPasCo, int film, int seance, int client) {
         super("Page De Payement");
@@ -268,9 +273,7 @@ public class PagePayement extends javax.swing.JFrame {
                         PageAccueil p = new PageAccueil(connexionValid, Emp);
                         p.setVisible(true);
 
-                    } catch (SQLException ex) {
-                        Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (ClassNotFoundException ex) {
+                    } catch (SQLException | ClassNotFoundException ex) {
                         Logger.getLogger(PagePayement.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }

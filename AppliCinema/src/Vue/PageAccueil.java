@@ -5,18 +5,12 @@
  */
 package Vue;
 
-import java.awt.event.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.*;
 import javax.swing.*;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import jdbc2020.*;
-import java.net.URL;
 import java.io.*;
-import javax.imageio.ImageIO;
 import DAO.*;
 
 /**
@@ -363,9 +357,7 @@ public class PageAccueil extends javax.swing.JFrame {
         try {
             pc = new PageConnexion();
             pc.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();
@@ -536,13 +528,13 @@ public class PageAccueil extends javax.swing.JFrame {
      * @param evt 
      */
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
-        PageStats pStats = null;
+        PageStats pStats;
         try {
             pStats = new PageStats();
+            pStats.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pStats.setVisible(true);
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
     /**
      * //Ouverture de la page des reduction

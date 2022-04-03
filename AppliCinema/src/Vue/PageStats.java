@@ -6,7 +6,6 @@
 package Vue;
 
 import java.sql.SQLException;
-import jdbc2020.Connexion;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.ChartFactory;
@@ -14,11 +13,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import java.awt.Color;
 import javax.swing.DefaultListModel;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import java.util.*;
-import java.sql.*;
-import jdbc2020.*;
 import DAO.FilmDAO;
 
 /**

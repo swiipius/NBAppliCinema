@@ -7,8 +7,6 @@ package Vue;
 
 import java.sql.SQLException;
 import javax.swing.*;
-import jdbc2020.Connexion;
-import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import DAO.SeanceDAO;
@@ -40,6 +38,8 @@ public class PageSeance extends javax.swing.JFrame {
      * Creates new form PageSeance
      *
      * @param ID_Film
+     * @param ID_Client
+     * @param ConnexionValid
      * @throws java.sql.SQLException
      * @throws java.lang.ClassNotFoundException
      */
@@ -286,9 +286,7 @@ public class PageSeance extends javax.swing.JFrame {
         //Recherche dans la bdd de toutes les seances
         try {
             ListModelSeance = seance.getDateHeureByID(numFilm);
-        } catch (SQLException ex) {
-            Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageSeance.class.getName()).log(Level.SEVERE, null, ex);
         }
         //Mise en forme de la liste des seances
