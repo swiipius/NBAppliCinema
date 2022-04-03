@@ -207,7 +207,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Supression de seances
+     * @param evt 
+     */
     private void BtnSupprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSupprimerActionPerformed
         // TODO add your handling code here:
         int index = ListeSeance.getSelectedIndex();//Capture de l'element selectionne
@@ -228,7 +231,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_BtnSupprimerActionPerformed
-
+    /**
+     * Ajouter une seance
+     * @param evt 
+     */
     private void BtnAjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjouterActionPerformed
         if ((DateSeance.getText().equals("    -  -  ")) || (NomFilm.getSelectedItem() == null) || (HeureDebut.getText().equals("  :  :  ")) || (SalleProjection.getValue() == null)) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
@@ -243,7 +249,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La seance a ete ajoute");
         }
     }//GEN-LAST:event_BtnAjouterActionPerformed
-
+    /**
+     * /**
+     * //Recherche de seance
+     * @param evt 
+     */
     private void BtnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRechercheActionPerformed
         if ((RechercheSeance.getText().equals("")) || (DateSeance.getText().equals("Recherche de la seance"))) {
             JOptionPane.showMessageDialog(null, "Veuillez rentrer une date à chercher");
@@ -261,7 +271,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
             //RechercheSeance.setText("Recherche de la seance ");
         }
     }//GEN-LAST:event_BtnRechercheActionPerformed
-
+    /**
+     * Annulation de la dernière action
+     * @param evt 
+     */
     private void BtnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnResetActionPerformed
         try {
             listModelRech = seance.getDateHeureFilm();

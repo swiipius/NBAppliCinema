@@ -194,7 +194,10 @@ public class PageSeance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    //Filtrage des seances par rapport a la date
+    /**
+     * //Filtrage des seances par rapport a la date
+     * @param evt 
+     */
     private void btnRechercheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechercheActionPerformed
         //Recuperation des donnees dans la bdd a partir de la recherche
         try {
@@ -211,7 +214,10 @@ public class PageSeance extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnRechercheActionPerformed
     
-    //Valisation du choix de la seance
+    /**
+    *  //Valisation du choix de la seance
+    * @param evt 
+    */
     private void btnResaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResaActionPerformed
         //Recuperation dans la bdd de l'id de la seance a partir de la date, l'heure et l'id du film
         try {
@@ -232,14 +238,20 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnResaActionPerformed
 
-    //Le bouton de reservation est rendu cliquable si un choix a ete fait
+    /**
+     * //Le bouton de reservation est rendu cliquable si un choix a ete fait
+     * @param evt 
+     */
     private void listSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSeanceMouseClicked
         if (listSeance.getSelectedIndex() > -1) {
             btnResa.setEnabled(true);
         }
     }//GEN-LAST:event_listSeanceMouseClicked
 
-    //Action lors de la fermeture de la fenetre
+    /**
+     * //Action lors de la fermeture de la fenetre
+     * @param evt 
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         //Si le choix n'a pas ete fait retour a la page d'accueil
         if (!choixOk) {
@@ -252,7 +264,10 @@ public class PageSeance extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosed
 
-    //Retour a une liste contenant toutes les seances (elle n'est plus filtree)
+    /**
+     * //Retour a une liste contenant toutes les seances (elle n'est plus filtree)
+     * @param evt 
+     */
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         //Recherche dans la bdd de toutes les seances
         try {
@@ -270,7 +285,11 @@ public class PageSeance extends javax.swing.JFrame {
         listSeance.setModel(ListModelSeanceConcat);
     }//GEN-LAST:event_btnResetActionPerformed
 
-    //Obtention de la date a partir d'une string conteant la date et l'heure
+    /**
+     * //Obtention de la date a partir d'une string conteant la date et l'heure
+     * @param DateAndHour
+     * @return 
+     */
     public String getDate(String DateAndHour) {
         String strDate = "";
         for (int i = 10; i < 20; i++) {
@@ -280,7 +299,11 @@ public class PageSeance extends javax.swing.JFrame {
         return strDate;
     }
 
-    //Obtention de l'heure a partir d'une string conteant la date et l'heure
+    /**
+     * //Obtention de l'heure a partir d'une string conteant la date et l'heure
+     * @param DateAndHour
+     * @return 
+     */
     public String getHour(String DateAndHour) {
         String strHour = "";
         for (int i = 0; i < 8; i++) {

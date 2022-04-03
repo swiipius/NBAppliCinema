@@ -177,19 +177,28 @@ public class PagePayement extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Suppression du text quand la souris clique
+    /**
+     * //Suppression du text quand la souris clique
+     * @param evt 
+     */
     private void NomMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomMouseClicked
         Nom.setText(null);
     }//GEN-LAST:event_NomMouseClicked
 
-    //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
+    /**
+     * //On remet le text si la souris s'en va et que l'utilisateur n'a rien rempli
+     * @param evt 
+     */
     private void NomMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomMouseExited
         if (Nom.getText().equals("")) {
             Nom.setText("Nom sur la carte");
         }
     }//GEN-LAST:event_NomMouseExited
 
-    //Action lors de la validation du payement
+    /**
+     * //Action lors de la validation du payement
+     * @param evt 
+     */
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
         //Initialisation du format de date et de la date actuelle
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM / yy");
@@ -266,7 +275,10 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnValidActionPerformed
 
-    //Mise en place d'une fermeture propre de la fenetre en fonction de si le payement a ete ec=ffcetue ou pas
+    /**
+     * //Mise en place d'une fermeture propre de la fenetre en fonction de si le payement a ete ec=ffcetue ou pas
+     * @param evt 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (!PayOK) {
             int result = JOptionPane.showConfirmDialog(null, "Voulez vous abandonner le payement ?", "Suppression", JOptionPane.YES_NO_OPTION);
@@ -286,7 +298,18 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    //Ajout des différents billets dans la BDD
+    /**
+     * //Ajout des différents billets dans la BDD
+     * @param nbVenduSenior
+     * @param nbVenduMembre
+     * @param nbVenduEnfant
+     * @param nbVenduPasCo
+     * @param id_film
+     * @param id_client
+     * @param id_seance
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void gestionBDD(int nbVenduSenior, int nbVenduMembre, int nbVenduEnfant, int nbVenduPasCo, int id_film, int id_client, int id_seance) throws SQLException, ClassNotFoundException {
         billet = new BilletDAO("cinema", "root", "");
         while (nbVenduSenior != 0) {
@@ -303,7 +326,13 @@ public class PagePayement extends javax.swing.JFrame {
         }
     }
 
-    //Recuperation des infos d'une séance
+    /**
+     * //Recuperation des infos d'une séance
+     * @param id_seance
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public String[] getSeance(int id_seance) throws SQLException, ClassNotFoundException {
         seance = new SeanceDAO("cinema", "root", "");
         String strSeance[] = {"", "", ""};
@@ -316,13 +345,24 @@ public class PagePayement extends javax.swing.JFrame {
         return strSeance;
     }
 
-    //Recuperation du titre du film a partir de l'ID
+    /**
+     * //Recuperation du titre du film a partir de l'ID
+     * @param id_film
+     * @return
+     * @throws ClassNotFoundException
+     * @throws SQLException 
+     */
     public String getFilm(int id_film) throws ClassNotFoundException, SQLException {
         film = new FilmDAO("cinema", "root", "");
         return (film.getFilmByID(Integer.toString(id_film))).get(0);
     }
 
-    //Comparaison de date (sert pour la validite de la CB)
+    /**
+     * //Comparaison de date (sert pour la validite de la CB)
+     * @param sDate
+     * @return
+     * @throws ParseException 
+     */
     public boolean testDate(String sDate) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("MM / yy");
         boolean verif = false;

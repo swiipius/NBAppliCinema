@@ -393,21 +393,30 @@ public class PageReduction extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Bouton de selection de l'heure
+    /**
+     * //Bouton de selection de l'heure
+     * @param evt 
+     */
     private void btnHeureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHeureActionPerformed
         PanelChoixHeure.setVisible(true);
         PanelReduc.setVisible(false);
         id_film = null;
     }//GEN-LAST:event_btnHeureActionPerformed
 
-    //Bouton de selection du film
+    /**
+     * //Bouton de selection du film
+     * @param evt 
+     */
     private void btnFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmActionPerformed
         PanelChoixFilm.setVisible(true);
         PanelReduc.setVisible(false);
         Heure = null;
     }//GEN-LAST:event_btnFilmActionPerformed
 
-    //Nouton de valisation de l'ajout
+    /**
+     * //Nouton de valisation de l'ajout
+     * @param evt 
+     */
     private void btnValidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidActionPerformed
 
         reduc = new ReductionDAO("cinema", "root", "");
@@ -419,14 +428,20 @@ public class PageReduction extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "La reduction a été ajoutée");
     }//GEN-LAST:event_btnValidActionPerformed
 
-    //Bouton de valisation du choix du film
+    /**
+     * //Bouton de valisation du choix du film
+     * @param evt 
+     */
     private void btnValidChoixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidChoixActionPerformed
         PanelChoixFilm.setVisible(false);
         PanelReduc.setVisible(true);
         testAfficheBtnValid();
     }//GEN-LAST:event_btnValidChoixActionPerformed
 
-    //Paramétrage du slider de selection de l'heure
+    /**
+     * //Paramétrage du slider de selection de l'heure
+     * @param evt 
+     */
     private void SliderHeureStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderHeureStateChanged
         HeureAffiche.setText(Integer.toString(SliderHeure.getValue()));
         testHeure = true;
@@ -435,7 +450,10 @@ public class PageReduction extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SliderHeureStateChanged
 
-    //Parametrage du slider de selection des minutes
+    /**
+     * //Parametrage du slider de selection des minutes
+     * @param evt 
+     */
     private void SliderMinuteStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SliderMinuteStateChanged
         MinuteAffiche.setText(Integer.toString(SliderMinute.getValue()));
         testMinute = true;
@@ -444,7 +462,10 @@ public class PageReduction extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_SliderMinuteStateChanged
 
-    //Bouton de validation du choix de l'heure
+    /**
+     * //Bouton de validation du choix de l'heure
+     * @param evt 
+     */
     private void btnValidHeureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidHeureActionPerformed
         PanelChoixHeure.setVisible(false);
         PanelReduc.setVisible(true);
@@ -452,12 +473,18 @@ public class PageReduction extends javax.swing.JFrame {
         testAfficheBtnValid();
     }//GEN-LAST:event_btnValidHeureActionPerformed
 
-    //Affichage ou non du bouton de validation de la reduc
+    /**
+     * //Affichage ou non du bouton de validation de la reduc
+     * @param evt 
+     */
     private void sReductionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sReductionMouseExited
         testAfficheBtnValid();
     }//GEN-LAST:event_sReductionMouseExited
 
-    //Recuperation des infos du film a partir de celuis selectionne dans la combo box
+    /**
+     * //Recuperation des infos du film a partir de celuis selectionne dans la combo box
+     * @param evt 
+     */
     private void choixFilmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_choixFilmActionPerformed
         film = new FilmDAO("cinema", "root", "");
         titreFilm = (String) choixFilm.getSelectedItem();
@@ -469,14 +496,20 @@ public class PageReduction extends javax.swing.JFrame {
         id_film = listModelID.get(9);
     }//GEN-LAST:event_choixFilmActionPerformed
 
-    //Detection selection dans la JList pour afficher le bouton de suppression
+    /**
+     * //Detection selection dans la JList pour afficher le bouton de suppression
+     * @param evt 
+     */
     private void ListReducMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListReducMouseClicked
         if (ListReduc.getSelectedIndex() > -1) {
             btnDel.setEnabled(true);
         }
     }//GEN-LAST:event_ListReducMouseClicked
 
-    //Action realisee quand le bouton de suppression est actionne
+    /**
+     * //Action realisee quand le bouton de suppression est actionne
+     * @param evt 
+     */
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         //Recuperation de la promo selectionnee
         int index = ListReduc.getSelectedIndex();
@@ -494,7 +527,9 @@ public class PageReduction extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnDelActionPerformed
 
-    //Test pour l'affichage du bouton de validation de la reudc (uniquement si tout est rempli)
+    /**
+     * //Test pour l'affichage du bouton de validation de la reudc (uniquement si tout est rempli)
+     */
     public void testAfficheBtnValid() {
         if ((sReduction.getText().equals("")) && ((Heure.equals("")) || (id_film != null))) {
             btnValid.setEnabled(false);

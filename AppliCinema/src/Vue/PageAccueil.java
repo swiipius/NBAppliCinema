@@ -350,7 +350,10 @@ public class PageAccueil extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * Recherche du film 
+     * @param evt 
+     */
     private void rechercheAccueilBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheAccueilBoutonActionPerformed
         // si la barre de recherche n'est pas vide ou si elle n'est pas = "titre de film", on filtre l'affichage des films
         if (!"titre de film".equals(barreRechercheAccueil.getText())) {
@@ -367,7 +370,10 @@ public class PageAccueil extends javax.swing.JFrame {
         pc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ConnexionBoutonAccueilActionPerformed
-
+    /**
+     * inscription d'un nouveau client
+     * @param evt 
+     */
     private void InscriptionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptionBoutonAccueilActionPerformed
         //redirection vers la page d'inscription;
         PageInscription pi = null;

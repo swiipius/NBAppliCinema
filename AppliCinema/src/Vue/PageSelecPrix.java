@@ -270,7 +270,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
         );
 
         jPanel1.add(jLayeredPane1);
-        jLayeredPane1.setBounds(234, 260, 346, 254);
+        jLayeredPane1.setBounds(234, 260, 346, 277);
 
         btnAchat.setBackground(new java.awt.Color(168, 26, 3));
         btnAchat.setText("Finaliser la commande");
@@ -280,7 +280,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnAchat);
-        btnAchat.setBounds(420, 530, 140, 25);
+        btnAchat.setBounds(420, 530, 191, 29);
 
         jScrollPane1.setViewportView(ResumeFilm);
 
@@ -294,7 +294,7 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
         jLabel1.setText("Total Commande :");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(234, 533, 85, 25);
+        jLabel1.setBounds(234, 533, 133, 25);
 
         ImageFond.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Background/PageSelecPrix.png"))); // NOI18N
         jPanel1.add(ImageFond);
@@ -315,7 +315,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "membre"
+    /**
+     * //Mise a jour du prix total en fonction du changement de valeur du nombre de place "membre"
+     * @param evt 
+     */
     private void MembreStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_MembreStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -323,7 +326,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_MembreStateChanged
 
-    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "pas co"
+    /**
+     * //Mise a jour du prix total en fonction du changement de valeur du nombre de place "pas co"
+     * @param evt 
+     */
     private void pasCoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_pasCoStateChanged
         String spinner;
 
@@ -333,7 +339,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_pasCoStateChanged
 
-    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "senior"
+    /**
+     * //Mise a jour du prix total en fonction du changement de valeur du nombre de place "senior"
+     * @param evt 
+     */
     private void SeniorStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SeniorStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -341,7 +350,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_SeniorStateChanged
 
-    //Mise a jour du prix total en fonction du changement de valeur du nombre de place "enfant"
+    /**
+     * //Mise a jour du prix total en fonction du changement de valeur du nombre de place "enfant"
+     * @param evt 
+     */
     private void EnfantStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_EnfantStateChanged
         somme = (Integer) Enfant.getValue() * 6 + (Integer) Senior.getValue() * 8 + (Integer) Membre.getValue() * 10;
         sommeStr = somme.toString();
@@ -349,7 +361,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
         affichageBtn(somme);
     }//GEN-LAST:event_EnfantStateChanged
 
-    //Validation de la selection
+   /**
+    *  //Validation de la selection
+    * @param evt 
+    */
     private void btnAchatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAchatActionPerformed
         try {
             //Verif pour savoir si il y a des reducs ou non
@@ -375,7 +390,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAchatActionPerformed
 
     
-    //Action lors de la fermeture de la fenete
+    /**
+     * //Action lors de la fermeture de la fenete
+     * @param evt 
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         //Test pour savoir si le payement est fini ou si il s'agit d'un abandon
         if (!choixOk) {
@@ -389,12 +407,16 @@ public class PageSelecPrix extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosed
 
-    //Calcul de la somme totale
+    /**
+     * //Calcul de la somme totale
+     */
     public void total() {
         int total = (int) Membre.getValue() * 10 + (int) Senior.getValue() * 8 + (int) Enfant.getValue() * 6;
     }
 
-    //Maj interne a la classe pour mettre a jour le nombre de place vendue
+    /**
+     * //Maj interne a la classe pour mettre a jour le nombre de place vendue
+     */
     public void nbPlaceVendu() {
         nbPlaceMembre = (int) Membre.getValue();
         nbPlaceSenior = (int) Senior.getValue();
@@ -403,7 +425,10 @@ public class PageSelecPrix extends javax.swing.JFrame {
 
     }
 
-    //Test pour l'affiche du bouton d'achat ou non suivant si le total et nul ou non
+    /**
+     * //Test pour l'affiche du bouton d'achat ou non suivant si le total et nul ou non
+     * @param total 
+     */
     public void affichageBtn(int total) {
         if (total > 0) {
             btnAchat.setEnabled(true);
@@ -412,7 +437,13 @@ public class PageSelecPrix extends javax.swing.JFrame {
         }
     }
    
-    //verification pour savoir si il y a une reduction ou pas
+    /**
+     * //verification pour savoir si il y a une reduction ou pas
+     * @param id_film
+     * @param id_seance
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void checkReduction(int id_film, int id_seance) throws SQLException, ClassNotFoundException{
         //Instanciation de l'objet pour la connection a la bdd
         reduc = new ReductionDAO("cinema", "root", "");

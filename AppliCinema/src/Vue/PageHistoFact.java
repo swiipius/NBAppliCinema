@@ -159,7 +159,10 @@ public class PageHistoFact extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //"Impression du billet (creation du fichier text)
+    /**
+     * //"Impression du billet (creation du fichier text)
+     * @param evt 
+     */
     private void btnImprActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprActionPerformed
         //Demande du nom inscrit sur le billet
         String Nom = JOptionPane.showInputDialog(null, "Veuillez entrer le nom de la personne à qui appartient ce billet");
@@ -203,7 +206,10 @@ public class PageHistoFact extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnImprActionPerformed
 
-    //Annuler un billet
+    /**
+     * //Annuler un billet
+     * @param evt 
+     */
     private void DereserverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DereserverActionPerformed
         //Recuperation du billet que le client veut supprimer
         int index =  listHistorique.getSelectedIndex();
@@ -231,7 +237,10 @@ public class PageHistoFact extends javax.swing.JFrame {
     }//GEN-LAST:event_DereserverActionPerformed
 
     
-    //Affichage des bouton si on clique sur un billet
+    /**
+     * //Affichage des bouton si on clique sur un billet
+     * @param evt 
+     */
     private void listHistoriqueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listHistoriqueMouseClicked
         if (listHistorique.getSelectedIndex() > -1) {
             btnImpr.setEnabled(true);
