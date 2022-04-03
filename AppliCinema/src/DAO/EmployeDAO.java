@@ -27,14 +27,25 @@ public class EmployeDAO {
         this.password = password;
     }
     
-     //Requete pour ajouter un employe
+     /**
+      * Requete pour ajouter un employe
+      * @param employe
+      * @throws SQLException
+      * @throws ClassNotFoundException 
+      */
     public void addFilm(Employe employe) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requetAjout = "INSERT INTO film(NomEmplye, Prenom, loginEmploye) VALUES('" + employe.getNomEmploye() + "','" + employe.getPrenom() + "','" + employe.getLoginEmploye()  + "')";
         connect.executeUpdate(requetAjout);
     }
     
-     //Requete pour obtenir le login de l'employe a partir de son nom
+     /**
+      * Requete pour obtenir le login de l'employe a partir de son nom
+      * @param nom
+      * @return
+      * @throws SQLException
+      * @throws ClassNotFoundException 
+      */
     public String getLoginByNom(String nom) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return (String)connect.requestDemande("SELECT loginEmploye FROM employe WHERE NomEmploye LIKE '"+nom+"'").get(0);

@@ -27,60 +27,119 @@ public class SeanceDAO {
         this.password = password;
     }
     
-    //Requete pour ajouter une seance
+    /**
+     * Requete pour ajouter une seance
+     * @param salle
+     * @param film
+     * @param date
+     * @param heure
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void addSeance(int salle, int film, String date, String heure) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requetAjout = "INSERT INTO seance(salle, ID_Film, Date, heureDebut) VALUES(" + salle + "," + film + ",'" + date + "','" + heure + "');";
         connect.executeUpdate(requetAjout);
     }
     
-    //Requete pour supprimer une seance a partir du film, de la date et de l'heure
+    /**
+     * Requete pour supprimer une seance a partir du film, de la date et de l'heure
+     * @param id_film
+     * @param date
+     * @param heure
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void delSeanceByFilmDateHeure(int id_film, String date, String heure) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteSuppr = "DELETE FROM seance WHERE id_film = " + id_film + " AND date = '" + date + "' AND heureDebut = '"+heure+"';";
         connect.executeUpdate(requeteSuppr);
     }
     
-    //Requete pour obtenir les infos d'une seance a partir de l'id
+    /**
+     * Requete pour obtenir les infos d'une seance a partir de l'id
+     * @param id_seance
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getSeanceByID(int id_seance) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT * FROM Seance WHERE id_seance = "+id_seance+";");
     }
     
-    //Requete pour obtenir la date et l'heure d'une seance a partir de l'id
+    /**
+     * Requete pour obtenir la date et l'heure d'une seance a partir de l'id
+     * @param id_film
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getDateHeureByID(int id_film) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT  date,heureDebut FROM Seance  WHERE ID_Film =" + id_film + " ORDER BY date ASC;");
     }
     
-    //Requete pour obtenir l'id d'une seance a partir de la date, l'haure et l'id du film
+    /**
+     * Requete pour obtenir l'id d'une seance a partir de la date, l'haure et l'id du film
+     * @param date
+     * @param heure
+     * @param id_film
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getIDByDateAndheureAndFilm(String date, String heure, int id_film) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT id_seance FROM seance WHERE date LIKE '" + date + "' AND heureDebut LIKE '" + heure + "' AND ID_Film = " + id_film + ";");
     }
     
-    //Requete pour obtenir la salle et l'heure d'une seance a partir de l'id du billet
+    /**
+     * Requete pour obtenir la salle et l'heure d'une seance a partir de l'id du billet
+     * @param billet
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getSalleHeureByBillet(String billet) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT seance.salle, seance.heureDebut FROM seance JOIN billet ON seance.id_seance = billet.id_seance WHERE billet.id_billet = " + billet + ";";
         return connect.requestDemande(requete);
     }
     
-    //Requete pour la date, l'heure et le titre du film a partir de la date de la eance
+    /**
+     * Requete pour la date, l'heure et le titre du film a partir de la date de la seance
+     * @param date
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getDateHeureFilmByDate(String date) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT seance.date, seance.heureDebut, film.titre FROM seance JOIN film ON seance.id_film = film.id_film WHERE seance.date = '"+date+"';";
         return connect.requestDemande(requete);
     }
     
-    //Requete pour obtenir la date et l'heure de la seance a partir de l'id du film
+    /**
+     * Requete pour obtenir la date et l'heure de la seance a partir de l'id du film
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getDateHeureFilm() throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT seance.date, seance.heureDebut, film.titre FROM seance JOIN film ON seance.id_film = film.id_film;";
         return connect.requestDemande(requete);
     }
     
-    //Requete pour obtenir la date et l'heure de la seance a partir de l'id du film
+    /**
+     * Requete pour obtenir la date et l'heure de la seance a partir de l'id du film
+     * @param id_film
+     * @param date
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public DefaultListModel<String> getDateHeureFilmByIDAnddate(int id_film, String date) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requete = "SELECT seance.date, seance.heureDebut FROM seance JOIN film ON seance.id_film = film.id_film WHERE seance.Date LIKE '%"+date+"%' AND film.id_film = "+id_film+"';";

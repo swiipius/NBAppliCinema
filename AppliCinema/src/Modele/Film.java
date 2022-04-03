@@ -100,7 +100,10 @@ public class Film {
         this.nombreVues = nombreVues;
     }
     
-    //on affiche les informations du film
+    /**
+     * 
+     * @return les infromations du film
+     */
     @Override
     public String toString(){
         return "Film : "+ Titre + ", "+ NomRealisateur + " " + PrenomRealisateur + "\nDuree : " + duree + "\nNote : "+note+"\nSynopsis : "+synopsis+ "\nGenre : "+genre+"\nAffiche : "+Affiche+"\nNombre de vues : "+nombreVues;

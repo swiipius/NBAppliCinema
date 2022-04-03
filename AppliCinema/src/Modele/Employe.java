@@ -78,7 +78,10 @@ public class Employe {
         this.loginEmploye = loginEmploye;
     }
     
-    //on affiche les informations de l'employé
+    /**
+     * 
+     * @return les informations de l'employé
+     */
     @Override
     public String toString(){
         return "Nom : "+nomEmploye+"\nPrenom : "+Prenom+"\nLogin Employe : "+loginEmploye;

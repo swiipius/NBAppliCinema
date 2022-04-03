@@ -63,10 +63,13 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Formulaire d'inscription Client:");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(35, 25, 369, 39);
 
+        PrenomClient.setBackground(new java.awt.Color(0, 0, 0));
+        PrenomClient.setForeground(new java.awt.Color(255, 255, 255));
         PrenomClient.setText("Prenom");
         PrenomClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -79,6 +82,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(PrenomClient);
         PrenomClient.setBounds(218, 82, 200, 45);
 
+        NomClient.setBackground(new java.awt.Color(0, 0, 0));
+        NomClient.setForeground(new java.awt.Color(255, 255, 255));
         NomClient.setText("Nom");
         NomClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -91,6 +96,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(NomClient);
         NomClient.setBounds(12, 82, 200, 45);
 
+        EmailClient.setBackground(new java.awt.Color(0, 0, 0));
+        EmailClient.setForeground(new java.awt.Color(255, 255, 255));
         EmailClient.setText("Email");
         EmailClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -103,6 +110,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(EmailClient);
         EmailClient.setBounds(12, 133, 406, 45);
 
+        AgeClient.setBackground(new java.awt.Color(0, 0, 0));
+        AgeClient.setForeground(new java.awt.Color(255, 255, 255));
         AgeClient.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("##"))));
         AgeClient.setText("Age");
         AgeClient.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -116,6 +125,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(AgeClient);
         AgeClient.setBounds(20, 190, 50, 40);
 
+        LoginClient.setBackground(new java.awt.Color(0, 0, 0));
+        LoginClient.setForeground(new java.awt.Color(255, 255, 255));
         LoginClient.setText("Mot de passe");
         LoginClient.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,14 +136,11 @@ public class PageInscription extends javax.swing.JFrame {
                 LoginClientMouseExited(evt);
             }
         });
-        LoginClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginClientActionPerformed(evt);
-            }
-        });
         jPanel1.add(LoginClient);
         LoginClient.setBounds(80, 190, 338, 45);
 
+        BoutonInscription.setBackground(new java.awt.Color(0, 0, 0));
+        BoutonInscription.setForeground(new java.awt.Color(168, 26, 3));
         BoutonInscription.setText("Inscription");
         BoutonInscription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,6 +150,8 @@ public class PageInscription extends javax.swing.JFrame {
         jPanel1.add(BoutonInscription);
         BoutonInscription.setBounds(151, 396, 143, 58);
 
+        btnCo.setBackground(new java.awt.Color(0, 0, 0));
+        btnCo.setForeground(new java.awt.Color(168, 2, 3));
         btnCo.setText("Connexion");
         btnCo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,41 +176,56 @@ public class PageInscription extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void LoginClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginClientActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_LoginClientActionPerformed
-
+    /**
+     * si on clique sur le champ des noms, il se vide
+     * @param evt 
+     */
     private void NomClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomClientMouseClicked
-        //si on clique sur le champ des noms, il se vide
         NomClient.setText(null);
     }//GEN-LAST:event_NomClientMouseClicked
 
+    /**
+     * si on clique sur le champ des noms, il se vide
+     * @param evt 
+     */
     private void PrenomClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomClientMouseClicked
-        //si on clique sur le champ des prenoms, il se vide
         PrenomClient.setText(null);
     }//GEN-LAST:event_PrenomClientMouseClicked
 
+    /**
+     * si on clique sur le champ des noms, il se vide
+     * @param evt 
+     */
     private void EmailClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseClicked
-        //si on clique sur le champ des email et qu'il est a sa valeur de base, il se vide
         if (EmailClient.getText().equals("Email")) {
             EmailClient.setText(null);
         }
     }//GEN-LAST:event_EmailClientMouseClicked
 
+    /**
+     * si on clique sur le champ des noms, il se vide
+     * @param evt 
+     */
     private void LoginClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginClientMouseClicked
-        //si on clique le champ des mdp et qu'il est a sa valeur de base, il se vide
         if (LoginClient.getText().equals("Mot de passe")) {
             LoginClient.setText(null);
         }
     }//GEN-LAST:event_LoginClientMouseClicked
 
+    /**
+     * si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
+     * @param evt 
+     */
     private void NomClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomClientMouseExited
-        //si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
         if (NomClient.getText().equals("")) {
             NomClient.setText("Nom");
         }
     }//GEN-LAST:event_NomClientMouseExited
 
+    /**
+     * si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
+     * @param evt 
+     */
     private void PrenomClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomClientMouseExited
         //si on quitte le champ des prenoms et qu'il est vide, il se remet a sa valeur de base
         if (PrenomClient.getText().equals("")) {
@@ -208,6 +233,10 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PrenomClientMouseExited
 
+    /**
+     * si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
+     * @param evt 
+     */
     private void EmailClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EmailClientMouseExited
         //si on quitte le champ des email et qu'il est vide,ou bien s'il est incorrecte, il se remet a sa valeur de base
         String RegExpression = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@" + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
@@ -223,6 +252,10 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EmailClientMouseExited
 
+    /**
+     * si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
+     * @param evt 
+     */
     private void LoginClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginClientMouseExited
         //si on quitte sur le champ des mdp et qu'il est vide, il se remet a sa valeur de base
         if (LoginClient.getText().equals("")) {
@@ -230,6 +263,10 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_LoginClientMouseExited
 
+    /**
+     * Ajoute le client dans la bdd
+     * @param evt 
+     */
     private void BoutonInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonInscriptionActionPerformed
         inscriptionOK = !((NomClient.getText().equals("Nom")) || (PrenomClient.getText().equals("Prenom")) || (AgeClient.getText().equals("Age")) || (EmailClient.getText().equals("Email")) || (LoginClient.getText().equals("Mot de passe")));
 
@@ -243,13 +280,7 @@ public class PageInscription extends javax.swing.JFrame {
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
         }
-        /*catch(MySQLSyntaxErrorException e){
-        JOptionPane.showMessageDialog(null, "Votre inscription a ete enregistree");
-        }*/ 
-        /*catch(MySQLSyntaxErrorException e){
-            JOptionPane.showMessageDialog(null, "Votre inscription a ete enregistree");
-        }*/
-
+        
         if (inscriptionOK) {
             try {
                 client.addClient(NomClient.getText(), PrenomClient.getText(), AgeClient.getText(), EmailClient.getText(), LoginClient.getText());
@@ -271,8 +302,11 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BoutonInscriptionActionPerformed
 
+    /**
+     * si on appuie sur le bouton de connexion, il nous redirige vers une page de connexion et ferme la page actuelle
+     * @param evt 
+     */
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
-        //si on appuie sur le bouton de connexion, il nous redirige vers une page de connexion et ferme la page actuelle
         JOptionPane.showMessageDialog(null, "Vous allez être redirige vers la page de connexion");
         this.dispose();
         try {
@@ -285,11 +319,19 @@ public class PageInscription extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCoActionPerformed
 
+    /**
+     * si on clique sur le champ des noms, il se vide
+     * @param evt 
+     */
     private void AgeClientMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseClicked
         //si on clique sur le champ des ages,il se vide
         AgeClient.setText(null);
     }//GEN-LAST:event_AgeClientMouseClicked
 
+    /**
+     * si on quitte le champ des noms et qu'il est vide, il se remet a sa valeur de base
+     * @param evt 
+     */
     private void AgeClientMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgeClientMouseExited
         //si on quitte sur le champ des ages et qu'il est vide, il se remet a sa valeur de base
         if(AgeClient.getText().equals("")){

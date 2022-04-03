@@ -28,27 +28,54 @@ public class ClientDAO {
         this.password = password;
     }
     
-    //Requete pour ajouter un client
+    /**
+     * Requete pour ajouter un client
+     * @param nom
+     * @param prenom
+     * @param age
+     * @param email
+     * @param loginClient
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public void addClient(String nom, String prenom, String age, String email, String loginClient) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requetAjout = "INSERT INTO film(Nom, Prenom, Age, email, loginClient) VALUES('" + nom + "','" + prenom + "'," + age + ",'" + email + "','" + loginClient + "')";
         connect.executeUpdate(requetAjout);
     }
     
-    //Requete pour obtenir le nombre de client grace a un email
+    /**
+     * Requete pour obtenir le nombre de client grace a un email
+     * @param email
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public String getNbClientByEmail(String email) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         String requeteDemande = "SELECT COUNT(*) FROM client WHERE email LIKE '" + email + "'";
         return (String)connect.requestDemande(requeteDemande).get(0);
     }
     
-    //Requete pour obtenir l'id d'un client grace au mail
+    /**
+     * Requete pour obtenir l'id d'un client grace au mail
+     * @param mail
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public String getIDByMail(String mail) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return (String)connect.requestDemande("SELECT id_client FROM client WHERE email = '"+mail+"'").get(0);
     }
     
-    //Requete pour obtenir le mdp du client grace au mail
+    /**
+     * Requete pour obtenir le mdp du client grace au mail
+     * @param mail
+     * @return
+     * @throws SQLException
+     * @throws ClassNotFoundException 
+     */
     public String getLoginByEmail(String mail) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
         return (String)connect.requestDemande("SELECT loginClient FROM client WHERE email = '"+mail+"'").get(0);
