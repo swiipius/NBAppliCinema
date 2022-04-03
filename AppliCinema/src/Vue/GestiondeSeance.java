@@ -285,13 +285,19 @@ public class GestiondeSeance extends javax.swing.JFrame {
         ListeSeance.setModel(affichage(listModelRech));
 
     }//GEN-LAST:event_BtnResetActionPerformed
-
+    /**
+     * //Le bouton est rendu cliquable si un choix a ete fait
+     * @param evt 
+     */
     private void ListeSeanceMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListeSeanceMouseClicked
         if (ListeSeance.getSelectedIndex() > -1) {
             BtnSupprimer.setEnabled(true);
         }
     }//GEN-LAST:event_ListeSeanceMouseClicked
-
+    /**
+     * //voir si la souris est sur la case ou non (voir le texte ou non)
+     * @param evt 
+     */
     private void DateSeanceMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DateSeanceMouseExited
         if (((DateSeance.getText().equals("    -  -  ") || NomFilm.getSelectedItem() == null) || HeureDebut.getText().equals("  :  :  ")) || SalleProjection.getValue() == null) {
             BtnAjouter.setEnabled(false);
@@ -299,7 +305,10 @@ public class GestiondeSeance extends javax.swing.JFrame {
             BtnAjouter.setEnabled(true);
         }
     }//GEN-LAST:event_DateSeanceMouseExited
-
+    /**
+     * //voir si la souris est sur la case ou non (voir le texte ou non)
+     * @param evt 
+     */
     private void HeureDebutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_HeureDebutMouseExited
         if (((DateSeance.getText().equals("    -  -  ") || NomFilm.getSelectedItem() == null) || HeureDebut.getText().equals("  :  :  ")) || SalleProjection.getValue() == null) {
             BtnAjouter.setEnabled(false);
@@ -307,7 +316,11 @@ public class GestiondeSeance extends javax.swing.JFrame {
             BtnAjouter.setEnabled(true);
         }
     }//GEN-LAST:event_HeureDebutMouseExited
-
+    /**
+     * Affichage de la liste
+     * @param listModel
+     * @return 
+     */
     private DefaultListModel<String> affichage(DefaultListModel<String> listModel) {
         DefaultListModel<String> list = new DefaultListModel<>();
         for (int i = 0; i < listModel.size(); i += 3) {

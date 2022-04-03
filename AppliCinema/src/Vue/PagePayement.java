@@ -61,7 +61,12 @@ public class PagePayement extends javax.swing.JFrame {
         id_seance = seance;
     }
 
-    //Sous méthode de conversion String to Date
+    /**
+     * //Sous méthode de conversion String to Date
+     * @param sdate
+     * @return
+     * @throws ParseException 
+     */
     private Date toDate(String sdate) throws ParseException {
         Date date = new SimpleDateFormat("/MM/yyyy").parse(sdate);
         return date;

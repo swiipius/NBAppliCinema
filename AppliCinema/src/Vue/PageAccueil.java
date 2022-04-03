@@ -365,7 +365,10 @@ public class PageAccueil extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_rechercheAccueilBoutonActionPerformed
-
+/**
+ * //Voir si le bouton est visible ou non
+ * @param evt 
+ */
     private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
         pc.setVisible(true);
         this.dispose();
@@ -388,19 +391,28 @@ public class PageAccueil extends javax.swing.JFrame {
     private void barreRechercheAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barreRechercheAccueilActionPerformed
 
     }//GEN-LAST:event_barreRechercheAccueilActionPerformed
-
+    /**
+     * //si on lcique sur la barre de recherche, elle se vide
+     * @param evt 
+     */
     private void barreRechercheAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseClicked
-        //si on lcique sur la barre de recherche, elle se vide
+
         barreRechercheAccueil.setText(null);
     }//GEN-LAST:event_barreRechercheAccueilMouseClicked
-
+    /**
+     * //Voir si la souris est sur la case recherche (affichage ou non du texte)
+     * @param evt 
+     */
     private void barreRechercheAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_barreRechercheAccueilMouseExited
         //si on quitte la barre de recherche alors qu'elle vide, elle reinitialise
         if (barreRechercheAccueil.getText().equals("")) {
             barreRechercheAccueil.setText("titre de film");
         }
     }//GEN-LAST:event_barreRechercheAccueilMouseExited
-
+    /**
+     * 
+     * @param evt 
+     */
     private void TitreFilmsAccueilMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseClicked
         //so la liste n'est pas vide, on affiche le panel des description
         if (TitreFilmsAccueil.getSelectedIndex() > -1) {
@@ -461,7 +473,10 @@ public class PageAccueil extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_TitreFilmsAccueilMouseClicked
-
+    /**
+     * Affichage du Film
+     * @param evt 
+     */
     private void TitreFilmsAccueilMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseReleased
         //si on ne clique plus sur un titre de film, la description disparait
         PanelDescriptionAccueil.setVisible(false);
@@ -472,7 +487,10 @@ public class PageAccueil extends javax.swing.JFrame {
     private void TitreFilmsAccueilMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreFilmsAccueilMouseExited
 
     }//GEN-LAST:event_TitreFilmsAccueilMouseExited
-
+    /**
+     * // Seance liée au film
+     * @param evt 
+     */
     private void BoutonSeancesFilmSelectioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSeancesFilmSelectioneActionPerformed
         //si on appuie sur le bouton seance, ça ouvre une page avec la liste des seances qui ont le meme id que le film selectionné
         PageSeance pse;
@@ -485,7 +503,10 @@ public class PageAccueil extends javax.swing.JFrame {
         //on ferme la page d'accueil par la meme occasion
         this.dispose();
     }//GEN-LAST:event_BoutonSeancesFilmSelectioneActionPerformed
-
+    /**
+     * Affichage du compte du client
+     * @param evt 
+     */
     private void btnCptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCptActionPerformed
         //si on appuie sur le bouton compte, ça ouvre une page avec la liste des historique d'acht du client
         PageHistoFact ph;
@@ -496,7 +517,10 @@ public class PageAccueil extends javax.swing.JFrame {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCptActionPerformed
-
+    /**
+     * Ouverture page avec le menu des seances
+     * @param evt 
+     */
     private void btnSeancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeancesActionPerformed
         //si on appuie sur le bouton gestion des seances, ça ouvre une page avec le menu de gestion des seances(exlusif aux employes)
         try {
@@ -506,7 +530,10 @@ public class PageAccueil extends javax.swing.JFrame {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSeancesActionPerformed
-
+    /**
+     * //Ouverture la page avec le menu de gestion des films
+     * @param evt 
+     */
     private void btnFilmsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilmsActionPerformed
         //si on appuie sur le bouton gestion des films, ça ouvre une page avec le menu de gestion des films(exlusif aux employes)
         try {
@@ -516,7 +543,10 @@ public class PageAccueil extends javax.swing.JFrame {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnFilmsActionPerformed
-
+    /**
+     * Affichage du graphe
+     * @param evt 
+     */
     private void BoutonStatisquesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonStatisquesActionPerformed
          //si on appuie sur le bouton statistiques, ça ouvre une page avec  un graph de la popularite des films(exlusif aux employes)
         PageStats pStats = null;
@@ -527,7 +557,10 @@ public class PageAccueil extends javax.swing.JFrame {
         }
         pStats.setVisible(true);
     }//GEN-LAST:event_BoutonStatisquesActionPerformed
-
+    /**
+     * //Ouverture de la page des reduction
+     * @param evt 
+     */
     private void btnRedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRedActionPerformed
          //si on appuie sur le bouton reductions, ça ouvre une page avec le menu de gestion des reductions(exlusif aux employes)
         PageReduction pr;
@@ -538,7 +571,11 @@ public class PageAccueil extends javax.swing.JFrame {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnRedActionPerformed
-
+    /**
+     * Affichage ou non du bouton connexio,
+     * @param COk
+     * @param Emp 
+     */
     public void affichageBtnCo(boolean COk, boolean Emp) {
         //en fonction de la connection et du status du connecté, des panels apparaissent et/ou disparaissent
         if (COk) {
