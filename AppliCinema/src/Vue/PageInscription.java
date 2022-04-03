@@ -25,7 +25,6 @@ import DAO.*;
 public class PageInscription extends javax.swing.JFrame {
 
     private ClientDAO client;
-    public Connexion connect;
     private String requete;
     boolean inscriptionOK;
     private int countAge = 0;
@@ -35,8 +34,6 @@ public class PageInscription extends javax.swing.JFrame {
     public PageInscription() throws SQLException, ClassNotFoundException {
         super("Page d'Inscription");
         initComponents();
-        //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
     }
 
     /**
@@ -248,7 +245,6 @@ public class PageInscription extends javax.swing.JFrame {
         if (inscriptionOK) {
             try {
                 client.addClient(NomClient.getText(), PrenomClient.getText(), AgeClient.getText(), EmailClient.getText(), LoginClient.getText());
-                connect.executeUpdate(requete);
             } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageInscription.class.getName()).log(Level.SEVERE, null, ex);
             }

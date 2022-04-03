@@ -73,4 +73,14 @@ public class FilmDAO {
         String requeteDemande = "SELECT titre FROM film ORDER BY nombreVues DESC";
         return connect.requestDemande(requeteDemande);
     }
+    
+    public DefaultListModel<Integer> getNbVue() throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return connect.requestDemande("SELECT nombreVues FROM film ");
+    }
+    
+    public int getNbFilm() throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return Integer.parseInt((String)connect.requestDemande("SELECT nombreVues FROM film ").get(0));
+    }
 }

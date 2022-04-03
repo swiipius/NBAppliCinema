@@ -13,6 +13,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
+import DAO.*;
 
 /**
  *
@@ -20,19 +21,18 @@ import jdbc2020.*;
  */
 public class PageConnexion extends javax.swing.JFrame {
 
-    public Connexion connect;
+    
+    private ClientDAO client;
+    private EmployeDAO employe;
     private String requeteClient, requeteEmploye;
     private String email, NomEmploye;
-    private boolean employe = true;
+    private boolean isEmploye = true;
     public boolean connexionValid = false;
     public boolean EmpCo;
     PageAccueil pa;
 
     public PageConnexion() throws SQLException, ClassNotFoundException {
         super("Connexion");
-        //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
-
         initComponents();
 
         //Initialisation Panel
@@ -247,13 +247,13 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_EmailActionPerformed
 
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
-        if (!employe) {
+        if (!isEmploye) {
             if ((Identifiant.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             } else {
                 requeteEmploye = "SELECT loginEmploye FROM employe WHERE NomEmploye LIKE '" + Identifiant.getText() + "'";
                 try {
-                    if ((connect.requestDemande(requeteEmploye).get(0)).equals(MotDePasse.getText())) {
+                    if ((employe.getLoginByNom(Identifiant.getText())).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
                         EmpCo = true;
@@ -276,16 +276,15 @@ public class PageConnexion extends javax.swing.JFrame {
             if ((Email.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
             } else {
-                requeteClient = "SELECT loginClient FROM client WHERE email LIKE '" + Email.getText() + "'";
                 try {
-                    if ((connect.requestDemande(requeteClient).get(0)).equals(MotDePasse.getText())) {
+                    if ((client.getLoginByEmail(Email.getText())).equals(MotDePasse.getText())) {
                         JOptionPane.showMessageDialog(null, "Connexion");
                         connexionValid = true;
                         EmpCo = false;
                         this.dispose();
                         pa = new PageAccueil(true, false);
                         pa.setVisible(true);
-                        pa.client = Integer.parseInt((String) (connect.requestDemande("SELECT id_client FROM client WHERE email = '"+Email.getText()+"'")).get(0));
+                        pa.client = Integer.parseInt((String) (client.getIDByMail(Email.getText())));
                     } else {
                         JOptionPane.showMessageDialog(null, "Mot de passe erroné");
                     }
@@ -302,14 +301,14 @@ public class PageConnexion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCoActionPerformed
 
     private void chechEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chechEmpActionPerformed
-        if (employe) {
+        if (isEmploye) {
             PanelEmploye.setVisible(true);
             PanelClient.setVisible(false);
         } else {
             PanelEmploye.setVisible(false);
             PanelClient.setVisible(true);
         }
-        employe = !employe;
+        isEmploye = !isEmploye;
     }//GEN-LAST:event_chechEmpActionPerformed
 
     private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed

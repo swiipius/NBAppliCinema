@@ -37,4 +37,15 @@ public class ClientDAO {
         String requeteDemande = "SELECT COUNT(*) FROM client WHERE email LIKE '" + email + "'";
         return (String)connect.requestDemande(requeteDemande).get(0);
     }
+    
+    public String getIDByMail(String mail) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return (String)connect.requestDemande("SELECT id_client FROM client WHERE email = '"+mail+"'").get(0);
+    }
+    
+    public String getLoginByEmail(String mail) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return (String)connect.requestDemande("SELECT loginClient FROM client WHERE email = '"+mail+"'").get(0);
+    }
 }
+

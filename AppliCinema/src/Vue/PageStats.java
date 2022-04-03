@@ -19,6 +19,7 @@ import org.jfree.chart.ChartPanel;
 import java.util.*;
 import java.sql.*;
 import jdbc2020.*;
+import DAO.FilmDAO;
 
 /**
  *
@@ -26,30 +27,31 @@ import jdbc2020.*;
  */
 public class PageStats extends javax.swing.JFrame {
 
-    public Connexion connect;
-    private final String requeteTitre = "SELECT titre FROM film ";
+    private FilmDAO film;
     private final String requeteNBVues = "SELECT nombreVues FROM film ";
     int nombreDeFilms = 0;
     public DefaultListModel<String> liste1 = new DefaultListModel<>();
     public ArrayList<Integer> liste2 = new ArrayList<>();
+    public DefaultListModel<Integer> listeNbVue = new DefaultListModel<>();
 
     public PageStats() throws SQLException, ClassNotFoundException {
         super("Statistiques");
         initComponents();
 
-        //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
         //on ajoute tout les titres de film dans la liste1
-        liste1 = connect.requestDemande(requeteTitre);
+        liste1 = film.getFilmTitre();
         //on ajoute tout les nombres de vues de film dans la liste2
-        //et on determine le nombre de films dans la  bdd par la meme occasion
+        /*
         connect.rset = connect.stmt.executeQuery(requeteNBVues);
         connect.rsetMeta = connect.rset.getMetaData();
         while ((connect.rset).next()) {
             int nbVues = (connect.rset).getInt("nombreVues");
             liste2.add(nbVues);
             nombreDeFilms++;
-        }
+        }*/
+        
+        listeNbVue = film.getNbVue();
+        nombreDeFilms = film.getNbFilm();
 
     }
 

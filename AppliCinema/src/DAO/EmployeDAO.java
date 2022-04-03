@@ -30,4 +30,9 @@ public class EmployeDAO {
         String requetAjout = "INSERT INTO film(NomEmplye, Prenom, loginEmploye) VALUES('" + employe.getNomEmploye() + "','" + employe.getPrenom() + "','" + employe.getLoginEmploye()  + "')";
         connect.executeUpdate(requetAjout);
     }
+    
+    public String getLoginByNom(String nom) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        return (String)connect.requestDemande("SELECT loginEmploye FROM employe WHERE NomEmploye LIKE '"+nom+"'").get(0);
+    }
 }
