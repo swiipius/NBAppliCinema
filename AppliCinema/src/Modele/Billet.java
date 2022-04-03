@@ -104,7 +104,10 @@ public class Billet {
         this.TypePlace = TypePlace;
     }
     
-    //on affiche les informations du billet
+    /**
+     *  
+     * @return les informations du billet
+     */
     @Override
     public String toString(){
         return "Prix : "+facture+"\nID_Client : "+id_client+"\nID_Film : "+id_film+"\nID_Seance : "+id_seance+"\nType de place : "+TypePlace;

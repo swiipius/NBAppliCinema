@@ -76,7 +76,10 @@ public class Reduction {
         this.id_film = id_film;
     }
     
-    //on affiche les informations de la réduction
+    /**
+     * 
+     * @return les informations de la réduction 
+     */
     @Override
     public String toString(){
         return "Pourcentage : "+pourcentage+"\nCondition Heure : "+conditionHeure+"\nID_Film : "+id_film;
