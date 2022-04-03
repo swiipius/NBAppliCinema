@@ -105,7 +105,7 @@ public class PageAccueil extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1280, 900));
+        setResizable(false);
 
         PanelAccueil.setBackground(new java.awt.Color(168, 26, 3));
         PanelAccueil.setLayout(null);
@@ -141,6 +141,8 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelAccueil.add(LabelTitreFilmAccueil);
         LabelTitreFilmAccueil.setBounds(120, 150, 160, 25);
 
+        rechercheAccueilBouton.setBackground(new java.awt.Color(51, 51, 51));
+        rechercheAccueilBouton.setForeground(new java.awt.Color(168, 26, 3));
         rechercheAccueilBouton.setText("Recherche");
         rechercheAccueilBouton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +224,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelEmp.setBackground(new java.awt.Color(0, 0, 0));
         PanelEmp.setLayout(null);
 
+        btnSeances.setForeground(new java.awt.Color(168, 26, 3));
         btnSeances.setText("Gestion Seances");
         btnSeances.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,6 +234,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelEmp.add(btnSeances);
         btnSeances.setBounds(134, 49, 117, 25);
 
+        btnFilms.setForeground(new java.awt.Color(168, 26, 3));
         btnFilms.setText("Gestion Films");
         btnFilms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +244,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelEmp.add(btnFilms);
         btnFilms.setBounds(134, 19, 117, 25);
 
+        BoutonStatisques.setForeground(new java.awt.Color(168, 26, 3));
         BoutonStatisques.setText("Statistiques");
         BoutonStatisques.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,6 +254,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelEmp.add(BoutonStatisques);
         BoutonStatisques.setBounds(12, 19, 117, 25);
 
+        btnRed.setForeground(new java.awt.Color(168, 26, 3));
         btnRed.setText("Réduction");
         btnRed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,6 +270,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelAccesCpt.setBackground(new java.awt.Color(0, 0, 0));
         PanelAccesCpt.setLayout(null);
 
+        btnCpt.setForeground(new java.awt.Color(168, 26, 3));
         btnCpt.setText("Mon Compte");
         btnCpt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,6 +286,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelCoIns.setBackground(new java.awt.Color(0, 0, 0));
         PanelCoIns.setLayout(null);
 
+        ConnexionBoutonAccueil.setForeground(new java.awt.Color(168, 26, 3));
         ConnexionBoutonAccueil.setText("Connexion");
         ConnexionBoutonAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,6 +296,7 @@ public class PageAccueil extends javax.swing.JFrame {
         PanelCoIns.add(ConnexionBoutonAccueil);
         ConnexionBoutonAccueil.setBounds(16, 14, 109, 25);
 
+        InscriptionBoutonAccueil.setForeground(new java.awt.Color(168, 26, 3));
         InscriptionBoutonAccueil.setText("Inscription");
         InscriptionBoutonAccueil.setMaximumSize(new java.awt.Dimension(85, 25));
         InscriptionBoutonAccueil.setMinimumSize(new java.awt.Dimension(835, 25));
