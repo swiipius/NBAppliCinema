@@ -28,7 +28,7 @@ public class FilmDAO {
     
     public void addFilm(String titre, String NReal, String PReal, String duree, String genre, String note, String synopsis, String affiche) throws SQLException, ClassNotFoundException{
         Connexion connect = new Connexion(nomBDD, username, password);
-        String requetAjout = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + titre + "','" + NReal + "','" + PReal + "','" + duree + "','" + genre + "','" + note + "','" + synopsis + "', '" + affiche + ")";
+        String requetAjout = "INSERT INTO film(Titre,NomRealisateur,PrenomRealisateur,duree,genre,note,synopsis, Affiche) VALUES('" + titre + "','" + NReal + "','" + PReal + "','" + duree + "','" + genre + "','" + note + "','" + synopsis + "', '" + affiche + "')";
         connect.executeUpdate(requetAjout);
     }
     
