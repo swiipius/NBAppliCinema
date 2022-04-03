@@ -89,6 +89,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
         jPanel1.setLayout(null);
 
+        BtnRecherche.setBackground(new java.awt.Color(0, 0, 0));
+        BtnRecherche.setForeground(new java.awt.Color(168, 26, 3));
         BtnRecherche.setText("Recherche");
         BtnRecherche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +100,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(BtnRecherche);
         BtnRecherche.setBounds(740, 60, 100, 40);
 
+        BtnReset.setBackground(new java.awt.Color(0, 0, 0));
+        BtnReset.setForeground(new java.awt.Color(168, 26, 3));
         BtnReset.setText("Reset");
         BtnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,10 +112,13 @@ public class GestiondeSeance extends javax.swing.JFrame {
         BtnReset.setBounds(850, 60, 70, 40);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Gestion des Seances");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(98, 30, 178, 41);
 
+        BtnAjouter.setBackground(new java.awt.Color(0, 0, 0));
+        BtnAjouter.setForeground(new java.awt.Color(168, 26, 3));
         BtnAjouter.setText("AJOUTER");
         BtnAjouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -121,6 +128,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(BtnAjouter);
         BtnAjouter.setBounds(70, 340, 132, 50);
 
+        BtnSupprimer.setBackground(new java.awt.Color(0, 0, 0));
+        BtnSupprimer.setForeground(new java.awt.Color(168, 26, 3));
         BtnSupprimer.setText("SUPPRIMER");
         BtnSupprimer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +139,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(BtnSupprimer);
         BtnSupprimer.setBounds(240, 340, 137, 50);
 
+        ListeSeance.setBackground(new java.awt.Color(0, 0, 0));
+        ListeSeance.setForeground(new java.awt.Color(255, 255, 255));
         ListeSeance.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ListeSeanceMouseClicked(evt);
@@ -140,6 +151,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1);
         jScrollPane1.setBounds(450, 120, 470, 300);
 
+        HeureDebut.setBackground(new java.awt.Color(0, 0, 0));
+        HeureDebut.setForeground(new java.awt.Color(255, 255, 255));
         try {
             HeureDebut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##:##:##")));
         } catch (java.text.ParseException ex) {
@@ -153,17 +166,23 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(HeureDebut);
         HeureDebut.setBounds(48, 252, 132, 40);
 
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Heure de la séance : ");
         jPanel1.add(jLabel2);
         jLabel2.setBounds(48, 231, 103, 15);
 
+        NomFilm.setBackground(new java.awt.Color(0, 0, 0));
+        NomFilm.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(NomFilm);
         NomFilm.setBounds(206, 158, 226, 40);
 
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Date de la séance :");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(50, 140, 100, 15);
 
+        DateSeance.setBackground(new java.awt.Color(0, 0, 0));
+        DateSeance.setForeground(new java.awt.Color(255, 255, 255));
         try {
             DateSeance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
@@ -177,6 +196,8 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(DateSeance);
         DateSeance.setBounds(50, 160, 130, 40);
 
+        RechercheSeance.setBackground(new java.awt.Color(0, 0, 0));
+        RechercheSeance.setForeground(new java.awt.Color(255, 255, 255));
         try {
             RechercheSeance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
@@ -185,6 +206,7 @@ public class GestiondeSeance extends javax.swing.JFrame {
         jPanel1.add(RechercheSeance);
         RechercheSeance.setBounds(450, 60, 280, 40);
 
+        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Recherche selon la date :");
         jPanel1.add(jLabel4);
         jLabel4.setBounds(450, 40, 150, 15);

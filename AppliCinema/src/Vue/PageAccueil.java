@@ -35,14 +35,12 @@ public class PageAccueil extends javax.swing.JFrame {
     ResultSet rs;
     PreparedStatement pst;
 
-    PageConnexion pc = new PageConnexion();
-
     DefaultListModel<String> listModeTitre = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
     DefaultListModel<byte[]> listModel2 = new DefaultListModel<>();
     private boolean connexionValid;
     private boolean IsEmp;
-
+   
     /**
      * Creates new form PageAccueil
      *
@@ -65,8 +63,6 @@ public class PageAccueil extends javax.swing.JFrame {
         this.connexionValid = connexionValid;
 
 
-        /*listModel1 = connect.requestDemande(requeteInfo);
-        descriptionFilmsAccueil.setModel(listModel1);*/
         //Affichage des boutons de connexion/inscription (ou non si connexion effectué)
         affichageBtnCo(connexionValid, IsEmp);
     }
@@ -164,6 +160,7 @@ public class PageAccueil extends javax.swing.JFrame {
         barreRechercheAccueil.setBounds(480, 30, 305, 19);
 
         BoutonSeancesFilmSelectione.setBackground(new java.awt.Color(0, 0, 0));
+        BoutonSeancesFilmSelectione.setForeground(new java.awt.Color(168, 26, 3));
         BoutonSeancesFilmSelectione.setText("Seances Disponibles");
         BoutonSeancesFilmSelectione.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,7 +359,15 @@ public class PageAccueil extends javax.swing.JFrame {
  * @param evt 
  */
     private void ConnexionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConnexionBoutonAccueilActionPerformed
-        pc.setVisible(true);
+        PageConnexion pc;
+        try {
+            pc = new PageConnexion();
+            pc.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.dispose();
     }//GEN-LAST:event_ConnexionBoutonAccueilActionPerformed
     /**
@@ -371,13 +376,12 @@ public class PageAccueil extends javax.swing.JFrame {
      */
     private void InscriptionBoutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InscriptionBoutonAccueilActionPerformed
         //redirection vers la page d'inscription;
-        PageInscription pi = null;
         try {
-            pi = new PageInscription();
+            PageInscription pi = new PageInscription();
+            pi.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
         }
-        pi.setVisible(true);
     }//GEN-LAST:event_InscriptionBoutonAccueilActionPerformed
     /**
      * //si on lcique sur la barre de recherche, elle se vide

@@ -93,6 +93,7 @@ public class PageSeance extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
 
+        btnRecherche.setBackground(new java.awt.Color(0, 0, 0));
         btnRecherche.setForeground(new java.awt.Color(168, 26, 3));
         btnRecherche.setText("Recherche");
         btnRecherche.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +102,8 @@ public class PageSeance extends javax.swing.JFrame {
             }
         });
 
+        listSeance.setBackground(new java.awt.Color(0, 0, 0));
+        listSeance.setForeground(new java.awt.Color(255, 255, 255));
         listSeance.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listSeanceMouseClicked(evt);
@@ -109,16 +112,23 @@ public class PageSeance extends javax.swing.JFrame {
         jScrollPane1.setViewportView(listSeance);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText(" Seances");
 
+        date.setBackground(new java.awt.Color(0, 0, 0));
+        date.setForeground(new java.awt.Color(255, 255, 255));
         try {
             date.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####-##-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
 
+        Instruction.setBackground(new java.awt.Color(0, 0, 0));
+        Instruction.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        Instruction.setForeground(new java.awt.Color(0, 0, 0));
         Instruction.setText("Liste des seances a venir pour votre film:");
 
+        btnResa.setBackground(new java.awt.Color(0, 0, 0));
         btnResa.setForeground(new java.awt.Color(168, 26, 3));
         btnResa.setText("Reserver");
         btnResa.addActionListener(new java.awt.event.ActionListener() {
@@ -127,6 +137,7 @@ public class PageSeance extends javax.swing.JFrame {
             }
         });
 
+        btnReset.setBackground(new java.awt.Color(0, 0, 0));
         btnReset.setForeground(new java.awt.Color(168, 26, 3));
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
