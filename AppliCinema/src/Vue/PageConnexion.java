@@ -34,7 +34,8 @@ public class PageConnexion extends javax.swing.JFrame {
     public PageConnexion() throws SQLException, ClassNotFoundException {
         super("Connexion");
         initComponents();
-
+        employe = new EmployeDAO("cinema", "root", "");
+        client = new ClientDAO("cinema", "root", "");
         //Initialisation Panel
         PanelClient.setVisible(true);
         PanelEmploye.setVisible(false);

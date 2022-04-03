@@ -41,7 +41,8 @@ public class PageHistoFact extends javax.swing.JFrame {
         this.client = client;
         this.connexionValid = connexionValid;
         initComponents();
-        
+        billet = new BilletDAO("cinema", "root", "");
+        seance = new SeanceDAO("cinema", "root", "");
         listModelTitre = billet.getIDTitreDateFactureTypeplaceByIDClient(Integer.toString(client));
         for (int i = 0; i < listModelTitre.size(); i += 5) {
             listModelTitreInfo.add(i / 5, listModelTitre.get(i) + ", " + listModelTitre.get(i + 3) + ", " + listModelTitre.get(i + 2) + ", " + listModelTitre.get(i + 1));
