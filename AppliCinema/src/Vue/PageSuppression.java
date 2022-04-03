@@ -38,6 +38,7 @@ public class PageSuppression extends javax.swing.JFrame {
         btnDel.setEnabled(false);
         //connection a la bdd
         film = new FilmDAO("cinema", "root", "");
+        
         //ajout des titres des films dans la liste
         listModelTitre = film.getFilmTitre();
         listTitreFilm.setModel(listModelTitre);
@@ -61,19 +62,23 @@ public class PageSuppression extends javax.swing.JFrame {
         Titre = new javax.swing.JTextField();
         PrenomReal = new javax.swing.JTextField();
         NomReal = new javax.swing.JTextField();
-        Duree = new javax.swing.JTextField();
         Genre = new javax.swing.JTextField();
-        Note = new javax.swing.JTextField();
         Synopsis = new javax.swing.JTextField();
         btnRech = new javax.swing.JButton();
         Recherche = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
         RechercheImage = new javax.swing.JButton();
+        Duree = new javax.swing.JFormattedTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        Note = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
 
+        listTitreFilm.setBackground(new java.awt.Color(0, 0, 0));
+        listTitreFilm.setForeground(new java.awt.Color(255, 255, 255));
         listTitreFilm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 listTitreFilmMouseClicked(evt);
@@ -81,6 +86,8 @@ public class PageSuppression extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listTitreFilm);
 
+        btnAdd.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdd.setForeground(new java.awt.Color(168, 26, 3));
         btnAdd.setText("AJOUTER");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +95,8 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        btnDel.setBackground(new java.awt.Color(0, 0, 0));
+        btnDel.setForeground(new java.awt.Color(168, 26, 3));
         btnDel.setText("SUPPRIMER");
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +104,7 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        Titre.setBackground(new java.awt.Color(0, 0, 0));
         Titre.setText("Titre");
         Titre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -110,6 +120,7 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        PrenomReal.setBackground(new java.awt.Color(0, 0, 0));
         PrenomReal.setText("PrenomReal");
         PrenomReal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -125,6 +136,7 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        NomReal.setBackground(new java.awt.Color(0, 0, 0));
         NomReal.setText("NomReal");
         NomReal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,24 +152,7 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
-        Duree.setText("Duree");
-        Duree.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DureeMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                DureeMouseExited(evt);
-            }
-        });
-        Duree.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                DureeKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                DureeKeyTyped(evt);
-            }
-        });
-
+        Genre.setBackground(new java.awt.Color(0, 0, 0));
         Genre.setText("Genre");
         Genre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -173,21 +168,7 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
-        Note.setText("Note");
-        Note.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NoteMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                NoteMouseExited(evt);
-            }
-        });
-        Note.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                NoteKeyTyped(evt);
-            }
-        });
-
+        Synopsis.setBackground(new java.awt.Color(0, 0, 0));
         Synopsis.setText("Synopsis");
         Synopsis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -198,6 +179,8 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        btnRech.setBackground(new java.awt.Color(0, 0, 0));
+        btnRech.setForeground(new java.awt.Color(168, 26, 3));
         btnRech.setText("Recheche");
         btnRech.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +188,8 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        Recherche.setBackground(new java.awt.Color(0, 0, 0));
+        Recherche.setForeground(new java.awt.Color(255, 255, 255));
         Recherche.setText("Recherche");
         Recherche.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -215,6 +200,8 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        btnReset.setBackground(new java.awt.Color(0, 0, 0));
+        btnReset.setForeground(new java.awt.Color(168, 26, 3));
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,12 +209,37 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
+        RechercheImage.setBackground(new java.awt.Color(0, 0, 0));
+        RechercheImage.setForeground(new java.awt.Color(168, 26, 3));
         RechercheImage.setText("Parcourir les images");
         RechercheImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RechercheImageActionPerformed(evt);
             }
         });
+
+        Duree.setBackground(new java.awt.Color(0, 0, 0));
+        try {
+            Duree.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Durée :");
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Note :");
+
+        Note.setBackground(new java.awt.Color(0, 0, 0));
+        try {
+            Note.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.#")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        Note.setText(".");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -239,27 +251,34 @@ public class PageSuppression extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(60, 60, 60)
-                                .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Note))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(PrenomReal, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(NomReal))
-                            .addComponent(Synopsis)
-                            .addComponent(Titre, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(Titre, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(38, 38, 38)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(Note, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)))
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 14, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(RechercheImage)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(40, 40, 40)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(RechercheImage)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Synopsis)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Recherche, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -280,26 +299,33 @@ public class PageSuppression extends javax.swing.JFrame {
                     .addComponent(btnRech, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Titre))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(PrenomReal, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                             .addComponent(NomReal))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Duree, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                            .addComponent(Note)
-                            .addComponent(Genre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Note))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Synopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(RechercheImage, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -317,6 +343,10 @@ public class PageSuppression extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Suppression d'un film dans la bdd
+     * @param evt 
+     */
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         String SelectedTitle = (String) listTitreFilm.getSelectedValue();//Capture de l'element selectionne
         int index = listTitreFilm.getSelectedIndex();
@@ -344,6 +374,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDelActionPerformed
 
+    /**
+     * Active le bouton supression lors de la selection d'un film dans la jlist
+     * @param evt 
+     */
     private void listTitreFilmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listTitreFilmMouseClicked
         //si la liste des films n'est pas vide, on active le bouton de suprression
         if (listTitreFilm.getSelectedIndex() > -1) {
@@ -352,6 +386,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_listTitreFilmMouseClicked
 
+    /**
+     * Ajoute un film dans la bdd
+     * @param evt 
+     */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         //si un champ est vide, on ne peut pas ajouter un film dans la bdd
         if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis")) || ("".equals(path))) {
@@ -378,113 +416,128 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
+    /**
+     * Si on clique sur l'espace d'entrée du champ, il se vide
+     * @param evt 
+     */
     private void TitreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseClicked
         if (Titre.getText().equals("Titre")) {
             Titre.setText(null);
         }
     }//GEN-LAST:event_TitreMouseClicked
 
+    /**
+     * Si on sort du champ est qu'il est vide alors on remet le texte
+     * @param evt 
+     */
     private void PrenomRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomRealMouseClicked
         if (PrenomReal.getText().equals("PrenomReal")) {
             PrenomReal.setText(null);
         }
     }//GEN-LAST:event_PrenomRealMouseClicked
 
+    /**
+     * si on clique sur l'espace d'entrée du champ, il se vide
+     * @param evt 
+     */
     private void NomRealMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseClicked
-        //si on clique sur l'espace d'entrée du champ, il se vide
         if (NomReal.getText().equals("NomReal")) {
             NomReal.setText(null);
         }
     }//GEN-LAST:event_NomRealMouseClicked
 
-    private void DureeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseClicked
-        //si on clique sur l'espace d'entrée du champ, il se vide
-        if (Duree.getText().equals("Duree")) {
-            Duree.setText(null);
-        }
-    }//GEN-LAST:event_DureeMouseClicked
-
+    /**
+     * si on clique sur l'espace d'entrée du champ, il se vide
+     * @param evt 
+     */
     private void GenreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseClicked
-        //si on clique sur l'espace d'entrée du champ, il se vide
         if (Genre.getText().equals("Genre")) {
             Genre.setText(null);
         }
     }//GEN-LAST:event_GenreMouseClicked
 
-    private void NoteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NoteMouseClicked
-        if (Note.getText().equals("Note")) {
-            Note.setText(null);
-        }
-    }//GEN-LAST:event_NoteMouseClicked
-
+    /**
+     * i on clique sur l'espace d'entrée du champ, il se vide
+     * @param evt 
+     */
     private void SynopsisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseClicked
-        //si on clique sur l'espace d'entrée du champ, il se vide
         if (Synopsis.getText().equals("Synopsis")) {
             Synopsis.setText(null);
         }
     }//GEN-LAST:event_SynopsisMouseClicked
 
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void TitreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TitreMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Titre.getText().equals("")) {
             Titre.setText("Titre");
         }
     }//GEN-LAST:event_TitreMouseExited
 
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void PrenomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PrenomRealMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (PrenomReal.getText().equals("")) {
             PrenomReal.setText("PrenomReal");
         }
     }//GEN-LAST:event_PrenomRealMouseExited
 
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void NomRealMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NomRealMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (NomReal.getText().equals("")) {
             NomReal.setText("NomReal");
         }
     }//GEN-LAST:event_NomRealMouseExited
 
-    private void DureeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DureeMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
-        if (Duree.getText().equals("")) {
-            Duree.setText("Duree");
-        }
-    }//GEN-LAST:event_DureeMouseExited
-
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void GenreMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GenreMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Genre.getText().equals("")) {
             Genre.setText("Genre");
         }
     }//GEN-LAST:event_GenreMouseExited
 
-    private void NoteMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NoteMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
-        if (Note.getText().equals("")) {
-            Note.setText("Note");
-        }
-    }//GEN-LAST:event_NoteMouseExited
-
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void SynopsisMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SynopsisMouseExited
-        ///si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Synopsis.getText().equals("")) {
             Synopsis.setText("Synopsis");
         }
     }//GEN-LAST:event_SynopsisMouseExited
 
+    /**
+     * si on clique sur l'espace d'entrée du champ, il se vide
+     * @param evt 
+     */
     private void RechercheMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheMouseClicked
-        //si on clique sur l'espace d'entrée du champ, il se vide
         Recherche.setText(null);
     }//GEN-LAST:event_RechercheMouseClicked
 
+    /**
+     * si on quitte l'espace d'entrée du champ vide, il se reinitialise
+     * @param evt 
+     */
     private void RechercheMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RechercheMouseExited
-        //si on quitte l'espace d'entrée du champ vide, il se reinitialise
         if (Recherche.getText().equals("")) {
             Recherche.setText("Recherche");
         }
     }//GEN-LAST:event_RechercheMouseExited
 
+    /**
+     * Lance la recherche d'un film par rapport a un titre dans bdd
+     * @param evt 
+     */
     private void btnRechActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechActionPerformed
         //on verifie que le champ de recherche soit rempli, et si c'est le cas, on filtre la liste en fonction du titre
         if ((Recherche.getText().equals("")) || (PrenomReal.getText().equals("Recherche"))) {
@@ -501,8 +554,11 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRechActionPerformed
 
+    /**
+     * on annulle le fitre de la barre de recherche
+     * @param evt 
+     */
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        //on annulle le fitre de la barre de recherche
         try {
             listModelTitre = film.getFilmTitre();
         } catch (SQLException | ClassNotFoundException ex) {
@@ -511,38 +567,10 @@ public class PageSuppression extends javax.swing.JFrame {
         listTitreFilm.setModel(listModelTitre);
     }//GEN-LAST:event_btnResetActionPerformed
 
-    private void DureeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyPressed
-        //blindage du la durée
-        char c = evt.getKeyChar();
-        if ((evt.getKeyCode() == 8) && (count < 4)) {
-            count--;
-        } else if ((evt.getKeyCode() == 8) && (count == 4)) {
-            count -= 2;
-        } else if ((Character.isDigit(c)) && (4 > count)) {
-            count++;
-        }
-    }//GEN-LAST:event_DureeKeyPressed
-
-    private void DureeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DureeKeyTyped
-        //blindage du la durée
-        char c = evt.getKeyChar();
-        if (count <= 3) {
-            if (!Character.isDigit(c)) {
-                evt.consume();
-            }
-        } else {
-            evt.consume();
-        }
-    }//GEN-LAST:event_DureeKeyTyped
-
-    private void NoteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoteKeyTyped
-        //blindage du la note
-        char c = evt.getKeyChar();
-        if ((!Character.isDigit(c)) && (!(c == '.'))) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_NoteKeyTyped
-
+    /**
+     * Blindage du titre (pas de " ou ')
+     * @param evt 
+     */
     private void TitreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TitreKeyTyped
         //blindage du titre
         char c = evt.getKeyChar();
@@ -551,6 +579,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_TitreKeyTyped
 
+    /**
+     * Blindage du PrenomReal (pas de " ou ')
+     * @param evt 
+     */
     private void PrenomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PrenomRealKeyTyped
         //blindage du prenomRea
         char c = evt.getKeyChar();
@@ -559,6 +591,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_PrenomRealKeyTyped
 
+    /**
+     * Blindage du NomReal (pas de " ou ')
+     * @param evt 
+     */
     private void NomRealKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NomRealKeyTyped
         //blindage du nomRea
         char c = evt.getKeyChar();
@@ -567,6 +603,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_NomRealKeyTyped
 
+    /**
+     * Blindage du Genre (pas de " ou ')
+     * @param evt 
+     */
     private void GenreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_GenreKeyTyped
         //blindage du genre
         char c = evt.getKeyChar();
@@ -575,6 +615,10 @@ public class PageSuppression extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_GenreKeyTyped
 
+    /**
+     * Rechrche de l'image dans pc
+     * @param evt 
+     */
     private void RechercheImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RechercheImageActionPerformed
         //https://www.youtube.com/watch?v=4syhRRe6iDg
         //youtiber: Source Code PH 
@@ -613,10 +657,10 @@ public class PageSuppression extends javax.swing.JFrame {
     }//GEN-LAST:event_RechercheImageActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Duree;
+    private javax.swing.JFormattedTextField Duree;
     private javax.swing.JTextField Genre;
     private javax.swing.JTextField NomReal;
-    private javax.swing.JTextField Note;
+    private javax.swing.JFormattedTextField Note;
     private javax.swing.JTextField PrenomReal;
     private javax.swing.JTextField Recherche;
     private javax.swing.JButton RechercheImage;
@@ -627,6 +671,8 @@ public class PageSuppression extends javax.swing.JFrame {
     private javax.swing.JButton btnRech;
     private javax.swing.JButton btnReset;
     private javax.swing.JFileChooser jFileChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listTitreFilm;
