@@ -83,4 +83,9 @@ public class FilmDAO {
         Connexion connect = new Connexion(nomBDD, username, password);
         return Integer.parseInt((String)connect.requestDemande("SELECT nombreVues FROM film ").get(0));
     }
+    
+    public void majNbVueByTitre(String titre) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        connect.executeUpdate("UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titre + "'");
+    }
 }

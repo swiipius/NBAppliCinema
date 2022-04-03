@@ -45,4 +45,10 @@ public class SeanceDAO {
         Connexion connect = new Connexion(nomBDD, username, password);
         return connect.requestDemande("SELECT id_seance FROM seance WHERE date LIKE '" + date + "' AND heureDebut LIKE '" + heure + "' AND ID_Film = " + id_film + ";");
     }
+    
+    public DefaultListModel<String> getSalleHeureByBillet(String billet) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requete = "SELECT seance.salle, seance.heureDebut FROM seance JOIN billet ON seance.id_seance = billet.id_seance WHERE billet.id_billet = " + billet + ";";
+        return connect.requestDemande(requete);
+    }
 }

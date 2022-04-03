@@ -5,8 +5,8 @@
  */
 package DAO;
 
-import Modele.Billet;
 import java.sql.SQLException;
+import javax.swing.DefaultListModel;
 import jdbc2020.Connexion;
 
 /**
@@ -29,5 +29,16 @@ public class BilletDAO {
         Connexion connect = new Connexion(nomBDD, username, password);
         String requetAjout = "INSERT INTO billet(facture,id_client,id_film,id_seance,TypePlace) VALUES(" + facture + "," + id_client + "," + id_film + "," + id_seance + ",'" + TypePlace + "')";
         connect.executeUpdate(requetAjout);
+    }
+    
+    public void delBilletByID(String id) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        connect.executeUpdate("DELETE FROM billet WHERE id_billet = " + id + ";");
+    }
+    
+    public DefaultListModel<String> getIDTitreDateFactureTypeplaceByIDClient(String id) throws SQLException, ClassNotFoundException{
+        Connexion connect = new Connexion(nomBDD, username, password);
+        String requete = "SELECT billet.id_billet, film.Titre, seance.Date, billet.facture, billet.TypePlace FROM billet JOIN film ON billet.id_film=film.id_film JOIN seance ON billet.id_Seance=seance.ID_Seance JOIN client ON billet.ID_client=client.ID_client WHERE client.id_client = " + id;
+        return connect.requestDemande(requete);
     }
 }

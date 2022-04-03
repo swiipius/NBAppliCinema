@@ -15,6 +15,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jdbc2020.*;
+import DAO.*;
 
 /**
  *
@@ -22,7 +23,8 @@ import jdbc2020.*;
  */
 public class PageHistoFact extends javax.swing.JFrame {
 
-    public Connexion connect;
+    private BilletDAO billet;
+    private SeanceDAO seance;
     private String requeteSuppr, requeteInfo, NomClient, Date, Titre, Prix, selectTitre, TypePlace, requeteID;
     public boolean connexionValid;
     public int client;
@@ -39,10 +41,8 @@ public class PageHistoFact extends javax.swing.JFrame {
         this.client = client;
         this.connexionValid = connexionValid;
         initComponents();
-
-        connect = new Connexion("Cinema", "root", "");
-        requeteInfo = "SELECT billet.id_billet, film.Titre, seance.Date, billet.facture, billet.TypePlace FROM billet JOIN film ON billet.id_film=film.id_film JOIN seance ON billet.id_Seance=seance.ID_Seance JOIN client ON billet.ID_client=client.ID_client WHERE client.id_client = " + client;
-        listModelTitre = connect.requestDemande(requeteInfo);
+        
+        listModelTitre = billet.getIDTitreDateFactureTypeplaceByIDClient(Integer.toString(client));
         for (int i = 0; i < listModelTitre.size(); i += 5) {
             listModelTitreInfo.add(i / 5, listModelTitre.get(i) + ", " + listModelTitre.get(i + 3) + ", " + listModelTitre.get(i + 2) + ", " + listModelTitre.get(i + 1));
 
@@ -173,10 +173,9 @@ public class PageHistoFact extends javax.swing.JFrame {
         int index =  listHistorique.getSelectedIndex();
         
         if (result == JOptionPane.YES_OPTION) {
-            requeteSuppr = "DELETE FROM billet WHERE id_billet = " + listModelTitre.get(5*index+4) + ";";
             try {
-                connect.executeUpdate(requeteSuppr);
-            } catch (SQLException ex) {
+                billet.delBilletByID(listModelTitre.get(5*index+4));
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
             }
             JOptionPane.showMessageDialog(null, "Séance annulée");
@@ -203,10 +202,9 @@ public class PageHistoFact extends javax.swing.JFrame {
         sPrix = listModelTitre.get(index*5 + 2);
         sDate = listModelTitre.get(index*5 + 1);
         sTypePlace = listModelTitre.get(index*5 + 3);
-        String requeteInfoManquante = "SELECT seance.salle, seance.heureDebut FROM seance JOIN billet ON seance.id_seance = billet.id_seance WHERE billet.id_billet = " + listModelTitre.get(5*index+4) + ";";
         try {
-            listModelInfoManquante = connect.requestDemande(requeteInfoManquante);
-        } catch (SQLException ex) {
+            listModelInfoManquante = seance.getSalleHeureByBillet(listModelTitre.get(5*index+4));
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(PageHistoFact.class.getName()).log(Level.SEVERE, null, ex);
         }
         sHeure = listModelInfoManquante.get(0);

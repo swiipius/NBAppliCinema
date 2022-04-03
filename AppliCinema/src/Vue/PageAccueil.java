@@ -17,6 +17,7 @@ import jdbc2020.*;
 import java.net.URL;
 import java.io.*;
 import javax.imageio.ImageIO;
+import DAO.*;
 
 /**
  *
@@ -24,7 +25,7 @@ import javax.imageio.ImageIO;
  */
 public class PageAccueil extends javax.swing.JFrame {
 
-    public Connexion connect;
+    private FilmDAO film;
     private final String requete = "SELECT titre FROM film";
     private int taille;
     private String Synopsis;
@@ -37,7 +38,7 @@ public class PageAccueil extends javax.swing.JFrame {
 
     PageConnexion pc = new PageConnexion();
 
-    DefaultListModel<String> listModel = new DefaultListModel<>();
+    DefaultListModel<String> listModeTitre = new DefaultListModel<>();
     DefaultListModel<String> listModel1 = new DefaultListModel<>();
     DefaultListModel<byte[]> listModel2 = new DefaultListModel<>();
     private boolean connexionValid;
@@ -57,9 +58,8 @@ public class PageAccueil extends javax.swing.JFrame {
         BoutonSeancesFilmSelectione.setEnabled(false);
         PanelDescriptionAccueil.setVisible(false);
         //Connection a la bdd
-        connect = new Connexion("Cinema", "root", "");
-        listModel = connect.requestDemande(requete);
-        TitreFilmsAccueil.setModel(listModel);
+        listModeTitre = film.getFilmTitre();
+        TitreFilmsAccueil.setModel(listModeTitre);
         IsEmp = Emp;
         this.connexionValid = connexionValid;
 
@@ -420,11 +420,10 @@ public class PageAccueil extends javax.swing.JFrame {
     private void rechercheAccueilBoutonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rechercheAccueilBoutonActionPerformed
         // si la barre de recherche n'est pas vide ou si elle n'est pas = "titre de film", on filtre l'affichage des films
         if (!"titre de film".equals(barreRechercheAccueil.getText())) {
-            String requeteFiltre = "SELECT titre FROM film WHERE titre LIKE '%" + barreRechercheAccueil.getText() + "%'";
             try {
-                listModel = connect.requestDemande(requeteFiltre);
-                TitreFilmsAccueil.setModel(listModel);
-            } catch (SQLException ex) {
+                listModeTitre = film.getTitreByTitreApprox(barreRechercheAccueil.getText());
+                TitreFilmsAccueil.setModel(listModeTitre);
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -470,15 +469,11 @@ public class PageAccueil extends javax.swing.JFrame {
             }
             String textAffich;
             String titreSelectionne = (String) TitreFilmsAccueil.getSelectedValue();
-            //on rceupere toute les info des films
-            String requeteInfo = "SELECT titre,prenomRealisateur,nomRealisateur,duree,genre,note,synopsis,id_film,affiche FROM film WHERE titre LIKE '" + titreSelectionne + "'";
-            //requete pour augmenter le nombre de vues à chaque fois d'on appuie sur le titre d'un film
-            String requeteModifNBvues = "UPDATE film SET nombreVues = nombreVues + 1 WHERE titre LIKE '" + titreSelectionne + "'";
+            
             try {
-                listModel1 = connect.requestDemande(requeteInfo);
-                System.out.println(listModel1);
-                connect.stmt.executeUpdate(requeteModifNBvues);
-            } catch (SQLException ex) {
+                listModel1 = film.getFilmByTitre(titreSelectionne);
+                film.majNbVueByTitre(titreSelectionne);
+            } catch (SQLException | ClassNotFoundException ex) {
                 Logger.getLogger(PageAccueil.class.getName()).log(Level.SEVERE, null, ex);
             }
             id_film = Integer.parseInt(listModel1.get(6));
