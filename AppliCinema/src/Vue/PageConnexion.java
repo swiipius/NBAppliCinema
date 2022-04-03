@@ -21,7 +21,6 @@ import DAO.*;
  */
 public class PageConnexion extends javax.swing.JFrame {
 
-    
     private ClientDAO client;
     private EmployeDAO employe;
     private String requeteClient, requeteEmploye;
@@ -69,7 +68,6 @@ public class PageConnexion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(168, 26, 3));
         setBounds(new java.awt.Rectangle(800, 350, 0, 0));
-        setPreferredSize(new java.awt.Dimension(300, 295));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -84,7 +82,6 @@ public class PageConnexion extends javax.swing.JFrame {
         PanelClient.setLayout(null);
 
         lblEmail.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        lblEmail.setForeground(new java.awt.Color(0, 0, 0));
         lblEmail.setText(" Email :");
         PanelClient.add(lblEmail);
         lblEmail.setBounds(10, 20, 60, 19);
@@ -104,7 +101,6 @@ public class PageConnexion extends javax.swing.JFrame {
 
         lblIdentifiant.setBackground(new java.awt.Color(0, 0, 0));
         lblIdentifiant.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        lblIdentifiant.setForeground(new java.awt.Color(0, 0, 0));
         lblIdentifiant.setText("Identifiant :");
         PanelEmploye.add(lblIdentifiant);
         lblIdentifiant.setBounds(12, 21, 80, 19);
@@ -112,11 +108,6 @@ public class PageConnexion extends javax.swing.JFrame {
         Identifiant.setBackground(new java.awt.Color(0, 0, 0));
         Identifiant.setForeground(new java.awt.Color(255, 255, 255));
         Identifiant.setMaximumSize(new java.awt.Dimension(4, 19));
-        Identifiant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IdentifiantActionPerformed(evt);
-            }
-        });
         PanelEmploye.add(Identifiant);
         Identifiant.setBounds(10, 40, 274, 40);
 
@@ -150,7 +141,6 @@ public class PageConnexion extends javax.swing.JFrame {
         MotDePasse.setMaximumSize(new java.awt.Dimension(4, 19));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Mot de passe :");
 
         btnCo.setBackground(new java.awt.Color(0, 0, 0));
@@ -164,7 +154,6 @@ public class PageConnexion extends javax.swing.JFrame {
 
         chechEmp.setBackground(new java.awt.Color(168, 26, 3));
         chechEmp.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        chechEmp.setForeground(new java.awt.Color(0, 0, 0));
         chechEmp.setText("Employé");
         chechEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -231,7 +220,13 @@ public class PageConnexion extends javax.swing.JFrame {
     private void EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_EmailActionPerformed
-
+    /**
+     * on verifie que les champs sont remplis si oui, on verifie que le mdp
+     * correspond au nom(employe) ou a l email(client) si c est le cas, on ouvre
+     * une nouvelle page d accueil personnalisee en fonction du type du compte
+     *
+     * @param evt
+     */
     private void btnCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCoActionPerformed
         //cas d'un employé
         //on verifie que les champs sont remplis
@@ -263,8 +258,8 @@ public class PageConnexion extends javax.swing.JFrame {
                     Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        //cas d'un client
-        //on verifie que les champs sont remplis
+            //cas d'un client
+            //on verifie que les champs sont remplis
         } else {
             if ((Email.getText().equals("")) || (MotDePasse.getText().equals(""))) {
                 JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
@@ -295,9 +290,14 @@ public class PageConnexion extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnCoActionPerformed
-
+    /**
+     * si on choisit d'être un employé, les champs de connexion client, sont
+     * remplacés par ceux de employés
+     *
+     * @param evt
+     */
     private void chechEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chechEmpActionPerformed
-        //si on choisit d'être un employé, les champs de connexion client, sont remplacés par ceux de employés
+
         if (isEmploye) {
             PanelEmploye.setVisible(true);
             PanelClient.setVisible(false);
@@ -307,9 +307,14 @@ public class PageConnexion extends javax.swing.JFrame {
         }
         isEmploye = !isEmploye;
     }//GEN-LAST:event_chechEmpActionPerformed
-
+    /**
+     * si on appuie sur le bouton d'inscription, on ouvre une page d'inscription
+     * et on ferme celle-ci
+     *
+     * @param evt
+     */
     private void btnInscriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInscriptionActionPerformed
-        //si on appuie sur le bouton d'inscription, on ouvre une page d'inscription et on ferme celle-ci
+
         JOptionPane.showMessageDialog(null, "Vous allez être redirige vers la page d'inscription");
         this.dispose();
         try {
@@ -321,13 +326,13 @@ public class PageConnexion extends javax.swing.JFrame {
             Logger.getLogger(PageConnexion.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnInscriptionActionPerformed
-
-    private void IdentifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IdentifiantActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_IdentifiantActionPerformed
-
+    /**
+     * si on ferme la page,ça ouvre une page d'accueil avec l'accès d'un employé
+     *
+     * @param evt
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        //si on ferme la page,ça ouvre une page d'accueil avec l'accès d'un employé  
+
         try {
             if (!connexionValid) {
                 PageAccueil pa = new PageAccueil(connexionValid, EmpCo);
