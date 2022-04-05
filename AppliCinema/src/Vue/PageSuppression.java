@@ -68,12 +68,17 @@ public class PageSuppression extends javax.swing.JFrame {
         Recherche = new javax.swing.JTextField();
         btnReset = new javax.swing.JButton();
         RechercheImage = new javax.swing.JButton();
-        Duree = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Note = new javax.swing.JFormattedTextField();
+        Duree = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                windowclosing(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(168, 26, 3));
 
@@ -105,6 +110,7 @@ public class PageSuppression extends javax.swing.JFrame {
         });
 
         Titre.setBackground(new java.awt.Color(0, 0, 0));
+        Titre.setForeground(new java.awt.Color(255, 255, 255));
         Titre.setText("Titre");
         Titre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -121,6 +127,7 @@ public class PageSuppression extends javax.swing.JFrame {
         });
 
         PrenomReal.setBackground(new java.awt.Color(0, 0, 0));
+        PrenomReal.setForeground(new java.awt.Color(255, 255, 255));
         PrenomReal.setText("PrenomReal");
         PrenomReal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -137,6 +144,7 @@ public class PageSuppression extends javax.swing.JFrame {
         });
 
         NomReal.setBackground(new java.awt.Color(0, 0, 0));
+        NomReal.setForeground(new java.awt.Color(255, 255, 255));
         NomReal.setText("NomReal");
         NomReal.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -153,6 +161,7 @@ public class PageSuppression extends javax.swing.JFrame {
         });
 
         Genre.setBackground(new java.awt.Color(0, 0, 0));
+        Genre.setForeground(new java.awt.Color(255, 255, 255));
         Genre.setText("Genre");
         Genre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -169,6 +178,7 @@ public class PageSuppression extends javax.swing.JFrame {
         });
 
         Synopsis.setBackground(new java.awt.Color(0, 0, 0));
+        Synopsis.setForeground(new java.awt.Color(255, 255, 255));
         Synopsis.setText("Synopsis");
         Synopsis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -218,13 +228,6 @@ public class PageSuppression extends javax.swing.JFrame {
             }
         });
 
-        Duree.setBackground(new java.awt.Color(0, 0, 0));
-        try {
-            Duree.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Durée :");
@@ -234,12 +237,21 @@ public class PageSuppression extends javax.swing.JFrame {
         jLabel2.setText("Note :");
 
         Note.setBackground(new java.awt.Color(0, 0, 0));
+        Note.setForeground(new java.awt.Color(255, 255, 255));
         try {
             Note.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#.#")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
         Note.setText(".");
+
+        Duree.setBackground(new java.awt.Color(0, 0, 0));
+        Duree.setForeground(new java.awt.Color(255, 255, 255));
+        try {
+            Duree.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -260,8 +272,8 @@ public class PageSuppression extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(38, 38, 38)
+                                    .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(37, 37, 37)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(Note, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,10 +322,9 @@ public class PageSuppression extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Duree, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(Genre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(Note))
+                            .addComponent(Genre, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                            .addComponent(Note)
+                            .addComponent(Duree))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Synopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -392,7 +403,7 @@ public class PageSuppression extends javax.swing.JFrame {
      */
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         //si un champ est vide, on ne peut pas ajouter un film dans la bdd
-        if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Duree.getText().equals("Duree")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis")) || ("".equals(path))) {
+        if ((Titre.getText().equals("")) || (Titre.getText().equals("Titre")) || (PrenomReal.getText().equals("")) || (PrenomReal.getText().equals("PrenomReal")) || (NomReal.getText().equals("")) || (NomReal.getText().equals("NomReal")) || (Duree.getText().equals("")) || (Note.getText().equals("")) || (Note.getText().equals("Note")) || (Genre.getText().equals("")) || (Genre.getText().equals("Genre")) || (Synopsis.getText().equals("")) || (Synopsis.getText().equals("Synopsis")) || ("".equals(path))) {
             JOptionPane.showMessageDialog(null, "Veuillez completer tout les champs");
         } else {
             try {
@@ -408,7 +419,7 @@ public class PageSuppression extends javax.swing.JFrame {
             Titre.setText("Titre");
             PrenomReal.setText("Prenomreal");
             NomReal.setText("NomReal");
-            Duree.setText("Duree");
+            //Duree.setText("Duree");
             Genre.setText("Genre");
             Note.setText("Note");
             Synopsis.setText("Synopsis");
@@ -655,6 +666,19 @@ public class PageSuppression extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_RechercheImageActionPerformed
+
+    private void windowclosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_windowclosing
+        this.dispose();
+        PageAccueil pa;
+        try {
+            pa = new PageAccueil(true, true);
+            pa.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(PageSuppression.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_windowclosing
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField Duree;
